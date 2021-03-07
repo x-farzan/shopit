@@ -29,7 +29,8 @@ router.get('/product/:id', async (req, res) => {
     })
 })
 
-// post a product // admin
+// post a product 
+//By admin
 router.post('/admin/product/new', async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -40,7 +41,8 @@ router.post('/admin/product/new', async (req, res) => {
     res.send(product)
 })
 
-// Update a product
+// Update a product 
+// By admin
 router.put('/admin/product/:id', async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -54,7 +56,8 @@ router.put('/admin/product/:id', async (req, res) => {
     })
     res.send(product)
 })
-// delete a product
+// delete a product 
+// By admin
 router.delete('/admin/product/:id', async (req, res) => {
     const product = await Product.findByIdAndRemove(req.params.id)
     if (!product) return res.status(400).send({
