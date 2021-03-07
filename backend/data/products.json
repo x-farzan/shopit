@@ -27,7 +27,7 @@
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Electronics",
+        "category": "Laptops",
         "seller": "Daraz",
         "stock": 25,
         "numOfReviews": 25,
@@ -152,7 +152,7 @@
         }]
     },
     {
-        "name": "Hockey Shoes",
+        "name": "Lipstick",
         "price": 12,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
@@ -160,7 +160,7 @@
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Shoes",
+        "category": "Beauty",
         "seller": "Daraz",
         "stock": 25,
         "numOfReviews": 25,
@@ -171,7 +171,7 @@
         }]
     },
     {
-        "name": "Lipstick",
+        "name": "Hockey Shoes",
         "price": 12,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
@@ -179,7 +179,7 @@
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Beauty/Health",
+        "category": "Shoes",
         "seller": "Daraz",
         "stock": 25,
         "numOfReviews": 25,
