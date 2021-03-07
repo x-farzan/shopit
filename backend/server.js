@@ -7,7 +7,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 const startupDebugger = require('debug')('app:startup')
 
+// get all routes
 require('./startup/routers')(app)
+// conect to database
+require('./startup/db')();
 
 
 app.listen(process.env.PORT, () => {

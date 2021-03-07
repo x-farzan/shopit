@@ -1,0 +1,192 @@
+[
+    {
+        "name": "USB",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Accessories",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Laptop",
+        "price": 122.23,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.0,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Electronics",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Head Phone",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Electronics",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Apples",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Food",
+        "seller": "Ebay",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Harry Potter",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Books",
+        "seller": "Amazone",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Soccers",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Sports",
+        "seller": "Ali express",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Memory Card",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Accessories",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Hockey",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Sports",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Hockey Shoes",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Shoes",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Lipstick",
+        "price": 12,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Beauty/Health",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    }
+]
