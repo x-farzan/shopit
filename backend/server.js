@@ -1,10 +1,13 @@
-const app = require('./app')
+const express = require('express');
+const app = express();
+
 const dotenv = require('dotenv');
 
 // setting dotenv
-dotenv.config({ path: './config/config.env' });
+dotenv.config();
 const startupDebugger = require('debug')('app:startup')
 
+require('./startup/routers')(app)
 
 
 app.listen(process.env.PORT, () => {
