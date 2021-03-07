@@ -4,10 +4,23 @@ const _ = require('lodash');
 
 const router = express.Router()
 
+
+// get all products
 router.get('/products', async (req, res) => {
 
     const product = await Product.find().sort('_id')
     res.status(200).json({
+        success: true,
+        product
+    })
+})
+// get a single product by id
+router.get('/product/:id', async (req, res) => {
+    const product = await Product.findById(req.params.id)
+
+    if (!product) return res.status(400).send("The Product with given id is not present....")
+
+    res.send({
         success: true,
         product
     })
