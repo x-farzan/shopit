@@ -18,7 +18,10 @@ router.get('/products', async (req, res) => {
 router.get('/product/:id', async (req, res) => {
     const product = await Product.findById(req.params.id)
 
-    if (!product) return res.status(400).send("The Product with given id is not present....")
+    if (!product) return res.status(400).send({
+        success: false,
+        message: "The Product with given id is not present...."
+    })
 
     res.send({
         success: true,
@@ -26,8 +29,8 @@ router.get('/product/:id', async (req, res) => {
     })
 })
 
-// post a product
-router.post('/product/new', async (req, res) => {
+// post a product // admin
+router.post('/admin/product/new', async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
     let product = new Product(_.pick(req.body, [
@@ -35,6 +38,33 @@ router.post('/product/new', async (req, res) => {
     ]))
     product = await product.save()
     res.send(product)
+})
+
+// Update a product
+router.put('/admin/product/:id', async (req, res) => {
+    const { error } = validation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+
+    const product = await Product.findByIdAndUpdate(req.params.id,
+        req.body, { new: true, runValidators: true, useFindAndModify: false }
+    )
+    if (!product) return res.status(400).send({
+        success: false,
+        message: "The Product with the given id is not present"
+    })
+    res.send(product)
+})
+// delete a product
+router.delete('/admin/product/:id', async (req, res) => {
+    const product = await Product.findByIdAndRemove(req.params.id)
+    if (!product) return res.status(400).send({
+        success: false,
+        message: "The Product with the given id is not present.."
+    })
+    res.send({
+        success: true,
+        message: "Product has been deleted successfully..."
+    })
 })
 
 module.exports = router;
