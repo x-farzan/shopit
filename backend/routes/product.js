@@ -8,11 +8,26 @@ const router = express.Router()
 // get all products
 router.get('/products', async (req, res) => {
     const product = await Product.find().sort('_id')
-    res.status(200).json({
+    return res.status(200).json({
         success: true,
         product
     })
 })
+
+
+// get products by category
+router.get('/products/query', async (req, res) => {
+    const categories = Object.values(req.query)
+    console.log(categories)
+    const product = await Product
+        .find({ category: { $in: categories } })
+        .sort('category')
+    return res.status(200).send({
+        success: true,
+        product
+    })
+})
+
 // get a single product by id
 router.get('/product/:id', async (req, res) => {
     const product = await Product.findById(req.params.id)

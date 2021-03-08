@@ -1,15 +1,15 @@
 [
     {
-        "name": "USB",
-        "price": 12,
+        "name": "Apple MacBook Pro (13-inch, 8GB RAM, 256GB SSD, 1.4GHz Quad-core 8th-Generation Intel Core i5 Processor, MagicKeyboard) - Space Grey",
+        "price": 1200,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Accessories",
-        "seller": "Daraz",
+        "category": "Electronics",
+        "seller": "Amazone",
         "stock": 25,
         "numOfReviews": 25,
         "reviews": [{
@@ -19,15 +19,15 @@
         }]
     },
     {
-        "name": "Laptop",
-        "price": 122.23,
+        "name": "boAt Airdopes 171 Bluetooth Truly Wireless Earbuds with Mic(Rose Gold)",
+        "price": 123,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.0,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Laptops",
+        "category": "Electronics",
         "seller": "Daraz",
         "stock": 25,
         "numOfReviews": 25,
@@ -38,8 +38,8 @@
         }]
     },
     {
-        "name": "Head Phone",
-        "price": 12,
+        "name": "LIMESTONE Luxury Analogue Men's Watch (Black Dial Black Colored Strap)",
+        "price": 235,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
@@ -57,15 +57,15 @@
         }]
     },
     {
-        "name": "Apples",
-        "price": 12,
+        "name": "Canon EOS 1500D 24.1 Digital SLR Camera (Black) with EF S18-55 is II Lens, 16GB Card and Carry Case",
+        "price": 2345,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Food",
+        "category": "Electronics",
         "seller": "Ebay",
         "stock": 25,
         "numOfReviews": 25,
@@ -76,15 +76,15 @@
         }]
     },
     {
-        "name": "Harry Potter",
-        "price": 12,
+        "name": "JBL Tune 215BT in-Ear Wireless Bluetooth Headphones with Mic, 16 Hours Playtime, Deep Bass, Quick Charge, Multi-Point Connection and Tangle Free Cable (Black)",
+        "price": 235,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Books",
+        "category": "Electronics",
         "seller": "Amazone",
         "stock": 25,
         "numOfReviews": 25,
@@ -95,15 +95,15 @@
         }]
     },
     {
-        "name": "Soccers",
-        "price": 12,
+        "name": "Tony Stark Microfiber Flexible Duster Car Wash | Car Cleaning Accessories | Microfiber | Brushes | Dry / Wet Home, Kitchen, Office Cleaning Brush with Expandable Handle",
+        "price": 45,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Sports",
+        "category": "Accessories",
         "seller": "Ali express",
         "stock": 25,
         "numOfReviews": 25,
@@ -114,8 +114,8 @@
         }]
     },
     {
-        "name": "Memory Card",
-        "price": 12,
+        "name": "ELV Car Mount Adjustable Car Phone Holder Universal Long Arm, Windshield for Smartphones - Black",
+        "price": 36,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
@@ -133,8 +133,237 @@
         }]
     },
     {
-        "name": "Hockey",
-        "price": 12,
+        "name": "boAt Dual Port Rapid Car Charger (Qualcomm Certified) with Quick Charge 3.0 + Free Micro USB Cable - (Black)",
+        "price": 62,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Accessories",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "WOW Aloe Vera Multipurpose Beauty Gel for Skin and Hair, 130ml + 20ml",
+        "price": 99,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Beauty",
+        "seller": "Amazone",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Car ac Vent Cleaner Brush Car Accessories Car air Vent Cleaner Keyboard dust Cleaning Brush car Cleaning kit car Cleaning Accessories",
+        "price": 76,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Accessories",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Sunfeast Dark Fantasy Choco Fills, 600 g",
+        "price": 43,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Food",
+        "seller": "Amazone",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Gourmia Dried Strawberry 400gm (200gm x 2)",
+        "price": 54,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Food",
+        "seller": "Amazone",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "World’s Greatest Books For Personal Growth & Wealth (Set of 4 Books): Perfect Motivational Gift Set Paperback – 1 August 2019",
+        "price": 45,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Books",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "The Power of Your Subconscious Mind (DELUXE HARDBOUND EDITION) Hardcover – 1 December 2019",
+        "price": 65,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Books",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "World’s Best Inspirational Books to Change Your Life (Box Set of 3 Books) Paperback – 1 November 2020",
+        "price": 76,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Books",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Puma Men's Rapid Runner IDP Sneaker",
+        "price": 54,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Shoes",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Bourge Men's Vega-z1 Running Shoes",
+        "price": 54,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Shoes",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "ELIAS Men's White_Black Running Walking Sneakers Sports 1700 Shoes",
+        "price": 123,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Shoes",
+        "seller": "Amazone",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+
+    {
+        "name": "Earton Men Combo Pack of 3 Sports Running Shoes",
+        "price": 64,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Shoes",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Just Rider Support Sleeve For Knee Cap Pain, Running, Gym, Sports For Men & Women (Black, Medium)",
+        "price": 34,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
@@ -152,7 +381,102 @@
         }]
     },
     {
-        "name": "Lipstick",
+        "name": "SKUDGEAR Advanced Headband for Men and Women - Yoga, Sport and Running",
+        "price": 32,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Sports",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "NEVER LOSE WMX Series Sports Leather Gym Gloves for Weight Lifting and Exercise",
+        "price": 24,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Sports",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "Sfane Sports Duffle/Gym Bag for Men & Women with Extra Shoe Compartment (Orange)",
+        "price": 324,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Sports",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "WOW Aloe Vera Multipurpose Beauty Gel for Skin and Hair, 130ml + 20ml",
+        "price": 32,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Beauty",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "POND'S White Beauty Anti-Spot Fairness Day Cream, with SPF 15 Fades Dark Spots, Lighten Skin, Provides Sun Protection With Moisturization, 35 g",
+        "price": 78,
+        "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
+        "rating": 4.5,
+        "images": [{
+            "public_id" : "public id of image which is uploaded on cloudinary",
+            "url": "url of image which is uploaded on cloudinary"
+        }],
+        "category": "Beauty",
+        "seller": "Daraz",
+        "stock": 25,
+        "numOfReviews": 25,
+        "reviews": [{
+            "name": "Usman Bakhsh",
+            "rating": 4.5,
+            "comment": "very helpfull device"
+        }]
+    },
+    {
+        "name": "NIVEA Deodorant Roll On, Pearl & Beauty, 50ml",
         "price": 12,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
@@ -171,15 +495,15 @@
         }]
     },
     {
-        "name": "Hockey Shoes",
-        "price": 12,
+        "name": "GOREE DAY AND NIGHT WHITENING CREAM 30g",
+        "price": 25,
         "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi odit nam modi! Iste molestiae quia, magni velit quaerat vitae perspiciatis nemo ullam sequi, quas deserunt veniam facilis hic deleniti commodi consequuntur ipsum ducimus cum voluptas consectetur vero voluptate eos! Ab nostrum velit iure quod hic. Quia quaerat culpa rerum laborum?",
         "rating": 4.5,
         "images": [{
             "public_id" : "public id of image which is uploaded on cloudinary",
             "url": "url of image which is uploaded on cloudinary"
         }],
-        "category": "Shoes",
+        "category": "Beauty",
         "seller": "Daraz",
         "stock": 25,
         "numOfReviews": 25,

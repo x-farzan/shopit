@@ -6,14 +6,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
-        maxlength: 100,
+        maxlength: 1000,
         trim: true
     },
     price: {
         type: Number,
         required: true,
         min: 0,
-        max: 255,
         default: 0.0
     },
     description: {
@@ -34,8 +33,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: {
-            values: ['Electronics', 'Cameras', 'Laptops', 'Accessories', 'Headphones', 'Food', 'Books',
-                'Clothes', 'Shoes', 'Beauty', 'Health', 'Sports', 'Outdoor', 'Home'],
+            values: ['Electronics', 'Accessories', 'Food', 'Books', 'Clothes', 'Shoes', 'Beauty', 'Sports'],
             message: 'Please select the correct category for product'
         }
     },
@@ -80,7 +78,7 @@ const productValidation = (product) => {
         comment: Joi.string().required()
     })
     const schema = Joi.object({
-        name: Joi.string().min(3).max(100).required(),
+        name: Joi.string().min(3).max(1000).required(),
         price: Joi.number().required().default(0),
         description: Joi.string().required(),
         rating: Joi.number().default(0),
