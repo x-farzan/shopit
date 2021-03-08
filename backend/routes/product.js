@@ -7,9 +7,13 @@ const router = express.Router()
 
 // get all products
 router.get('/products', async (req, res) => {
+
     let { pageNumber, pageSize } = req.query
-    pageNumber = Number(pageNumber);
-    pageSize = Number(pageSize)
+
+    pageNumber = Number(Math.round(pageNumber));
+    pageSize = Number(Math.round(pageSize))
+
+    if (typeof pageNumber !== "number" || typeof pageSize !== "number") return res.status(400).send("Please Send pageNumber and pageSize in Number Format ")
 
     const product = await Product
         .find()
@@ -29,9 +33,10 @@ router.get('/products/query', async (req, res) => {
     const categories = Object.values(req.query)
 
     let { pageNumber, pageSize } = req.query
-    pageNumber = Number(pageNumber);
-    pageSize = Number(pageSize)
+    pageNumber = Number(Math.round(pageNumber));
+    pageSize = Number(Math.round(pageSize))
 
+    if (typeof pageNumber !== "number" || typeof pageSize !== "number") return res.status(400).send("Please Send pageNumber and pageSize in Number Format ")
 
     const product = await Product
         .find({ category: { $in: categories } })
@@ -48,8 +53,10 @@ router.get('/products/query', async (req, res) => {
 router.get('/products/search', async (req, res) => {
 
     let { pageNumber, pageSize } = req.query
-    pageNumber = Number(pageNumber);
-    pageSize = Number(pageSize)
+    pageNumber = Number(Math.round(pageNumber));
+    pageSize = Number(Math.round(pageSize))
+
+    if (typeof pageNumber !== "number" || typeof pageSize !== "number") return res.status(400).send("Please Send pageNumber and pageSize in Number Format ")
 
     const regexp = new RegExp(".*" + req.query.name + ".*", "i")
     console.log(regexp)
