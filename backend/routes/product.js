@@ -28,6 +28,21 @@ router.get('/products/query', async (req, res) => {
     })
 })
 
+// Search product by name
+router.get('/products/search', async (req, res) => {
+    console.log(req.query.name)
+    const regexp = new RegExp(".*" + req.query.name + ".*", "i")
+    console.log(regexp)
+    const product = await Product
+        .find({ name: regexp })
+        .select('name')
+        .sort('name')
+    return res.status(200).send({
+        success: true,
+        product
+    })
+})
+
 // get a single product by id
 router.get('/product/:id', async (req, res) => {
     const product = await Product.findById(req.params.id)
