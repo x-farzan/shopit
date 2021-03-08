@@ -7,7 +7,15 @@ const router = express.Router()
 
 // get all products
 router.get('/products', async (req, res) => {
-    const product = await Product.find().sort('_id')
+    let { pageNumber, pageSize } = req.query
+    pageNumber = Number(pageNumber);
+    pageSize = Number(pageSize)
+
+    const product = await Product
+        .find()
+        .sort('_id')
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
     return res.status(200).json({
         success: true,
         product
@@ -17,11 +25,19 @@ router.get('/products', async (req, res) => {
 
 // get products by category
 router.get('/products/query', async (req, res) => {
+    // converting the query object to array of values
     const categories = Object.values(req.query)
-    console.log(categories)
+
+    let { pageNumber, pageSize } = req.query
+    pageNumber = Number(pageNumber);
+    pageSize = Number(pageSize)
+
+
     const product = await Product
         .find({ category: { $in: categories } })
         .sort('category')
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
     return res.status(200).send({
         success: true,
         product
@@ -30,15 +46,25 @@ router.get('/products/query', async (req, res) => {
 
 // Search product by name
 router.get('/products/search', async (req, res) => {
-    console.log(req.query.name)
+
+    let { pageNumber, pageSize } = req.query
+    pageNumber = Number(pageNumber);
+    pageSize = Number(pageSize)
+
     const regexp = new RegExp(".*" + req.query.name + ".*", "i")
     console.log(regexp)
-    const product = await Product
+    let product = await Product
         .find({ name: regexp })
-        .select('name')
-        .sort('name')
+    if (product.length >= 5) {
+        product = await Product
+            .find({ name: regexp })
+            .sort('name')
+            .skip((pageNumber - 1) * pageSize)
+            .limit(pageSize)
+    }
     if (product.length === 0) return res.status(400).send(`${req.query.name} is not present in the list`)
-    return res.status(200).send({
+
+    res.status(200).send({
         success: true,
         product
     })
