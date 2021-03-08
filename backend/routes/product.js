@@ -7,7 +7,6 @@ const router = express.Router()
 
 // get all products
 router.get('/products', async (req, res) => {
-
     const product = await Product.find().sort('_id')
     res.status(200).json({
         success: true,

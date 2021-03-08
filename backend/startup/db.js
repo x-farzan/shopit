@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const dbDebugger = require('debug')('app:dbDebug')
-const dbBUG = require('debug')('app:dbBug')
+const winston = require("winston")
 
 const connectDB = async () => {
     try {
@@ -9,9 +8,9 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useCreateIndex: true
         })
-        console.log(`MongoDB Connected: ${conn.connection.host}`)
+        winston.info(`MongoDB Connected: ${conn.connection.host}`)
     } catch (err) {
-        console.log(`Error: ${ex.message}`)
+        winston.error(`Error: ${err.message}`)
         process.exit(1)
     }
 }
