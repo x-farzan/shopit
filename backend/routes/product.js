@@ -37,6 +37,7 @@ router.get('/products/search', async (req, res) => {
         .find({ name: regexp })
         .select('name')
         .sort('name')
+    if (product.length === 0) return res.status(400).send(`${req.query.name} is not present in the list`)
     return res.status(200).send({
         success: true,
         product
