@@ -2,16 +2,28 @@ const express = require('express');
 const { User, validation } = require('../models/userModel')
 const _ = require('lodash')
 const bcrypt = require('bcrypt');
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 const router = express.Router();
 
 
 // get self profile
+// protected
 router.get('/users/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id)
         .select('-password')
     //
     res.send(user)
+})
+
+// get all users
+// protected
+router.get('/users', [auth, admin], async (req, res) => {
+    const users = await User.find().sort('_id')
+
+    if (users.length === 0) return res.send("No Users Available..")
+
+    res.send(users)
 })
 
 // register a user
