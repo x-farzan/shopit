@@ -20,14 +20,18 @@
   },
   "homepage": "https://github.com/ehmusman/shopit#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "debug": "^2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "joi": "^17.4.0",
     "joi-objectid": "^3.0.1",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongoose": "^5.11.15",
+    "nodemailer": "^6.5.0",
     "winston": "^2.4.0",
     "winston-mongodb": "^3.0.0"
   }
