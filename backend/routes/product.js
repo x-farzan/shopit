@@ -1,6 +1,8 @@
 const express = require('express')
 const { Product, validation } = require('../models/productModel')
 const _ = require('lodash');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 const router = express.Router()
 
@@ -94,7 +96,7 @@ router.get('/product/:id', async (req, res) => {
 
 // post a product 
 //By admin
-router.post('/admin/product/new', async (req, res) => {
+router.post('/admin/product/new', [auth, admin], async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
     let product = new Product(_.pick(req.body, [
@@ -106,7 +108,7 @@ router.post('/admin/product/new', async (req, res) => {
 
 // Update a product 
 // By admin
-router.put('/admin/product/:id', async (req, res) => {
+router.put('/admin/product/:id', [auth, admin], async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -121,7 +123,7 @@ router.put('/admin/product/:id', async (req, res) => {
 })
 // delete a product 
 // By admin
-router.delete('/admin/product/:id', async (req, res) => {
+router.delete('/admin/product/:id', [auth, admin], async (req, res) => {
     const product = await Product.findByIdAndRemove(req.params.id)
     if (!product) return res.status(400).send({
         success: false,
