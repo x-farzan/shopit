@@ -1,5 +1,6 @@
 const express = require('express')
 const { Product, validation } = require('../models/productModel')
+const { User } = require('../models/userModel')
 const _ = require('lodash');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
@@ -99,8 +100,9 @@ router.get('/product/:id', async (req, res) => {
 router.post('/admin/product/new', [auth, admin], async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
+    req.body.user = req.user._id
     let product = new Product(_.pick(req.body, [
-        'name', 'price', 'description', 'rating', 'images', 'category', 'seller', 'stock', 'numOfReviews', 'reviews'
+        'name', 'price', 'description', 'rating', 'images', 'category', 'seller', 'stock', 'numOfReviews', 'reviews', 'user'
     ]))
     product = await product.save()
     res.send(product)

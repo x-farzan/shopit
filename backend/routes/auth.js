@@ -25,7 +25,19 @@ router.post('/auth', async (req, res) => {
     if (!validPassword) return res.status(400).send("Invalid email or password")
 
     sendToken(user, 200, res)
+})
 
+// logout router
+router.get('/logout', async (req, res) => {
+
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+    res.status(200).send({
+        success: true,
+        message: "Logged Out..."
+    })
 })
 
 
