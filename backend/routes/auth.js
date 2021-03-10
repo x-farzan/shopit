@@ -6,7 +6,7 @@ const PasswordComplexity = require('joi-password-complexity');
 const Joi = require('joi');
 const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
-
+const crypto = require('crypto')
 const router = express.Router();
 
 
@@ -80,6 +80,36 @@ router.post('/password/reset', async (req, res) => {
         await user.save({ validateBeforeSave: false })
         return new Error("internal server error")
     }
+
+})
+
+// Reset Password
+
+router.put('/password/reset/:token', async (req, res) => {
+
+    // hash url token
+    const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest('hex')
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    })
+
+    if (!user) return res.status(400).send(" Password reset token in invalid or has been expired")
+
+    if (req.body.password !== req.body.confirmPassword) {
+        return res.status(400).send("Password doesnot match")
+    }
+
+    // setup new password
+    user.password = req.body.password
+
+    user.resetPasswordExpire = undefined
+    user.resetPasswordToken = undefined
+
+    await user.save()
+
+    sendToken(user, 200, res)
 
 })
 
