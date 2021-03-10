@@ -4,6 +4,7 @@ const _ = require('lodash')
 const bcrypt = require('bcrypt');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const sendToken = require('../utils/jwtToken');
 const router = express.Router();
 
 
@@ -44,11 +45,8 @@ router.post('/users', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt)
     await user.save();
 
-    const token = user.generateAuthToken()
-    res.header('x-auth-token', token).send(_.pick(user, ['name', 'email', 'role']))
+    sendToken(user, 200, res)
+
 })
-
-
-
 
 module.exports = router

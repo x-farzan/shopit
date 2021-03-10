@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const { User } = require('../models/userModel')
 const PasswordComplexity = require('joi-password-complexity');
 const Joi = require('joi');
+const sendToken = require('../utils/jwtToken');
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post('/auth', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message)
 
     // check if user doesnot exists
-    const user = await User.findOne({ email: req.body.email })
+    let user = await User.findOne({ email: req.body.email })
     if (!user) return res.status(400).send("Invalid Email or Password..")
 
     console.log(user.password, req.body.password)
@@ -23,8 +24,7 @@ router.post('/auth', async (req, res) => {
     console.log(validPassword)
     if (!validPassword) return res.status(400).send("Invalid email or password")
 
-    const token = user.generateAuthToken()
-    res.send(token)
+    sendToken(user, 200, res)
 
 })
 
