@@ -5,10 +5,12 @@ const { User } = require('../models/userModel')
 const PasswordComplexity = require('joi-password-complexity');
 const Joi = require('joi');
 const sendToken = require('../utils/jwtToken');
+const sendEmail = require('../utils/sendEmail');
 
 const router = express.Router();
 
 
+// login
 router.post('/auth', async (req, res) => {
     // check for error
     const { error } = validation(req.body)
@@ -18,10 +20,9 @@ router.post('/auth', async (req, res) => {
     let user = await User.findOne({ email: req.body.email })
     if (!user) return res.status(400).send("Invalid Email or Password..")
 
-    console.log(user.password, req.body.password)
     // validate the password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    console.log(validPassword)
+
     if (!validPassword) return res.status(400).send("Invalid email or password")
 
     sendToken(user, 200, res)
@@ -41,6 +42,53 @@ router.get('/logout', async (req, res) => {
 })
 
 
+// forgot password
+router.post('/password/reset', async (req, res) => {
+    // validate entered email syntax
+    const { error } = validateForgotPassEmail(req.body)
+    if (error) return res.status(400).send(error.message[0].details)
+
+    // check for user presence
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).send("This email is not registered. send a valid email")
+
+    // get reset token
+    const resetToken = user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: false })
+
+    // create resetPassword url
+    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`
+
+    const message = `Your password reset token is as follow:\n\n${resetUrl}\n\n If You have not requested this email, than forgot it`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "ShopIT password recovery email",
+            message
+        })
+        res.send({
+            success: true,
+            message: `Email send to ${user.email}`
+        })
+
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save({ validateBeforeSave: false })
+        return new Error("internal server error")
+    }
+
+})
+
+const validateForgotPassEmail = req => {
+    const schema = Joi.object({
+        email: Joi.string().min(5).required().email()
+    })
+    return schema.validate(req)
+}
 const validation = (req) => {
     const schema = Joi.object({
         email: Joi.string().min(5).required().email(),
