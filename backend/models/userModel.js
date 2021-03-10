@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 const jwt = require('jsonwebtoken');
-
+const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -52,6 +52,24 @@ userSchema.methods.generateAuthToken = function () {
     })
     return token
 }
+
+// reset password
+userSchema.methods.getResetPasswordToken = function () {
+    // genereate token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // hash and set to resetpasswordToken
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+
+
+    // set token expire time
+    this.resetPasswordToken = Date.now() + 10 * 60 * 1000
+
+    return resetToken;
+}
+
+
+
 const User = mongoose.model("User", userSchema)
 
 const userValidator = (user) => {
