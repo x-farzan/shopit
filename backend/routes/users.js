@@ -16,15 +16,6 @@ router.get('/me', auth, async (req, res) => {
     res.send(user)
 })
 
-// get all users
-// protected
-router.get('/users', [auth, admin], async (req, res) => {
-    const users = await User.find().sort('_id')
-
-    if (users.length === 0) return res.send("No Users Available..")
-
-    res.send(users)
-})
 
 // register a user
 router.post('/users', async (req, res) => {

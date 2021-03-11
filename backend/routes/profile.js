@@ -58,7 +58,6 @@ router.put('/users/me/update/profile', auth, async (req, res) => {
     // joi validation
     const { error } = updateProfileValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
-
     // updating profile
     const newUserUpdate = {
         name: req.body.name,
@@ -66,7 +65,7 @@ router.put('/users/me/update/profile', auth, async (req, res) => {
     }
     // check if the entered email is already in use
     const duplicateEmail = await User.findOne({ email: req.body.email })
-    console.log(duplicateEmail)
+
     if (duplicateEmail) return res.status(400).send("This email is already exists")
 
     const user = await User.findByIdAndUpdate(req.user._id, newUserUpdate, {
