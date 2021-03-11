@@ -20,5 +20,25 @@ router.post('/order/new', auth, async (req, res) => {
 })
 
 
+// Get a single order with user
+// protected by user
+router.get('/orders/:id', auth, async (req, res) => {
+    const order = await Order.findById(req.params.id)
+        .populate('user', 'name email')
+    if (!order) return res.status(400).send("No Order Found with the given ID")
+
+    res.send(order)
+})
+
+// get all orders of logged in user
+router.get('/orders/my/orders', auth, async (req, res) => {
+    const orders = await Order.find({ user: req.user._id })
+
+    if (!orders) return res.status(400).send("No Orders found....")
+
+    res.send(orders)
+})
+
+
 module.exports = router
 
