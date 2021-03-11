@@ -2,22 +2,23 @@ const express = require('express');
 const router = express.Router()
 const auth = require('../middleware/auth')
 const _ = require('lodash')
-const Order = require('../models/orderModel')
+const { Order, validation } = require('../models/orderModel')
 
 // create order
 // protected by user
 router.post('/order/new', auth, async (req, res) => {
+    const { error } = validation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
 
+    let order = new Order(_.pick(req.body, ['orderItems', 'shippingInfo', 'itemPrice', 'taxPrice', 'shippingPrice', 'totalPrice', 'paymentInfo']));
+    // let order = new Order(_.pick(req.body, ['shippingInfo']));
+    order.user = req.user._id
+    order.paidAt = Date.now()
 
-    let order = new Order(_.pick, ['orderItems', 'shippingInfo', 'itemPrice', 'taxPrice', 'shippingPrice', 'totalPrice', 'paymentInfo']);
-    order = {
-        ...order,
-        paidAt: Date.now(),
-        user: req.user._id
-    }
-    order = await order.save()
+    await order.save()
     res.send(order)
 })
 
 
 module.exports = router
+
