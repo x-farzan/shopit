@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 const PasswordComplexity = require('joi-password-complexity');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto')
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -45,6 +47,18 @@ const userSchema = new mongoose.Schema({
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })
+// encrypting password before saving user
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        next()
+    }
+
+    // hashing the password
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+
+})
+
 
 userSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({ _id: this._id, role: this.role }, process.env.JWTPRIVATEKEY, {
@@ -63,7 +77,7 @@ userSchema.methods.getResetPasswordToken = function () {
 
 
     // set token expire time
-    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000
+    this.resetPasswordExpire = Date.now() + 60 * 60 * 1000
 
     return resetToken;
 }

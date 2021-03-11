@@ -1,7 +1,6 @@
 const express = require('express');
 const { User, validation } = require('../models/userModel')
 const _ = require('lodash')
-const bcrypt = require('bcrypt');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const sendToken = require('../utils/jwtToken');
@@ -10,7 +9,7 @@ const router = express.Router();
 
 // get self profile
 // protected
-router.get('/users/me', auth, async (req, res) => {
+router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id)
         .select('-password')
     //
@@ -40,9 +39,6 @@ router.post('/users', async (req, res) => {
     // if not present than register him/her
     user = new User(_.pick(req.body, ['name', 'email', 'password']))
 
-    // hashing the password
-    const salt = await bcrypt.genSalt(10)
-    user.password = await bcrypt.hash(user.password, salt)
     await user.save();
 
     sendToken(user, 200, res)
