@@ -3,6 +3,7 @@ const router = express.Router()
 const auth = require('../middleware/auth')
 const _ = require('lodash')
 const { Order, validation } = require('../models/orderModel')
+const admin = require('../middleware/admin')
 
 // create order
 // protected by user
@@ -22,7 +23,7 @@ router.post('/order/new', auth, async (req, res) => {
 
 // Get a single order with user
 // protected by user
-router.get('/orders/:id', auth, async (req, res) => {
+router.get('/order/:id', auth, async (req, res) => {
     const order = await Order.findById(req.params.id)
         .populate('user', 'name email')
     if (!order) return res.status(400).send("No Order Found with the given ID")
@@ -31,12 +32,47 @@ router.get('/orders/:id', auth, async (req, res) => {
 })
 
 // get all orders of logged in user
-router.get('/orders/my/orders', auth, async (req, res) => {
+// protected by user
+router.get('/orders/me', auth, async (req, res) => {
     const orders = await Order.find({ user: req.user._id })
 
     if (!orders) return res.status(400).send("No Orders found....")
 
     res.send(orders)
+})
+
+
+
+// get all orders by admin and add their total amounts
+// protected by admin only 
+router.get('/admin/orders', [auth, admin], async (req, res) => {
+
+    const orders = await Order.find()
+    if (!orders) return res.status(400).send("No Orders found....")
+
+    let totalAmount = 0;
+
+    orders.forEach(order => {
+        totalAmount += order.totalPrice
+    })
+
+    res.send({
+        totalAmount,
+        orders
+    })
+})
+
+// Delte an orders by admin 
+// protected by admin only 
+router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
+
+    const order = await Order.findByIdAndRemove(req.params.id)
+    if (!order) return res.status(400).send("No Orders found....")
+    res.send({
+        message: "order is deleted successfully",
+        order
+    })
+
 })
 
 
