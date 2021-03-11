@@ -28,7 +28,7 @@ router.put('/users/me/update/password', auth, async (req, res) => {
     // Joi validate new entered passwords
     const passwords = _.pick(req.body, ['newPassword', 'confirmPassword'])
     console.log(passwords)
-    const { error } = validation(passwords)
+    const { error } = updatePasswordValidation(passwords)
     if (error) return res.status(400).send(error.message[0].details)
 
     // validate the current password
@@ -53,7 +53,37 @@ router.put('/users/me/update/password', auth, async (req, res) => {
 
 })
 
-const validation = (req) => {
+// update users profile 
+router.put('/users/me/update/profile', auth, async (req, res) => {
+    // joi validation
+    const { error } = updateProfileValidation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+
+    // updating profile
+    const newUserUpdate = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    // check if the entered email is already in use
+    const duplicateEmail = await User.findOne({ email: req.body.email })
+    console.log(duplicateEmail)
+    if (duplicateEmail) return res.status(400).send("This email is already exists")
+
+    const user = await User.findByIdAndUpdate(req.user._id, newUserUpdate, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    // we'll add the functionality letter to update the profile pic when we'll add the cloudinary
+
+    // todo for cloudinary
+
+    res.send(user)
+
+})
+
+const updatePasswordValidation = (req) => {
     const schema = Joi.object({
         newPassword: new PasswordComplexity({
             min: 8,
@@ -71,6 +101,13 @@ const validation = (req) => {
             numeric: 1,
             symbol: 1
         }).required()
+    })
+    return schema.validate(req)
+}
+const updateProfileValidation = req => {
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        email: Joi.string().min(5).required().email()
     })
     return schema.validate(req)
 }
