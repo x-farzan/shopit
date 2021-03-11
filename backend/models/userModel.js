@@ -38,7 +38,11 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'user'
+        default: 'user',
+        enum: {
+            values: ['user', 'admin'],
+            message: 'Please select the correct role for user'
+        }
     },
     createdAt: {
         type: Date,

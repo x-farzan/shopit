@@ -19,7 +19,7 @@ router.get('/users/me', auth, async (req, res) => {
 
 
 //update password
-// protected
+// protected by user
 router.put('/users/me/update/password', auth, async (req, res) => {
     let user = await User.findById(req.user._id)
 
@@ -54,6 +54,7 @@ router.put('/users/me/update/password', auth, async (req, res) => {
 })
 
 // update users profile 
+// protected by user
 router.put('/users/me/update/profile', auth, async (req, res) => {
     // joi validation
     const { error } = updateProfileValidation(req.body)
