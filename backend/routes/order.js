@@ -3,7 +3,9 @@ const router = express.Router()
 const auth = require('../middleware/auth')
 const _ = require('lodash')
 const { Order, validation } = require('../models/orderModel')
-const admin = require('../middleware/admin')
+const { Product } = require('../models/productModel')
+const admin = require('../middleware/admin');
+const Joi = require('joi');
 
 // create order
 // protected by user
@@ -75,6 +77,47 @@ router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
 
 })
 
+// update | Process order status
+// protected by admin
 
+router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
+
+    const order = await Order.findById(req.params.id)
+    if (!order) return res.status(400).send('Order with the given id is not present...')
+    if (order.orderStatus === 'Delivered') return res.status(400).send("This Product is already Delivered")
+
+    //update stock of each product
+    order.orderItems.forEach(async item => {
+        await updateOrderStatus(item.product, item.quantity)
+    })
+
+    // Joi error checking
+    const { error } = orderProcessingValidation(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+
+    // update status
+    order.orderStatus = req.body.status;
+    order.deliveredAt = Date.now()
+
+    await order.save()
+
+    res.send("Stock is updated and order is Delivered")
+})
+
+const updateOrderStatus = async (id, quantity) => {
+
+    const product = await Product.findById(id)
+
+    product.stock = product.stock - quantity
+
+    await product.save({ validateBeforeSave: false })
+}
+
+const orderProcessingValidation = (status) => {
+    const schema = Joi.object({
+        status: Joi.string().required().valid("Processing", "Delivered")
+    })
+    return schema.validate(status)
+}
 module.exports = router
 
