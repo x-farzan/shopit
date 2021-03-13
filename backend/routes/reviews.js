@@ -76,7 +76,6 @@ router.get('/reviews/all', async (req, res) => {
 //  /api/v1/delete/review?productId=34567&reviewId=234567886543
 
 router.delete('/delete/review', auth, async (req, res) => {
-    console.log(req.user)
 
     const { productId, reviewId } = req.query
     if (!productId || !reviewId) return res.status(400).send("Provide the reviewId and productId")
@@ -89,7 +88,11 @@ router.delete('/delete/review', auth, async (req, res) => {
     // select current review
     const review = reviews.find(r => r._id.toString() === reviewId.toString())
     if (!review) return res.status(400).send("Review with given id is not present...")
-    console.log(review)
+
+    // check for User authorization
+    if (review.user.toString() !== req.user._id.toString()) {
+        return res.status(400).send("You are not authorized to delete this review")
+    }
 
     // check for User authorization
     if (review.user.toString() === req.user._id.toString()) {
@@ -98,11 +101,6 @@ router.delete('/delete/review', auth, async (req, res) => {
 
     }
 
-    // admin delete the review
-    if (req.user.role === "admin") {
-        // delete the review
-        reviews = reviews.filter(review => review._id.toString() !== reviewId.toString())
-    }
 
     // calculating number of reviews
     product.numOfReviews = reviews.length
