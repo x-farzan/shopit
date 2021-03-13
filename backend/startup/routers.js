@@ -7,6 +7,7 @@ const profile = require('../routes/profile')
 const cookieParser = require('cookie-parser')
 const admin = require('../routes/admin')
 const order = require('../routes/order')
+const review = require('../routes/reviews')
 
 module.exports = function (app) {
     app.use(express.json())
@@ -17,6 +18,7 @@ module.exports = function (app) {
     app.use('/api/v1', profile)
     app.use('/api/v1', admin)
     app.use('/api/v1', order)
+    app.use('/api/v1', review)
 
     // error middleware
     app.use(error)
