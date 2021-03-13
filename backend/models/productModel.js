@@ -79,6 +79,7 @@ const productValidation = (product) => {
         url: Joi.string().required()
     })
     const reviewSchema = Joi.object({
+        user: Joi.string().required(),
         name: Joi.string().required(),
         rating: Joi.number().required(),
         comment: Joi.string().required()
