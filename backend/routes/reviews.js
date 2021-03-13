@@ -57,6 +57,22 @@ router.post('/review', auth, async (req, res) => {
     })
 })
 
+// get all reviews
+router.get('/reviews/all', async (req, res) => {
+    const product = await Product.findById(req.query.productId)
+    if (!product) return res.status(400).send("either you didn't provided the productId query or the productId is not correct")
+
+    // extract the reviews
+    const { reviews } = product
+
+    res.send({
+        success: true,
+        reviews
+    })
+})
+
+
+// post review validation
 const reviewValidation = (review) => {
     const schema = Joi.object({
         rating: Joi.number().required().valid(1, 2, 3, 4, 5),
