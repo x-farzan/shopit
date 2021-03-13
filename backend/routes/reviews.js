@@ -71,6 +71,56 @@ router.get('/reviews/all', async (req, res) => {
     })
 })
 
+// Deleting review and updating the product
+// protected by user/admin
+//  /api/v1/delete/review?productId=34567&reviewId=234567886543
+
+router.delete('/delete/review', auth, async (req, res) => {
+    console.log(req.user)
+
+    const { productId, reviewId } = req.query
+    if (!productId || !reviewId) return res.status(400).send("Provide the reviewId and productId")
+    const product = await Product.findById(productId)
+    if (!product) return res.status(400).send("either you didn't provided the productId query or the productId is not correct")
+
+    // extract the reviews
+    let { reviews } = product
+
+    // select current review
+    const review = reviews.find(r => r._id.toString() === reviewId.toString())
+    if (!review) return res.status(400).send("Review with given id is not present...")
+    console.log(review)
+
+    // check for User authorization
+    if (review.user.toString() === req.user._id.toString()) {
+        // delete the review
+        reviews = reviews.filter(review => review._id.toString() !== reviewId.toString())
+
+    }
+
+    // admin delete the review
+    if (req.user.role === "admin") {
+        // delete the review
+        reviews = reviews.filter(review => review._id.toString() !== reviewId.toString())
+    }
+
+    // calculating number of reviews
+    product.numOfReviews = reviews.length
+
+    // calculate rating
+    product.ratings = reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length
+
+    // update reviews
+    product.reviews = reviews
+
+
+    await product.save({ validateBeforeSave: false })
+    res.send({
+        success: true,
+        message: "the given review has been deleted successfully..."
+    })
+})
+
 
 // post review validation
 const reviewValidation = (review) => {
