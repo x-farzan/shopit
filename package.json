@@ -21,6 +21,7 @@
   "homepage": "https://github.com/ehmusman/shopit#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "classnames": "^2.2.6",
     "cookie-parser": "^1.4.5",
     "debug": "^2.6.9",
     "dotenv": "^8.2.0",
