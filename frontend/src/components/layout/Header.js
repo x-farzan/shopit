@@ -7,7 +7,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark  mb-3">
             <div className="container">
                 <Link to="/" className="navbar-brand">
-                    <i className="fas fa-cart-plus" style={{ color: "yellow" }}></i>
+                    <i className="fas fa-cart-plus text-warning"></i>
                      &nbsp; &nbsp;ShopIT</Link>
                 <button className="navbar-toggler" data-toggle="collapse" data-target="#navBarNav">
                     <span className="navbar-toggler-icon"></span>

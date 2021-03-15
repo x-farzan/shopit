@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { getProducts } from '../../actions/productActions'
+
 import MetaData from '../layout/MetaData'
 
 const Home = () => {
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [dispatch])
+
     const image1 = {
         width: "100%",
         background: "url(/images/bag.jpg) no-repeat center center/cover",

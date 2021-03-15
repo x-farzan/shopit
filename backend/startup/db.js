@@ -3,7 +3,7 @@ const winston = require("winston")
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.LOCAL_DB_URI, {
+        const conn = await mongoose.connect("mongodb://localhost:27017/shopit", {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true

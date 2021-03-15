@@ -18,15 +18,17 @@ router.get('/products', async (req, res) => {
 
     if (typeof pageNumber !== "number" || typeof pageSize !== "number") return res.status(400).send("Please Send pageNumber and pageSize in Number Format ")
 
-    const product = await Product
+    const products = await Product
         .find()
         .sort('_id')
         .skip((pageNumber - 1) * pageSize)
         .limit(pageSize)
+
     return res.status(200).json({
         success: true,
-        product
+        products
     })
+
 })
 
 
