@@ -5,22 +5,24 @@ const Home = () => {
     const image1 = {
         width: "100%",
         background: "url(/images/bag.jpg) no-repeat center center/cover",
-        height: "580px"
+        height: "480px"
     }
     const image2 = {
         width: "100%",
         background: "url(/images/hood.jpg) no-repeat center center/cover",
-        height: "580px"
+        height: "480px"
     }
     const image3 = {
         width: "100%",
         background: "url(/images/shoes.jpg) no-repeat center center/cover",
-        height: "580px"
+        height: "480px"
     }
     return (
         <>
             <MetaData title='By Best Products Online' />
+
             <div className="container">
+                <p className="display-4">Latest Products</p>
                 <div className="carousel slide mb-5" data-ride="carousel" id="slider4">
                     <ol className="carousel-indicators">
                         <li className="active" data-target="#slider4" data-slide-to="0"></li>
