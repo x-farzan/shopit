@@ -6,9 +6,20 @@ import About from './components/pages/About';
 import Contact from './components/pages/Contact';
 import NotFound from './components/pages/NotFound';
 import Home from './components/pages/Home';
+
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react';
+import { loadProducts } from './store/products';
 import Products from './components/layout/Products';
 
+
 function App() {
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(loadProducts())
+  }, [dispatch])
+
   return (
     <Router>
       <Navbar />
@@ -23,5 +34,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

@@ -5,14 +5,14 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-warning mb-3">
             <div className="container">
-                <Link to="/" className="navbar-brand">Navbar</Link>
+                <Link to="/" className="navbar-brand">Shop IT <i className="fas fa-cart-plus"></i> </Link>
                 <button className="navbar-toggler" data-toggle="collapse" data-target="#navBarNav">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div id="navBarNav" className="collapse navbar-collapse">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link" to="/"><i className="fas fa-home"></i> Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/about">About</Link>

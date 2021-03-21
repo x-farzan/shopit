@@ -1,10 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Product from './Product'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadProducts } from '../../store/products'
+import Error from './Error'
 
 const Products = () => {
-    return (
-        <div>
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(loadProducts())
+    }, [dispatch])
 
-        </div>
+    const products = useSelector(state => state.entities.products)
+    console.log(products)
+    return (
+        <>
+            {products.loading ? (<Error />) : (
+                <div className="container">
+                    <div className='row'>
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
+                        <Product />
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
 
