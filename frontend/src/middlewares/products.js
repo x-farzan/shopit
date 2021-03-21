@@ -23,7 +23,6 @@ const products = ({ dispatch }) => next => async action => {
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
     } catch (error) {
         dispatch(apiCallFailed(error.message))
-        console.log(error)
         if (onError) dispatch({ type: onError, payload: error.message })
     }
 }

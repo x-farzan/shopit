@@ -11,7 +11,6 @@ const Products = () => {
     }, [dispatch])
 
     const products = useSelector(state => state.entities.products)
-    console.log(products)
     return (
         <>
             {products.loading ? (<Error />) : (
