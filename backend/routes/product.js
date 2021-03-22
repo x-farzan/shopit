@@ -24,10 +24,12 @@ router.get('/products', async (req, res) => {
         .skip((pageNumber - 1) * pageSize)
         .limit(pageSize)
 
-    return res.status(200).json({
-        success: true,
-        products
-    })
+    setTimeout(() => {
+        return res.status(200).json({
+            success: true,
+            products
+        })
+    }, 0);
 
 })
 

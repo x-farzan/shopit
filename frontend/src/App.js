@@ -4,7 +4,6 @@ import Navbar from './components/pages/Navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import About from './components/pages/About';
 import Contact from './components/pages/Contact';
-import NotFound from './components/pages/NotFound';
 import Home from './components/pages/Home';
 
 import { useDispatch } from 'react-redux'
@@ -28,7 +27,6 @@ function App() {
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/products' component={Products} />
-        <Route component={NotFound} />
       </Switch>
       <Footer />
     </Router>

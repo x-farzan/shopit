@@ -11,18 +11,22 @@ const Products = () => {
     }, [dispatch])
 
     const products = useSelector(state => state.entities.products)
+    console.log(products.loading)
     return (
         <>
             {products.loading ? (<Error />) : (
                 <div className="container">
                     <div className='row'>
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
+                        {products.list.map(product => (
+                            <Product
+                                key={product._id}
+                                id={product._id}
+                                price={product.price}
+                                reviews={product.numOfReviews}
+                                name={product.name}
+                                rating={product.rating}
+                            />
+                        ))}
                     </div>
                 </div>
             )}
