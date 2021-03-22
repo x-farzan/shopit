@@ -1,0 +1,48 @@
+/* .reviewModel i {
+  width: 20%;
+  font-size: 400%;
+  color: white;
+}
+
+.reviewModel:hover > i {
+  color: #ffc107;
+}
+
+.reviewModel > i:hover ~ i {
+  color: #ffc107;
+} */
+
+ul.rank {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.rank > li {
+  position: relative;
+  margin: 0;
+  height: 30px;
+  background: #ccc;
+}
+
+ul.rank:hover > li {
+  background-color: #00f;
+}
+
+ul.rank > li + li {
+  margin-top: 10px;
+}
+
+ul.rank > li:hover ~ li {
+  background: #ccc;
+}
+
+ul.rank > li:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
