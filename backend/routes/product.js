@@ -27,6 +27,7 @@ router.get('/products', async (req, res) => {
     setTimeout(() => {
         return res.status(200).json({
             success: true,
+            count: products.length,
             products
         })
     }, 0);
