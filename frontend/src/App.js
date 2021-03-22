@@ -5,19 +5,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import About from './components/pages/About';
 import Contact from './components/pages/Contact';
 import Home from './components/pages/Home';
-
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react';
-import { loadProducts } from './store/products';
 import Products from './components/layout/Products';
+import ProductDetails from './components/layout/ProductDetails';
 
 
 function App() {
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(loadProducts())
-  }, [dispatch])
 
   return (
     <Router>
@@ -27,6 +19,7 @@ function App() {
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/products' component={Products} />
+        <Route exact path='/product/:id' component={ProductDetails} />
       </Switch>
       <Footer />
     </Router>
