@@ -11,7 +11,8 @@ const slice = createSlice({
         list: [],
         count: null,
         loading: false,
-        lastFetch: null
+        lastFetch: null,
+        search: []
     },
     reducers: {
         productsCountRequested: (products, action) => {
@@ -29,13 +30,20 @@ const slice = createSlice({
             products.list = action.payload.products;
             products.loading = false;
             products.lastFetch = Date.now()
+        },
+        searchProductsRequested: (products, action) => {
+            products.loading = true;
+        },
+        searchProductsReceived: (products, action) => {
+            products.search = action.payload.products;
+            products.loading = false;
         }
     }
 })
 
 
 export default slice.reducer
-const { productsReceived, productsRequested, productsCountReceived, productsCountRequested } = slice.actions
+const { productsReceived, productsRequested, productsCountReceived, productsCountRequested, searchProductsReceived, searchProductsRequested } = slice.actions
 
 
 
@@ -59,6 +67,16 @@ export const loadProductsCount = () => (dispatch) => {
             url: '/api/v1/countproducts',
             onStart: productsCountRequested.type,
             onSuccess: productsCountReceived.type
+        })
+    )
+}
+
+export const searchProducts = keyword => (dispatch) => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/products/search?name=${keyword}`,
+            onStart: searchProductsRequested.type,
+            onSuccess: searchProductsReceived.type
         })
     )
 }

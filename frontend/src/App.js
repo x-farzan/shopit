@@ -7,7 +7,7 @@ import Contact from './components/pages/Contact';
 import Home from './components/pages/Home';
 import Products from './components/layout/Products';
 import ProductDetails from './components/layout/ProductDetails';
-
+import SearchResult from './components/layout/SearchResult'
 
 function App() {
 
@@ -19,6 +19,7 @@ function App() {
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/products' component={Products} />
+        <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
       </Switch>
       <Footer />
