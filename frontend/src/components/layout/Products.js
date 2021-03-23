@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Product from './Product'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadProducts, loadProductsCount } from '../../store/products'
+import { useSelector } from 'react-redux'
 import Error from './Error'
 import Pagination from './Pagination'
 
 const Products = () => {
 
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(loadProductsCount())
-    // }, [dispatch])
+
     const products = useSelector(state => state.entities.products)
-    // console.log(products)
+
     return (
         <>
             {products.loading ? (<Error />) : (

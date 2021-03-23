@@ -19,7 +19,7 @@ const Pagination = () => {
 
     useEffect(() => {
         dispatch(loadProductsCount())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="button-toolbar container">

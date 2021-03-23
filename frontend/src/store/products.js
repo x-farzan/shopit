@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { apiCallBegan } from './api'
-import moment from 'moment'
 
 //////////////////////////////////
 ///             Reducers
@@ -45,7 +44,6 @@ const { productsReceived, productsRequested, productsCountReceived, productsCoun
 //////////////////////////////////
 
 export const loadProducts = (pageNumber, pageSize) => (dispatch, getState) => {
-    console.log(pageNumber, pageSize)
     dispatch(
         apiCallBegan({
             url: `/api/v1/products?pageNumber=${pageNumber}&pageSize=${pageSize}`,
