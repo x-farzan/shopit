@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getProductDetails } from '../../store/productDetails'
 import Error from './Error'
+import Metadata from './Metadata';
 import { Rating } from './Rating';
 import ReviewModel from './ReviewModel';
 
@@ -17,6 +18,7 @@ const ProductDetails = ({ match }) => {
     const { description, name, numOfReviews, price, rating, stock, _id, seller } = productDetail.data
     return (
         <>
+            <Metadata title="Product Detail" />
             {productDetail.loading ? (<Error />) : (
                 <div className='container'>
                     <div className="row mt-3">
