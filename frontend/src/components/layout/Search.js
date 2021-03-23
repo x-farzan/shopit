@@ -10,9 +10,14 @@ const Search = () => {
     const [keyword, setKeyword] = useState('')
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        dispatch(searchProducts(keyword))
-        setKeyword("")
-        history.push(`/search/${keyword}`)
+        if (keyword !== '') {
+            dispatch(searchProducts(keyword))
+            setKeyword("")
+            history.push(`/search/${keyword}`)
+        } else {
+            alert("Write something for search")
+        }
+
     }
     return (
         <div className="container">

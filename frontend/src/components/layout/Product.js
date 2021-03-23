@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Rating } from './Rating'
 
-const Product = ({ id, price, reviews, name, rating }) => {
+const Product = ({ id, price, reviews, wide, name, rating }) => {
 
     return (
-        <div className='col-md-4 my-3'>
+        <div className={`${wide} my-3`}>
             <div className="card">
                 <img className="card-img-top" src="/airpods3.jpg" alt="" />
                 <div className="card-body">

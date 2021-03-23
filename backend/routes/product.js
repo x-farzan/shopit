@@ -60,8 +60,6 @@ router.get('/products/query', async (req, res) => {
     pageNumber = Number(Math.round(pageNumber));
     pageSize = Number(Math.round(pageSize))
 
-    if (typeof pageNumber !== "number" || typeof pageSize !== "number") return res.status(400).send("Please Send pageNumber and pageSize in Number Format ")
-
     const product = await Product
         .find({ category: { $in: categories } })
         .sort('category')
@@ -75,16 +73,18 @@ router.get('/products/query', async (req, res) => {
 
 // Search products by name
 router.get('/products/search', async (req, res) => {
-
-    const regexp = new RegExp(".*" + req.query.name + ".*", "i")
-
+    const { name, min, max } = req.query
+    const regexp = new RegExp(".*" + name + ".*", "i")
     let products = await Product
         .find({ name: regexp })
         .sort('name')
 
-    console.log(products.length)
-    if (products.length === 0) return res.status(400).send(`${req.query.name} is not present in the list`)
-
+    if (min !== "undefined" && max !== "undefined" && name !== "undefined") {
+        // console.log(name, min, max)
+        products = await Product
+            .find({ name: regexp, price: { $gte: min, $lte: max } })
+            .sort('-price')
+    }
     res.status(200).send({
         success: true,
         products

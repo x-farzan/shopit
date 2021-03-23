@@ -26,6 +26,7 @@ const Products = () => {
                                 reviews={product.numOfReviews}
                                 name={product.name}
                                 rating={product.rating}
+                                wide="col-md-3"
                             />
                         ))}
                     </div>

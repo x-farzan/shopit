@@ -71,10 +71,10 @@ export const loadProductsCount = () => (dispatch) => {
     )
 }
 
-export const searchProducts = keyword => (dispatch) => {
+export const searchProducts = (keyword, min, max) => (dispatch) => {
     dispatch(
         apiCallBegan({
-            url: `/api/v1/products/search?name=${keyword}`,
+            url: `/api/v1/products/search?name=${keyword}&min=${min}&max=${max}`,
             onStart: searchProductsRequested.type,
             onSuccess: searchProductsReceived.type
         })
