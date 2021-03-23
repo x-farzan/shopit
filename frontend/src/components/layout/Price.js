@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { searchProducts } from '../../store/products'
+import Categories from './Categories';
 
 const Price = ({ keyword }) => {
     const [min, setMin] = useState(0)
@@ -39,6 +40,14 @@ const Price = ({ keyword }) => {
                                 style={{ marginLeft: "-20px", cursor: "pointer" }}
                                 onClick={handleOnClick}
                             ></i>
+                        </div>
+                        <div className="col-12 mt-5">
+                            <h3>Categories</h3>
+                            <Categories
+                                keyword={keyword}
+                                min={min}
+                                max={max}
+                            />
                         </div>
                     </div>
                 </div>

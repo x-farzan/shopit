@@ -11,7 +11,7 @@ const Result = () => {
         <>
             <Metadata title="Searched Products" />
             {products.search.length === 0 ? (
-                <div className='display-4 m-3' style={{ height: '80vh' }}>This product is not present
+                <div className='h2 m-3' style={{ height: '80vh' }}>This product is not present
                 back to <Link to='/products' >Products</Link>
                 </div>
             ) : (

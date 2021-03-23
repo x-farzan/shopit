@@ -56,10 +56,6 @@ router.get('/products/query', async (req, res) => {
     // converting the query object to array of values
     const categories = Object.values(req.query)
 
-    let { pageNumber, pageSize } = req.query
-    pageNumber = Number(Math.round(pageNumber));
-    pageSize = Number(Math.round(pageSize))
-
     const product = await Product
         .find({ category: { $in: categories } })
         .sort('category')
@@ -67,22 +63,24 @@ router.get('/products/query', async (req, res) => {
         .limit(pageSize)
     return res.status(200).send({
         success: true,
-        product
+        productcd
     })
 })
 
 // Search products by name
 router.get('/products/search', async (req, res) => {
-    const { name, min, max } = req.query
+    const { name, min, max, c } = req.query
+    const cat = c.split(',')
+    // console.log(cat)
     const regexp = new RegExp(".*" + name + ".*", "i")
     let products = await Product
         .find({ name: regexp })
         .sort('name')
 
-    if (min !== "undefined" && max !== "undefined" && name !== "undefined") {
+    if (min !== "undefined" && max !== "undefined" && name !== "undefined" && cat[0] !== '') {
         // console.log(name, min, max)
         products = await Product
-            .find({ name: regexp, price: { $gte: min, $lte: max } })
+            .find({ name: regexp, price: { $gte: min, $lte: max }, category: { $in: cat } })
             .sort('-price')
     }
     res.status(200).send({
