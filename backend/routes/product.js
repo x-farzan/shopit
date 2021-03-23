@@ -9,6 +9,22 @@ const router = express.Router()
 
 
 // get all products
+router.get('/countproducts', async (req, res) => {
+
+    const products = await Product
+        .find()
+        .sort('_id')
+
+    setTimeout(() => {
+        return res.status(200).json({
+            success: true,
+            count: products.length,
+        })
+    }, 0);
+
+})
+
+// get paginated products
 router.get('/products', async (req, res) => {
 
     let { pageNumber, pageSize } = req.query
@@ -27,12 +43,12 @@ router.get('/products', async (req, res) => {
     setTimeout(() => {
         return res.status(200).json({
             success: true,
-            count: products.length,
             products
         })
     }, 0);
 
 })
+
 
 
 // get products by category

@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { loadProducts, loadProductsCount } from '../../store/products';
 import Btn from './Btn';
 
 const Pagination = () => {
-    const productsCount = useSelector(state => state.entities.products.list.length)
+    const productsCount = useSelector(state => state.entities.products.count)
 
     const [prodPerPage] = useState(6)
     const [currentPage, setCurrentPage] = useState(1)
 
-    // const handlePageChange = page => {
-    //     // console.log(page)
-    // }
+    const handlePageChange = page => {
+        setCurrentPage(page)
+    }
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(loadProducts(currentPage, prodPerPage))
+    }, [dispatch, currentPage, prodPerPage])
+
+    useEffect(() => {
+        dispatch(loadProductsCount())
+    }, [])
+
     return (
         <div className="button-toolbar container">
             <div className="btn-group mr-2 mb-3">
@@ -18,7 +28,7 @@ const Pagination = () => {
                     totalProducts={productsCount}
                     pageSize={prodPerPage}
                     currentPage={currentPage}
-                    onPageChange={page => setCurrentPage(page)}
+                    onPageChange={handlePageChange}
                 />
             </div>
 

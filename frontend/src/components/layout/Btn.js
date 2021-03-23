@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 const Btn = ({ totalProducts, pageSize, currentPage, onPageChange }) => {
 
     const numOfPages = Math.ceil(totalProducts / pageSize)
-
+    if (numOfPages === 1) return null;
     const generateArray = () => {
         const arr = []
         for (let i = 1; i <= numOfPages; i++) {

@@ -10,10 +10,19 @@ const slice = createSlice({
     name: 'products',
     initialState: {
         list: [],
+        count: null,
         loading: false,
         lastFetch: null
     },
     reducers: {
+        productsCountRequested: (products, action) => {
+            products.loading = true
+        },
+        productsCountReceived: (products, action) => {
+            products.count = action.payload.count;
+            products.loading = false;
+            products.lastFetch = Date.now()
+        },
         productsRequested: (products, action) => {
             products.loading = true
         },
@@ -27,7 +36,7 @@ const slice = createSlice({
 
 
 export default slice.reducer
-const { productsReceived, productsRequested } = slice.actions
+const { productsReceived, productsRequested, productsCountReceived, productsCountRequested } = slice.actions
 
 
 
@@ -35,15 +44,23 @@ const { productsReceived, productsRequested } = slice.actions
 ///             actions
 //////////////////////////////////
 
-export const loadProducts = () => (dispatch, getState) => {
-    const { lastFetch } = getState().entities.products
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minute');
-    if (diffInMinutes < 10) return;
+export const loadProducts = (pageNumber, pageSize) => (dispatch, getState) => {
+    console.log(pageNumber, pageSize)
     dispatch(
         apiCallBegan({
-            url: '/api/v1/products',
+            url: `/api/v1/products?pageNumber=${pageNumber}&pageSize=${pageSize}`,
             onStart: productsRequested.type,
             onSuccess: productsReceived.type
+        })
+    )
+}
+
+export const loadProductsCount = () => (dispatch) => {
+    dispatch(
+        apiCallBegan({
+            url: '/api/v1/countproducts',
+            onStart: productsCountRequested.type,
+            onSuccess: productsCountReceived.type
         })
     )
 }

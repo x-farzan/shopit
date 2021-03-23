@@ -11,7 +11,7 @@ const ProductDetails = ({ match }) => {
 
     useEffect(() => {
         dispatch(getProductDetails(`/api/v1/product/${match.params.id}`))
-    }, [dispatch])
+    }, [dispatch, match.params.id])
 
     const productDetail = useSelector(state => state.entities.productDetail)
     const { description, name, numOfReviews, price, rating, stock, _id, seller } = productDetail.data
