@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { loadProducts, loadProductsCount } from '../../store/products';
+import { loadProducts } from '../../store/products';
 import Btn from './Btn';
 
 const Pagination = () => {
@@ -15,11 +15,10 @@ const Pagination = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(loadProducts(currentPage, prodPerPage))
-    }, [dispatch, currentPage, prodPerPage])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, prodPerPage])
 
-    useEffect(() => {
-        dispatch(loadProductsCount())
-    }, [dispatch])
+
 
     return (
         <div className="button-toolbar container">

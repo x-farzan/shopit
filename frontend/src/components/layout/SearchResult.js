@@ -1,7 +1,6 @@
 import React from 'react'
 import Price from './Price'
 import Result from './Result'
-
 const SearchResult = ({ match }) => {
     return (
         <div className="container">
@@ -10,7 +9,6 @@ const SearchResult = ({ match }) => {
                 <Price keyword={match.params.keyword} />
 
                 <Result />
-
             </div>
         </div>
     )

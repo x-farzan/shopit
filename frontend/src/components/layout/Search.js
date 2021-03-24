@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { searchProducts } from '../../store/products'
+import { searchByName } from '../../store/products'
 
 const Search = () => {
     let history = useHistory()
@@ -11,7 +11,7 @@ const Search = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault()
         if (keyword !== '') {
-            dispatch(searchProducts(keyword))
+            dispatch(searchByName(keyword))
             setKeyword("")
             history.push(`/search/${keyword}`)
         } else {

@@ -12,25 +12,26 @@ const Result = () => {
             <Metadata title="Searched Products" />
             {products.search.length === 0 ? (
                 <div className='h2 m-3' style={{ height: '80vh' }}>This product is not present
-                back to <Link to='/products' >Products</Link>
+            back to <Link to='/products' >Products</Link>
                 </div>
             ) : (
-                    products.loading ? (<Error />) : (
-                        <div className="col-md-8 d-flex flex-wrap">
-                            {products.search.map(product => (
-                                <Product
-                                    key={product._id}
-                                    id={product._id}
-                                    price={product.price}
-                                    reviews={product.numOfReviews}
-                                    name={product.name}
-                                    rating={product.rating}
-                                    wide="col-md-4"
-                                />
-                            ))}
-                        </div>
-                    )
-                )}
+                products.loading ? (<Error />) : (
+                    <div className="col-md-8 d-flex flex-wrap">
+                        {products.search.map(product => (
+                            <Product
+                                key={product._id}
+                                id={product._id}
+                                price={product.price}
+                                reviews={product.numOfReviews}
+                                name={product.name}
+                                rating={product.rating}
+                                wide="col-md-4"
+                            />
+                        ))}
+                    </div>
+                )
+            )}
+
         </>
     )
 }

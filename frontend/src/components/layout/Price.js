@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { searchProducts } from '../../store/products'
+import { searchByPrice } from '../../store/products'
 import Categories from './Categories';
 
 const Price = ({ keyword }) => {
+
     const [min, setMin] = useState(0)
     const [max, setMax] = useState(1200)
+
     const dispatch = useDispatch()
-    const handleOnClick = (e) => {
-        e.preventDefault()
-        dispatch(searchProducts(keyword, min, max))
+
+    const handleOnClick = () => {
+        dispatch(searchByPrice(keyword, min, max))
+
     }
+
     return (
         <div className="col-md-4">
             <div className="card">
@@ -24,7 +28,7 @@ const Price = ({ keyword }) => {
                                 min='0'
                                 className="form-control"
                                 value={min}
-                                onChange={e => setMin(e.target.value)} />
+                                onChange={(e) => setMin(e.target.value)} />
                         </div>
                         <div className="col-5">
                             <input
@@ -32,7 +36,7 @@ const Price = ({ keyword }) => {
                                 placeholder='Max'
                                 className="form-control"
                                 value={max}
-                                onChange={e => setMax(e.target.value)} />
+                                onChange={(e) => setMax(e.target.value)} />
                         </div>
                         <div className="col-1" >
                             <i
@@ -41,14 +45,20 @@ const Price = ({ keyword }) => {
                                 onClick={handleOnClick}
                             ></i>
                         </div>
-                        <div className="col-12 mt-5">
-                            <h3>Categories</h3>
-                            <Categories
-                                keyword={keyword}
-                                min={min}
-                                max={max}
-                            />
-                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div className="card">
+                <div className="col-12 mt-1">
+                    <h3 className="card-header">Categories</h3>
+                    <div className="card-body">
+
+                        <Categories
+                            keyword={keyword}
+                            min={min}
+                            max={max}
+                        />
                     </div>
                 </div>
             </div>

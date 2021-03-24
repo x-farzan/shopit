@@ -50,42 +50,66 @@ router.get('/products', async (req, res) => {
 })
 
 
-
-// get products by category
-router.get('/products/query', async (req, res) => {
-    // converting the query object to array of values
-    const categories = Object.values(req.query)
-
-    const product = await Product
-        .find({ category: { $in: categories } })
-        .sort('category')
-        .skip((pageNumber - 1) * pageSize)
-        .limit(pageSize)
-    return res.status(200).send({
-        success: true,
-        productcd
-    })
-})
-
 // Search products by name
-router.get('/products/search', async (req, res) => {
-    const { name, min, max, c } = req.query
-    const cat = c.split(',')
-    // console.log(cat)
+router.get('/products/searchbyname', async (req, res) => {
+    let { name } = req.query
+    console.log(name)
     const regexp = new RegExp(".*" + name + ".*", "i")
+
     let products = await Product
         .find({ name: regexp })
         .sort('name')
 
-    if (min !== "undefined" && max !== "undefined" && name !== "undefined" && cat[0] !== '') {
-        // console.log(name, min, max)
+    res.status(200).send({
+        success: true,
+        products,
+    })
+})
+
+
+// Search products by price
+router.get('/products/searchbyprice', async (req, res) => {
+    let { name, min, max } = req.query
+
+    const regexp = new RegExp(".*" + name + ".*", "i")
+    let products;
+    products = await Product
+        .find({ name: regexp, price: { $gte: min, $lte: max } })
+        .sort('-price')
+
+    res.status(200).send({
+        success: true,
+        products,
+    })
+})
+
+// Search products by category
+router.get('/products/searchbycategory', async (req, res) => {
+    let { name, min, max, c } = req.query
+
+    // convert the categories strings in array
+    const cat = c.split(',')
+
+    const regexp = new RegExp(".*" + name + ".*", "i")
+    let products;
+
+    // console.log(name, min, max)
+    if (cat[0] !== '') {
+
         products = await Product
             .find({ name: regexp, price: { $gte: min, $lte: max }, category: { $in: cat } })
             .sort('-price')
     }
+    if (cat[0] === '') {
+        products = await Product
+            .find({ name: regexp, price: { $gte: min, $lte: max } })
+            .sort('-price')
+    }
+
+
     res.status(200).send({
         success: true,
-        products
+        products,
     })
 })
 

@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Product from './Product'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Error from './Error'
 import Pagination from './Pagination'
 import Metadata from './Metadata'
 import Search from './Search'
+import { loadProductsCount } from '../../store/products'
 
 const Products = () => {
+    const dispatch = useDispatch()
 
-
+    useEffect(() => {
+        dispatch(loadProductsCount())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const products = useSelector(state => state.entities.products)
 
     return (

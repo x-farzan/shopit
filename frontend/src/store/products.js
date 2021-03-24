@@ -21,7 +21,7 @@ const slice = createSlice({
         productsCountReceived: (products, action) => {
             products.count = action.payload.count;
             products.loading = false;
-            products.lastFetch = Date.now()
+
         },
         productsRequested: (products, action) => {
             products.loading = true
@@ -29,7 +29,6 @@ const slice = createSlice({
         productsReceived: (products, action) => {
             products.list = action.payload.products;
             products.loading = false;
-            products.lastFetch = Date.now()
         },
         searchProductsRequested: (products, action) => {
             products.loading = true;
@@ -71,11 +70,33 @@ export const loadProductsCount = () => (dispatch) => {
     )
 }
 
-export const searchProducts = (keyword, min, max, category) => (dispatch) => {
+export const searchByName = (keyword) => (dispatch) => {
 
     dispatch(
         apiCallBegan({
-            url: `/api/v1/products/search?name=${keyword}&min=${min}&max=${max}&c=${category}`,
+            url: `/api/v1/products/searchbyname?name=${keyword}`,
+            onStart: searchProductsRequested.type,
+            onSuccess: searchProductsReceived.type
+        })
+    )
+}
+
+export const searchByPrice = (keyword, min, max) => (dispatch) => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/products/searchbyprice?name=${keyword}&min=${min}&max=${max}`,
+            onStart: searchProductsRequested.type,
+            onSuccess: searchProductsReceived.type
+        })
+    )
+}
+
+export const searchByCategory = (keyword, min, max, category) => (dispatch) => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/products/searchbycategory?name=${keyword}&min=${min}&max=${max}&c=${category}`,
             onStart: searchProductsRequested.type,
             onSuccess: searchProductsReceived.type
         })
