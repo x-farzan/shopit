@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux';
-import { searchByCategory } from '../../store/products'
+import { searchByCategory } from '../../../store/products'
 
 const Categories = ({ keyword, min, max, reset }) => {
     const dispatch = useDispatch()

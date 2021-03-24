@@ -5,7 +5,7 @@ import Error from './Error'
 import Pagination from './Pagination'
 import Metadata from './Metadata'
 import Search from './Search'
-import { loadProductsCount } from '../../store/products'
+import { loadProductsCount } from '../../../store/products'
 
 const Products = () => {
     const dispatch = useDispatch()

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { loadProducts } from '../../store/products';
+import { loadProducts } from '../../../store/products';
 import Btn from './Btn';
 
 const Pagination = () => {

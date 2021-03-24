@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductDetails } from '../../store/productDetails'
+import { getProductDetails } from '../../../store/productDetails'
 import Error from './Error'
 import Metadata from './Metadata';
 import { Rating } from './Rating';

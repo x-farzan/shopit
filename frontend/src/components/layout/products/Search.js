@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { searchByName } from '../../store/products'
+import { searchByName } from '../../../store/products'
 
 const Search = () => {
     let history = useHistory()

@@ -1,5 +1,5 @@
 import React from 'react';
-import Metadata from '../layout/Metadata';
+import Metadata from '../layout/products/Metadata';
 
 const Home = () => {
     const image = {
