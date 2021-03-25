@@ -11,7 +11,7 @@ const slice = createSlice({
     initialState: {
         loading: false,
         isAuthenticated: false,
-        error: null
+        res: null
     },
     reducers: {
         loginRequested: (auth, action) => {
@@ -20,12 +20,16 @@ const slice = createSlice({
         loginReceived: (auth, action) => {
             auth.loading = false;
             auth.isAuthenticated = true;
-            auth.error = action.payload
+            auth.res = action.payload
+        },
+        loginFailed: (auth, action) => {
+            auth.loading = false;
+            auth.res = action.payload
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested } = slice.actions
+const { loginReceived, loginRequested, loginFailed } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -37,7 +41,8 @@ export const loginRequest = (data) => (dispatch) => {
             method: "post",
             data,
             onStart: loginRequested.type,
-            onSuccess: loginReceived.type
+            onSuccess: loginReceived.type,
+            onError: loginFailed.type
         })
     )
 }

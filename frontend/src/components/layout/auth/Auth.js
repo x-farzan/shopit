@@ -9,11 +9,7 @@ import { useHistory } from 'react-router-dom'
 const Auth = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector(state => state.auth.login.isAuthenticated)
-    useEffect(() => {
-        if (isAuthenticated) history.push('/')
-    }, [])
-
+    const { isAuthenticated, res, loading } = useSelector(state => state.auth.login)
     const initialState = {
         account: {
             email: '',
@@ -25,6 +21,17 @@ const Auth = () => {
         }
     }
     const [data, setData] = useState(initialState)
+    useEffect(() => {
+        if (isAuthenticated) {
+            history.push('/')
+        } else if (!isAuthenticated) {
+            const newData = { ...data }
+            newData.errors.email = res
+            setData(newData)
+        }
+
+    }, [isAuthenticated, res, loading])
+
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -32,11 +39,13 @@ const Auth = () => {
         const newData = { ...data }
         newData.errors = errors || {}
         setData(newData)
-        if (errors) return
+        if (errors) { return null };
         dispatch(loginRequest(data.account))
-        if (isAuthenticated) history.push('/')
-
+        if (isAuthenticated) {
+            history.push('/')
+        }
     }
+
     const handleOnChange = (e) => {
         const newData = { ...data }
         newData.account[e.currentTarget.name] = e.currentTarget.value
@@ -58,7 +67,6 @@ const Auth = () => {
         if (!error) return null
         const errors = {}
         for (let item of error.details) errors[item.path[0]] = item.message
-
         return errors
     }
     return (

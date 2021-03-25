@@ -23,8 +23,8 @@ const auth = ({ dispatch }) => next => async action => {
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
     } catch (error) {
         if (error && error.response.status === 400)
-            dispatch(authCallFailed(error.message))
-        if (onError) dispatch({ type: onError, payload: error.message })
+            dispatch(authCallFailed(error.response.data))
+        if (onError) dispatch({ type: onError, payload: error.response.data })
     }
 }
 export default auth
