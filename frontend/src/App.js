@@ -9,6 +9,7 @@ import Products from './components/layout/products/Products';
 import ProductDetails from './components/layout/products/ProductDetails';
 import SearchResult from './components/layout/products/SearchResult'
 import Auth from './components/layout/auth/Auth';
+import Register from './components/layout/auth/Register';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />
+        <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />
     </Router>
