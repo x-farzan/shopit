@@ -60,4 +60,15 @@ export const loginRequest = (data) => (dispatch) => {
 }
 export const registeringRequest = (data) => (dispatch) => {
     console.log(data)
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/users',
+            method: 'post',
+            data,
+            header: { "Content-Typs": "multipart/form-data" },
+            onStart: userRegisteringRequest.type,
+            onSuccess: userRegistered.type,
+            onError: userRegisteringFailed
+        })
+    )
 }
