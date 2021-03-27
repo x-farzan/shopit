@@ -5,6 +5,7 @@ import Input from './Input'
 import { loginRequest } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Auth = () => {
     const history = useHistory()
@@ -92,9 +93,9 @@ const Auth = () => {
                                 onChange={handleOnChange}
                                 name="password"
                             />
-                            <p style={{ float: "right", cursor: "pointer" }}>Forgot Password?</p>
+                            <Link to='/forgot/password' style={{ float: "right", cursor: "pointer" }}>Forgot Password?</Link>
                             <input type="submit" value="Login" className="btn btn-warning  btn-lg btn-block" />
-                            <p className="my-2" style={{ float: "right", cursor: "pointer" }}>New User?</p>
+                            <Link to='/register' className="my-2" style={{ float: "right", cursor: "pointer" }}>New User?</Link>
                         </form>
                     </div>
                 </div>
