@@ -25,11 +25,23 @@ const slice = createSlice({
         loginFailed: (auth, action) => {
             auth.loading = false;
             auth.res = action.payload
+        },
+        userRegisteringRequest: (auth, action) => {
+            auth.loading = true;
+        },
+        userRegistered: (auth, action) => {
+            auth.loading = false;
+            auth.isAuthenticated = true;
+            auth.res = action.payload
+        },
+        userRegisteringFailed: (auth, action) => {
+            auth.loading = false;
+            auth.res = action.payload
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested, loginFailed } = slice.actions
+const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -45,4 +57,7 @@ export const loginRequest = (data) => (dispatch) => {
             onError: loginFailed.type
         })
     )
+}
+export const registeringRequest = (data) => (dispatch) => {
+    console.log(data)
 }
