@@ -11,10 +11,12 @@ const slice = createSlice({
     initialState: {
         loading: false,
         isAuthenticated: false,
-        res: null
+        res: null,
+        error: null
     },
     reducers: {
         loginRequested: (auth, action) => {
+            auth.error = null
             auth.loading = true;
         },
         loginReceived: (auth, action) => {
@@ -24,9 +26,10 @@ const slice = createSlice({
         },
         loginFailed: (auth, action) => {
             auth.loading = false;
-            auth.res = action.payload
+            auth.error = action.payload
         },
         userRegisteringRequest: (auth, action) => {
+            auth.error = null
             auth.loading = true;
         },
         userRegistered: (auth, action) => {
@@ -36,7 +39,7 @@ const slice = createSlice({
         },
         userRegisteringFailed: (auth, action) => {
             auth.loading = false;
-            auth.res = action.payload
+            auth.error = action.payload
         }
     }
 })
@@ -59,13 +62,12 @@ export const loginRequest = (data) => (dispatch) => {
     )
 }
 export const registeringRequest = (data) => (dispatch) => {
-    console.log(data)
     dispatch(
         authCallBegan({
             url: '/api/v1/users',
             method: 'post',
             data,
-            header: { "Content-Typs": "multipart/form-data" },
+            headers: { "Content-Type": 'multipart/form-data' },
             onStart: userRegisteringRequest.type,
             onSuccess: userRegistered.type,
             onError: userRegisteringFailed

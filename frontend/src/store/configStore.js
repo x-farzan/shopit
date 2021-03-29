@@ -6,7 +6,9 @@ import reducer from './entities'
 export default configureStore({
     reducer,
     middleware: [
-        ...getDefaultMiddleware(),
+        ...getDefaultMiddleware({
+            serializableCheck: false
+        }),
         products,
         auth
     ]

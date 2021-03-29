@@ -1,5 +1,10 @@
 const express = require('express');
-const app = express();
+const cloudinary = require('cloudinary')
+const app = express()
+const fileUpload = require('express-fileupload');
+app.use(fileUpload())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 const dotenv = require('dotenv');
 
@@ -12,6 +17,13 @@ const startupDebugger = require('debug')('app:startup')
 require('./startup/validation')()
 // get all routes
 require('./startup/routers')(app)
+//cloudinary
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 // conect to database
 require('./startup/db')();
 // logging messages

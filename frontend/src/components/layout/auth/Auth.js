@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 const Auth = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const { isAuthenticated, res, loading } = useSelector(state => state.auth.login)
+    const { isAuthenticated, res, loading, error } = useSelector(state => state.auth.login)
     const initialState = {
         account: {
             email: '',
@@ -22,19 +22,18 @@ const Auth = () => {
         }
     }
     const [data, setData] = useState(initialState)
+    const [loginError, setLoginError] = useState(null)
     useEffect(() => {
         if (isAuthenticated) {
             history.push('/')
         } else if (!isAuthenticated) {
-            const newData = { ...data }
-            newData.errors.email = res
-            setData(newData)
+            setLoginError(error)
         }
 
     }, [isAuthenticated, res, loading])
 
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
         const errors = validation()
         const newData = { ...data }
@@ -45,6 +44,9 @@ const Auth = () => {
         if (isAuthenticated) {
             history.push('/')
         }
+        await setTimeout(() => {
+            setLoginError(null)
+        }, 2000)
     }
 
     const handleOnChange = (e) => {
@@ -77,6 +79,10 @@ const Auth = () => {
                     <div className="card-header h2 text-dark">
                         Login
                     </div>
+                    {loginError &&
+                        <small className="alert alert-danger text-center">
+                            {loginError}
+                        </small>}
                     <div className="card-body">
                         <form onSubmit={handleOnSubmit}>
                             <Input

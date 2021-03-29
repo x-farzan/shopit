@@ -6,7 +6,7 @@ const auth = ({ dispatch }) => next => async action => {
     if (action.type !== authCallBegan.type) return next(action)
 
     // destructuring the action.payload
-    const { url, method, onStart, data, onSuccess, onError } = action.payload
+    const { url, method, headers, onStart, data, onSuccess, onError } = action.payload
 
     if (onStart) dispatch({ type: onStart })
 
@@ -16,15 +16,18 @@ const auth = ({ dispatch }) => next => async action => {
         const response = await axios.request({
             url,
             method,
-            data
+            data,
+            headers
         })
+
         dispatch(authCallSuccess(response.data))
 
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
     } catch (error) {
-        if (error && error.response.status === 400)
+        if (error && error.response.status === 400) {
             dispatch(authCallFailed(error.response.data))
-        if (onError) dispatch({ type: onError, payload: error.response.data })
+            if (onError) dispatch({ type: onError, payload: error.response.data })
+        }
     }
 }
 export default auth
