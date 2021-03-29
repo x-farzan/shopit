@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Navbar = () => {
+    const { loading, res } = useSelector(state => state.auth.login)
+    console.log(loading, res)
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-warning mb-3">
             <div className="container">
@@ -23,9 +26,15 @@ const Navbar = () => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/products">Products</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth">Login</Link>
-                        </li>
+                        {res ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/cart">Cart</Link>
+                            </li>
+                        ) : (!loading &&
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/auth">Login</Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>

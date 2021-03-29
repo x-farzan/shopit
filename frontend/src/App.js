@@ -11,13 +11,16 @@ import SearchResult from './components/layout/products/SearchResult'
 import Auth from './components/layout/auth/Auth';
 import Register from './components/layout/auth/Register';
 import { loadingUserRequest } from './store/auth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
+import Cart from './components/layout/cart/Cart'
 
 function App() {
+  // const { res } = useSelector(state => state.auth.login)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadingUserRequest())
+
 
   }, [dispatch])
 
@@ -29,6 +32,7 @@ function App() {
         <Route exact path='/about' component={About} />
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/products' component={Products} />
+        <Route exact path='/cart' component={Cart} />
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />

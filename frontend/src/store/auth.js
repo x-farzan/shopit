@@ -12,7 +12,8 @@ const slice = createSlice({
         loading: false,
         isAuthenticated: false,
         res: null,
-        error: null
+        error: null,
+        loadError: null
     },
     reducers: {
         loginRequested: (auth, action) => {
@@ -49,10 +50,11 @@ const slice = createSlice({
             auth.loading = false;
             auth.isAuthenticated = true;
             auth.res = action.payload
+            auth.loadError = null
         },
         loadUserFailed: (auth, action) => {
             auth.loading = false;
-            auth.error = action.payload
+            auth.loadError = action.payload
         }
     }
 })
