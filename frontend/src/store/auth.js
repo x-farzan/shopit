@@ -55,11 +55,24 @@ const slice = createSlice({
         loadUserFailed: (auth, action) => {
             auth.loading = false;
             auth.loadError = action.payload
+        },
+        logoutRequest: (auth, action) => {
+            auth.loading = true;
+            auth.error = null
+        },
+        logoutRequestSucceed: (auth, action) => {
+            auth.loading = false;
+            auth.res = null
+            auth.isAuthenticated = false
+        },
+        logoutRequestFailed: (auth, action) => {
+            auth.loading = false;
+            auth.error = action.payload
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest } = slice.actions
+const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest, logoutRequest, logoutRequestFailed, logoutRequestSucceed } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -97,6 +110,18 @@ export const loadingUserRequest = () => (dispatch) => {
             onStart: loadUserRequest.type,
             onSuccess: loadUserSuccess.type,
             onError: loadUserFailed.type
+        })
+    )
+}
+
+export const logoutUserRequest = () => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/logout',
+            method: 'get',
+            onStart: logoutRequest.type,
+            onSuccess: logoutRequestSucceed.type,
+            onError: logoutRequestFailed.type
         })
     )
 }

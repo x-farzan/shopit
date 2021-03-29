@@ -1,9 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { logoutUserRequest } from '../../store/auth'
 
 const Dropdown = () => {
+    const dispatch = useDispatch()
+
     const { res } = useSelector(state => state.auth.login)
+    const logoutHandler = () => {
+        dispatch(logoutUserRequest())
+
+    }
     return (
         <>
             {res &&
@@ -22,11 +29,17 @@ const Dropdown = () => {
                         </span>
                     </Link>
                     <div className="dropdown-menu">
-                        <Link to="#" className="dropdown-item text-danger">Logout</Link>
+                        <Link
+                            to="#"
+                            className="dropdown-item
+                         text-danger"
+                            onClick={logoutHandler}
+                        >Logout</Link>
+                        <Link to="/me" className="dropdown-item">Profile</Link>
+
                         {res && res.role !== "admin" ? (
                             <>
                                 <Link to="/orders/me" className="dropdown-item">Orders</Link>
-                                <Link to="/me" className="dropdown-item">Profile</Link>
                             </>
                         ) : (
                             <Link to="/dashboard" className="dropdown-item">Dashboard</Link>

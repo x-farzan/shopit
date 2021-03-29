@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 const Auth = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const { isAuthenticated, res, loading, error } = useSelector(state => state.auth.login)
+    const { isAuthenticated, error } = useSelector(state => state.auth.login)
     const initialState = {
         account: {
             email: '',
