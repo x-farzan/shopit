@@ -10,8 +10,16 @@ import ProductDetails from './components/layout/products/ProductDetails';
 import SearchResult from './components/layout/products/SearchResult'
 import Auth from './components/layout/auth/Auth';
 import Register from './components/layout/auth/Register';
+import { loadingUserRequest } from './store/auth'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react';
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(loadingUserRequest())
+
+  }, [dispatch])
 
   return (
     <Router>

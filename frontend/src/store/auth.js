@@ -40,11 +40,24 @@ const slice = createSlice({
         userRegisteringFailed: (auth, action) => {
             auth.loading = false;
             auth.error = action.payload
+        },
+        loadUserRequest: (auth, action) => {
+            auth.error = null
+            auth.loading = true;
+        },
+        loadUserSuccess: (auth, action) => {
+            auth.loading = false;
+            auth.isAuthenticated = true;
+            auth.res = action.payload
+        },
+        loadUserFailed: (auth, action) => {
+            auth.loading = false;
+            auth.error = action.payload
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest } = slice.actions
+const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -70,7 +83,18 @@ export const registeringRequest = (data) => (dispatch) => {
             headers: { "Content-Type": 'multipart/form-data' },
             onStart: userRegisteringRequest.type,
             onSuccess: userRegistered.type,
-            onError: userRegisteringFailed
+            onError: userRegisteringFailed.type
+        })
+    )
+}
+export const loadingUserRequest = () => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/me',
+            method: 'get',
+            onStart: loadUserRequest.type,
+            onSuccess: loadUserSuccess.type,
+            onError: loadUserFailed.type
         })
     )
 }
