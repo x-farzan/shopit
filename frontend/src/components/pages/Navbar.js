@@ -1,44 +1,55 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import Dropdown from './Dropdown'
 
 const Navbar = () => {
     const { loading, res } = useSelector(state => state.auth.login)
-    console.log(loading, res)
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-warning mb-3">
-            <div className="container">
-                <Link to="/" className="navbar-brand">Shop IT <i className="fas fa-cart-plus"></i> </Link>
-                <button className="navbar-toggler" data-toggle="collapse" data-target="#navBarNav">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div id="navBarNav" className="collapse navbar-collapse">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/"><i className="fas fa-home"></i> Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/products">Products</Link>
-                        </li>
-                        {res ? (
+        <>
+
+            <nav className="navbar navbar-expand-lg navbar-light bg-warning mb-3">
+                <div className="container">
+                    <Link to="/" className="navbar-brand">Shop IT <i className="fas fa-cart-plus"></i> </Link>
+                    <button className="navbar-toggler" data-toggle="collapse" data-target="#navBarNav">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navBarNav" className="collapse navbar-collapse">
+                        <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/cart">Cart</Link>
+                                <Link className="nav-link" to="/"><i className="fas fa-home"></i> Home</Link>
                             </li>
-                        ) : (!loading &&
                             <li className="nav-item">
-                                <Link className="nav-link" to="/auth">Login</Link>
+                                <Link className="nav-link" to="/about">About</Link>
                             </li>
-                        )}
-                    </ul>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/contact">Contact</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/products">Products</Link>
+                            </li>
+
+                            {res ? (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/cart">Cart</Link>
+                                    </li>
+                                    <Dropdown
+                                        avatar={res.avatar}
+                                        name={res.name}
+                                    />
+                                </>
+                            ) : (!loading &&
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/auth">Login</Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </>
     )
 }
 export default Navbar

@@ -16,12 +16,9 @@ import { useEffect } from 'react';
 import Cart from './components/layout/cart/Cart'
 
 function App() {
-  // const { res } = useSelector(state => state.auth.login)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadingUserRequest())
-
-
   }, [dispatch])
 
   return (
