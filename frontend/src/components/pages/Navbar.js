@@ -35,10 +35,7 @@ const Navbar = () => {
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/cart">Cart</Link>
                                     </li>
-                                    <Dropdown
-                                        avatar={res.avatar}
-                                        name={res.name}
-                                    />
+                                    <Dropdown />
                                 </>
                             ) : (!loading &&
                                 <li className="nav-item">

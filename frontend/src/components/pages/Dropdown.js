@@ -5,11 +5,10 @@ import { logoutUserRequest } from '../../store/auth'
 
 const Dropdown = () => {
     const dispatch = useDispatch()
-
     const { res } = useSelector(state => state.auth.login)
+
     const logoutHandler = () => {
         dispatch(logoutUserRequest())
-
     }
     return (
         <>

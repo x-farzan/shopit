@@ -14,6 +14,8 @@ import { loadingUserRequest } from './store/auth'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import Cart from './components/layout/cart/Cart'
+import ProtectedRoute from './components/layout/routes/ProtectedRoute';
+import Profile from './components/layout/cart/Profile';
 
 function App() {
   const dispatch = useDispatch()
@@ -30,6 +32,7 @@ function App() {
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/products' component={Products} />
         <Route exact path='/cart' component={Cart} />
+        <ProtectedRoute exact path='/me' component={Profile} />
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />

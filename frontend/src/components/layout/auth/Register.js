@@ -73,22 +73,24 @@ const Register = () => {
     const onChange = (e) => {
         if (e.target.name === "avatar") {
             const file = e.target.files[0]
-            if (file.type.includes("jpeg" || "png" || "jpg")) {
-                setFilename(file.name)
-                const reader = new FileReader()
-                reader.onload = () => {
-                    if (reader.readyState === 2) {
-                        setAvatar(reader.result)
-                        setImgErr('')
-                        setAvatarPreview(reader.result)
+            if (file) {
+                if (file.type.includes("jpeg" || "png" || "jpg")) {
+                    setFilename(file.name)
+                    const reader = new FileReader()
+                    reader.onload = () => {
+                        if (reader.readyState === 2) {
+                            setAvatar(reader.result)
+                            setImgErr('')
+                            setAvatarPreview(reader.result)
+                        }
                     }
+                    reader.readAsDataURL(file)
+                } else {
+                    setImgErr("Please Select the correct file extension")
+                    setTimeout(() => {
+                        setImgErr("")
+                    }, 2000)
                 }
-                reader.readAsDataURL(file)
-            } else {
-                setImgErr("Please Select the correct file extension")
-                setTimeout(() => {
-                    setImgErr("")
-                }, 2000)
             }
 
         } else {

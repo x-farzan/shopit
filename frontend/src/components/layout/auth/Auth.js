@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-const Auth = () => {
+const Auth = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const { isAuthenticated, error } = useSelector(state => state.auth.login)
@@ -25,14 +25,18 @@ const Auth = () => {
     const [loginError, setLoginError] = useState(null)
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/')
-            window.location.reload()
-
+            history.push("/")
         } else if (!isAuthenticated) {
             setLoginError(error)
+            setTimeout(() => {
+                setLoginError('')
+            }, 2000)
+        }
+        return () => {
+            window.location.reload()
         }
         //eslint-disable-next-line
-    }, [isAuthenticated])
+    }, [isAuthenticated, error])
 
 
     const handleOnSubmit = async (e) => {
@@ -43,6 +47,9 @@ const Auth = () => {
         setData(newData)
         if (errors) { return null };
         dispatch(loginRequest(data.account))
+        if (!isAuthenticated) {
+            setLoginError(error)
+        }
         if (isAuthenticated) {
             history.push('/')
         }
