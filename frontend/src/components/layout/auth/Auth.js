@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Joi from 'joi'
 import PasswordComplexity from 'joi-password-complexity'
 import Input from './Input'
-import { loginRequest } from '../../../store/auth'
+import { clearError, loginRequest } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 const Auth = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const { isAuthenticated, error } = useSelector(state => state.auth.login)
+    const { isAuthenticated, error, loading } = useSelector(state => state.auth.login)
     const initialState = {
         account: {
             email: '',
@@ -26,13 +26,12 @@ const Auth = (props) => {
     useEffect(() => {
         if (isAuthenticated) {
             history.push("/")
-            return () => {
-                window.location.reload()
-            }
         } else if (!isAuthenticated) {
             setLoginError(error)
             setTimeout(() => {
                 setLoginError('')
+                dispatch(clearError())
+
             }, 2000)
         }
         //eslint-disable-next-line
@@ -108,7 +107,12 @@ const Auth = (props) => {
                                 name="password"
                             />
                             <Link to='/forgot/password' style={{ float: "right", cursor: "pointer" }}>Forgot Password?</Link>
-                            <input type="submit" value="Login" className="btn btn-warning  btn-lg btn-block" />
+                            <input
+                                type="submit"
+                                value="Login"
+                                className="btn btn-warning  btn-lg btn-block"
+                                disabled={loading ? true : false}
+                            />
                             <Link to='/register' className="my-2" style={{ float: "right", cursor: "pointer" }}>New User?</Link>
                         </form>
                     </div>

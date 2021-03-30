@@ -5,7 +5,6 @@ import Dropdown from './Dropdown'
 
 const Navbar = () => {
     const { loading, res } = useSelector(state => state.auth.login)
-
     return (
         <>
 

@@ -23,7 +23,7 @@ const slice = createSlice({
         loginReceived: (auth, action) => {
             auth.loading = false;
             auth.isAuthenticated = true;
-            auth.res = action.payload
+            auth.res = action.payload.user
         },
         loginFailed: (auth, action) => {
             auth.loading = false;
@@ -68,11 +68,15 @@ const slice = createSlice({
         logoutRequestFailed: (auth, action) => {
             auth.loading = false;
             auth.error = action.payload
+        },
+        clearingError: (auth, action) => {
+            auth.loading = false
+            auth.error = null
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest, logoutRequest, logoutRequestFailed, logoutRequestSucceed } = slice.actions
+const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest, logoutRequest, logoutRequestFailed, logoutRequestSucceed, clearingError } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -125,3 +129,5 @@ export const logoutUserRequest = () => (dispatch) => {
         })
     )
 }
+
+export const clearError = () => clearingError()

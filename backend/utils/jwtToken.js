@@ -11,7 +11,7 @@ const sendToken = (user, statusCode, res) => {
         ),
         httpOnly: true,
     }
-    user = _.pick(user, ['name', 'email', 'role', '_id'])
+    user = _.pick(user, ['name', 'email', 'role', '_id', 'avatar', 'createdAt'])
     res
         .status(statusCode)
         .cookie('token', token, options)

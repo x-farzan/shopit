@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Joi from 'joi'
 import PasswordComplexity from 'joi-password-complexity'
 import Input from './Input'
-import { registeringRequest } from '../../../store/auth'
+import { registeringRequest, clearError } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -37,6 +37,8 @@ const Register = () => {
             setImgErr(error)
             setTimeout(() => {
                 setImgErr('')
+                dispatch(clearError())
+
             }, 2000)
         }
         //eslint-disable-next-line
