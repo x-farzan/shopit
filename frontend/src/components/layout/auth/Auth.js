@@ -26,18 +26,17 @@ const Auth = (props) => {
     useEffect(() => {
         if (isAuthenticated) {
             history.push("/")
+            return () => {
+                window.location.reload()
+            }
         } else if (!isAuthenticated) {
             setLoginError(error)
             setTimeout(() => {
                 setLoginError('')
             }, 2000)
         }
-        return () => {
-            window.location.reload()
-        }
         //eslint-disable-next-line
     }, [isAuthenticated, error])
-
 
     const handleOnSubmit = async (e) => {
         e.preventDefault()
