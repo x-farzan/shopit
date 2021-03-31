@@ -16,7 +16,6 @@ import { useEffect } from 'react';
 import Cart from './components/layout/cart/Cart'
 import ProtectedRoute from './components/layout/routes/ProtectedRoute';
 import Profile from './components/layout/cart/Profile';
-import UpdateProfile from './components/layout/auth/UpdateProfile';
 import UpdatingProfile from './components/layout/auth/UpdatingProfile';
 
 function App() {
@@ -43,7 +42,7 @@ function App() {
               pathname: "/auth",
               state: { from: props.location }
             }} />
-            return <UpdateProfile {...props} />
+            return <UpdatingProfile {...props} />
           }}
         />
         <Route exact path='/search/:keyword' component={SearchResult} />
