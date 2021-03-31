@@ -22,8 +22,28 @@ router.post('/users', async (req, res) => {
 
     // const { avatar } = req.files
     const { name, email, password, avatar } = req.body
-    // console.log(req.body)
+    // check if user is already exists
+    let user = await User.findOne({ email: req.body.email })
+    if (user) return res.status(400).send("User already exists")
+
+    // Check if avatar is not uploaded
     if (avatar === '') return res.status(400).send("No File Uploaded")
+
+    // joi validation
+    let userData = {
+        name,
+        email,
+        password,
+        avatar: {
+            public_id: "Some string",
+            url: "Some String"
+        }
+    }
+    // joi validation for error
+    const { error } = validation(userData)
+    if (error) return res.status(400).send(error.details[0].message)
+
+
     const result = await cloudinary.v2.uploader.upload(avatar, {
         folder: "avatar",
         width: 150,
@@ -31,8 +51,7 @@ router.post('/users', async (req, res) => {
     })
 
     const { public_id, secure_url } = result
-    // console.log(result)
-    const userData = {
+    userData = {
         name,
         email,
         password,
@@ -41,15 +60,6 @@ router.post('/users', async (req, res) => {
             url: secure_url
         }
     }
-    // joi validation for error
-    const { error } = validation(userData)
-    if (error) return res.status(400).send(error.details[0].message)
-
-    // check if user is already exists
-    let user = await User.findOne({ email: req.body.email })
-    if (user) return res.status(400).send("User already exists")
-
-    // if not present than register him/her
     user = new User(userData)
 
     await user.save();

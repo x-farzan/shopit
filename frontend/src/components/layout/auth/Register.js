@@ -43,6 +43,8 @@ const Register = () => {
     }, [isAuthenticated, res, loading])
 
     useEffect(() => {
+        dispatch(clearError())
+        setImgErr("")
         return () => {
             dispatch(clearError())
             setImgErr('')
@@ -81,7 +83,7 @@ const Register = () => {
         if (e.target.name === "avatar") {
             const file = e.target.files[0]
             if (file) {
-                if (file.type.includes("jpeg" || "png" || "jpg")) {
+                if (file.type.includes("png") || file.type.includes("jpeg") || file.type.includes("jpg")) {
                     setFilename(file.name)
                     const reader = new FileReader()
                     reader.onload = () => {

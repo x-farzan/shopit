@@ -37,7 +37,7 @@ const slice = createSlice({
         userRegistered: (auth, action) => {
             auth.loading = false;
             auth.isAuthenticated = true;
-            auth.res = action.payload
+            auth.res = action.payload.user
         },
         userRegisteringFailed: (auth, action) => {
             auth.loading = false;
@@ -74,6 +74,7 @@ const slice = createSlice({
             auth.loading = false
             auth.error = null
             auth.updateProfile = false
+            auth.loadError = null
         },
         updateProfileRequest: (auth, action) => {
             auth.loading = true;
