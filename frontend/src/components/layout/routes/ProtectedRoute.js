@@ -8,18 +8,19 @@ const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
     const { res, isAuthenticated, loading } = useSelector(state => state.auth.login)
     return (
         <>
-            {!loading && <Route
-                {...rest}
-                render={props => {
-                    if (isAuthenticated === false || res === null) {
-                        return <Redirect to={{
-                            pathname: "/auth",
-                            state: { from: props.location }
-                        }} />
-                    }
-                    return <Component {...props} />
-                }}
-            />}
+            {loading === false && (
+                <Route
+                    {...rest}
+                    render={props => {
+                        if (isAuthenticated === false || res === null) {
+                            return <Redirect to={{
+                                pathname: "/auth",
+                                state: { from: props.location }
+                            }} />
+                        }
+                        return <Component {...props} />
+                    }}
+                />)}
         </>
     )
 }

@@ -37,13 +37,18 @@ const Register = () => {
             setImgErr(error)
             setTimeout(() => {
                 setImgErr('')
-                dispatch(clearError())
-
             }, 2000)
         }
         //eslint-disable-next-line
     }, [isAuthenticated, res, loading])
 
+    useEffect(() => {
+        return () => {
+            dispatch(clearError())
+            setImgErr('')
+        }
+        //eslint-disable-next-line
+    }, [])
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -130,7 +135,7 @@ const Register = () => {
                 <div className="card w-50">
                     <div className="card-header h2 text-dark">
                         Register
-                </div>
+                    </div>
                     {imgErr &&
                         <small className="alert alert-danger text-center">
                             {imgErr}

@@ -25,18 +25,23 @@ const Auth = (props) => {
     const [loginError, setLoginError] = useState(null)
     useEffect(() => {
         if (isAuthenticated) {
-            history.push("/")
+            const { state } = props.location
+            history.push(state ? state.from.pathname : "/")
         } else if (!isAuthenticated) {
             setLoginError(error)
             setTimeout(() => {
                 setLoginError('')
-                dispatch(clearError())
-
             }, 2000)
         }
         //eslint-disable-next-line
     }, [isAuthenticated, error])
-
+    useEffect(() => {
+        return () => {
+            dispatch(clearError())
+            setLoginError('')
+        }
+        //eslint-disable-next-line
+    }, [])
     const handleOnSubmit = async (e) => {
         e.preventDefault()
         const errors = validation()

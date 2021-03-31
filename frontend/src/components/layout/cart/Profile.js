@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Error from '../products/Error'
-
+import { Link } from 'react-router-dom'
 const Profile = () => {
     const { res } = useSelector(state => state.auth.login)
+
     return (
         <>
             {res !== null ? (
@@ -16,9 +17,11 @@ const Profile = () => {
                                 alt={res.name}
                                 style={{ width: "50%", height: "50%", borderRadius: "50%" }}
                             />
-                            <button className="btn my-2 btn-warning btn-block mt-2 w-50 mx-auto">
+                            <Link to="/update-profile"
+                                className="btn my-2 btn-warning btn-block mt-2 w-50 mx-auto"
+                            >
                                 Edit Profile
-                            </button>
+                            </Link>
                         </div>
                         <div className="col-md-6 text-left py-5">
                             <div className="my-5">
