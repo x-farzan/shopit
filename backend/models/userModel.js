@@ -113,8 +113,24 @@ const userValidator = (user) => {
     return schema.validate(user)
 
 }
+const updateUserValidator = (user) => {
+
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+        email: Joi.string().min(5).required().email(),
+        avatar: Joi.object({
+            public_id: Joi.string(),
+            url: Joi.string()
+        }),
+        role: Joi.string(),
+        resetPasswordToken: Joi.string()
+    })
+    return schema.validate(user)
+
+}
 
 
 
 exports.User = User;
 exports.validation = userValidator;
+exports.updateUserValidation = updateUserValidator
