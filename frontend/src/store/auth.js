@@ -13,7 +13,8 @@ const slice = createSlice({
         isAuthenticated: false,
         res: null,
         error: null,
-        loadError: null
+        loadError: null,
+        updateProfile: false
     },
     reducers: {
         loginRequested: (auth, action) => {
@@ -72,11 +73,43 @@ const slice = createSlice({
         clearingError: (auth, action) => {
             auth.loading = false
             auth.error = null
+            auth.updateProfile = false
+        },
+        updateProfileRequest: (auth, action) => {
+            auth.loading = true;
+            auth.error = null
+        },
+        updateProfileSucceed: (auth, action) => {
+            auth.loading = false;
+            auth.res = action.payload.user
+            auth.updateProfile = true
+        },
+        updateProfileFailed: (auth, action) => {
+            auth.loading = false;
+            auth.updateProfile = false
+            auth.error = action.payload
         }
     }
 })
 export default slice.reducer;
-const { loginReceived, loginRequested, loginFailed, userRegistered, userRegisteringFailed, userRegisteringRequest, loadUserSuccess, loadUserFailed, loadUserRequest, logoutRequest, logoutRequestFailed, logoutRequestSucceed, clearingError } = slice.actions
+const {
+    loginReceived,
+    loginRequested,
+    loginFailed,
+    userRegistered,
+    userRegisteringFailed,
+    userRegisteringRequest,
+    loadUserSuccess,
+    loadUserFailed,
+    loadUserRequest,
+    logoutRequest,
+    logoutRequestFailed,
+    logoutRequestSucceed,
+    clearingError,
+    updateProfileFailed,
+    updateProfileRequest,
+    updateProfileSucceed
+} = slice.actions
 
 /////////////////////////////////////////////////////////////////////
 //                      Actions
@@ -126,6 +159,19 @@ export const logoutUserRequest = () => (dispatch) => {
             onStart: logoutRequest.type,
             onSuccess: logoutRequestSucceed.type,
             onError: logoutRequestFailed.type
+        })
+    )
+}
+export const updatingProfileRequest = (data) => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/user/update',
+            method: 'post',
+            data,
+            headers: { "Content-Type": 'multipart/form-data' },
+            onStart: updateProfileRequest.type,
+            onSuccess: updateProfileSucceed.type,
+            onError: updateProfileFailed.type
         })
     )
 }
