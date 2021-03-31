@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { apiCallBegan, apiCallFailed, apiCallSuccess } from '../store/api'
 
-const products = ({ dispatch }) => next => async action => {
+const products = ({ dispatch, getState }) => next => async action => {
     if (action.type !== apiCallBegan.type) return next(action)
 
     // destructuring the action.payload
@@ -19,8 +19,8 @@ const products = ({ dispatch }) => next => async action => {
             data
         })
         dispatch(apiCallSuccess(response.data))
-
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
+
     } catch (error) {
         dispatch(apiCallFailed(error.message))
         if (onError) dispatch({ type: onError, payload: error.message })

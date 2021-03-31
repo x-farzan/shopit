@@ -11,7 +11,6 @@ const slice = createSlice({
         list: [],
         count: null,
         loading: false,
-        lastFetch: null,
         search: []
     },
     reducers: {
