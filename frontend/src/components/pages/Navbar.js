@@ -5,6 +5,7 @@ import Dropdown from './Dropdown'
 
 const Navbar = () => {
     const { loading, res } = useSelector(state => state.auth.login)
+    const { list } = useSelector(state => state.entities.cart)
     return (
         <>
 
@@ -32,7 +33,14 @@ const Navbar = () => {
                             {res ? (
                                 <>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/cart">Cart</Link>
+                                        <Link className="nav-link" to="/cart">Cart
+                                        &nbsp;
+                                        <i className="fas fa-shopping-cart">
+                                                <span>
+                                                    {list.length}
+                                                </span>
+                                            </i>
+                                        </Link>
                                     </li>
                                     <Dropdown />
                                 </>
