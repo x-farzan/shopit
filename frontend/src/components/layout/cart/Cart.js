@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Metadata from '../products/Metadata'
 import { useSelector } from 'react-redux'
 import CartItem from './CartItem'
