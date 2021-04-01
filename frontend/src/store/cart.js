@@ -14,9 +14,11 @@ const slice = createSlice({
         },
         getProductToCartSuccess: (cart, action) => {
             cart.loading = false
-            const { payload, qty, id } = action
+            const { payload, qty, id, price } = action
             const item = cart.list.find(i => i._id === id)
             payload.product.qty = qty
+            payload.product.totalPrice = price * qty
+
             if (!item) {
                 cart.list.push(payload.product)
             }
@@ -24,15 +26,22 @@ const slice = createSlice({
         getProductToCartFailed: (cart, action) => {
             cart.loading = false;
             cart.error = action.payload
+        },
+        changeItemsCount: (cart, action) => {
+            const { id, qty, price } = action.payload
+            const item = cart.list.find(i => i._id === id)
+            item.qty = qty
+            item.totalPrice = price * qty
+            localStorage.setItem("cartItems", JSON.stringify(cart.list))
         }
     }
 })
 
 export default slice.reducer
 
-const { getProductToCartFailed, getProductToCartRequest, getProductToCartSuccess } = slice.actions
+const { getProductToCartFailed, getProductToCartRequest, getProductToCartSuccess, changeItemsCount } = slice.actions
 
-export const addProductToCart = (id, qty) => (dispatch, getState) => {
+export const addProductToCart = (id, qty, price) => (dispatch) => {
     dispatch(
         cartCallBegan({
             url: `/api/v1/product/${id}`,
@@ -40,7 +49,10 @@ export const addProductToCart = (id, qty) => (dispatch, getState) => {
             onSuccess: getProductToCartSuccess.type,
             onError: getProductToCartFailed.type,
             qty,
-            id
+            id,
+            price
         })
     )
 }
+
+export const changeItems = (change) => changeItemsCount(change)
