@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 import Input from '../auth/Input'
 import { countryList } from './CountriesOptions'
 import Joi from 'joi'
+import { getShippingInfo } from '../../../store/cart'
+import { useDispatch, useSelector } from 'react-redux'
 const Shipping = () => {
+    const shippingInfo = useSelector(state => state.entities.cart.shippingInfo)
+
+    const dispatch = useDispatch()
     const initialState = {
         user: {
-            address: "",
-            city: "",
-            phone: "",
-            postalCode: "",
-            country: ""
+            address: "" || shippingInfo.address,
+            city: "" || shippingInfo.city,
+            phone: "" || shippingInfo.phone,
+            postalCode: "" || shippingInfo.postalCode,
+            country: "" || shippingInfo.country
         },
         errors: {
             address: "",
@@ -23,7 +28,7 @@ const Shipping = () => {
 
     const handleOnChange = (e) => {
         const newData = { ...data }
-        newData.user[e.currentTarget.name] = e.currentTarget.value
+        newData.user[e.target.name] = e.target.value
         setData(newData)
         const errors = validation()
         const errorsData = { ...data }
@@ -37,12 +42,13 @@ const Shipping = () => {
         newData.errors = errors || {}
         setData(newData)
         if (errors) { return null };
+        dispatch(getShippingInfo(data.user))
     }
 
     const validation = () => {
         const schema = Joi.object({
-            address: Joi.string().min(5).required(),
-            city: Joi.string().min(3).required(),
+            address: Joi.string().min(5).max(255).required(),
+            city: Joi.string().min(3).max(50).required(),
             phone: Joi.string().min(8).max(20).required(),
             postalCode: Joi.string().min(3).max(20).required(),
             country: Joi.string().min(3).max(20).required()
@@ -99,8 +105,9 @@ const Shipping = () => {
                             <select
                                 id="gender"
                                 name="country"
-                                className="form-control"
+                                className={`form-control ${data.errors.country ? "is-invalid" : ""}`}
                                 onChange={handleOnChange}
+                                value={data.user.country}
                                 type="text"
                             >
                                 {countryList.map(country => (
@@ -109,7 +116,12 @@ const Shipping = () => {
                                         value={country}
                                     >{country}</option>
                                 ))}
+
                             </select>
+                            {data.errors.country &&
+                                <div className="invalid-feedback">
+                                    {data.errors.country}
+                                </div>}
                         </div>
                         <div className="form-group">
                             <button

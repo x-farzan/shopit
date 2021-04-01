@@ -5,7 +5,7 @@ const slice = createSlice({
     name: "cart",
     initialState: {
         list: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
-        shippingInfo: {},
+        shippingInfo: localStorage.getItem("shippingInfo") ? JSON.parse(localStorage.getItem("shippingInfo")) : {},
         loading: false,
         error: null
     },
@@ -42,8 +42,7 @@ const slice = createSlice({
             localStorage.setItem("cartItems", JSON.stringify(cart.list))
         },
         addShippingInfo: (cart, action) => {
-            const { address } = action.payload
-            cart.shippingInfo = address
+            cart.shippingInfo = action.payload
             localStorage.setItem("shippingInfo", JSON.stringify(cart.shippingInfo))
         }
     }
