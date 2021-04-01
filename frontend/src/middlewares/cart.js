@@ -6,8 +6,7 @@ const cart = ({ dispatch, getState }) => next => async action => {
     if (action.type !== cartCallBegan.type) return next(action)
 
     // destructuring the action.payload
-    const { url, onStart, onSuccess, onError, qty, id } = action.payload
-
+    const { url, onStart, onSuccess, onError, qty, id, price } = action.payload
     if (onStart) dispatch({ type: onStart })
 
     next(action)
@@ -17,8 +16,10 @@ const cart = ({ dispatch, getState }) => next => async action => {
             url
         })
         dispatch(cartCallSuccess(response.data))
-        if (onSuccess) dispatch({ type: onSuccess, payload: response.data, qty, id })
-        // console.log(getState().entities.cart.list)
+        console.log(response.data.product)
+        if (onSuccess) dispatch({ type: onSuccess, payload: response.data, qty, id, price })
+        console.log(response.data.product)
+
         localStorage.setItem("cartItems", JSON.stringify(getState().entities.cart.list))
     } catch (error) {
         dispatch(cartCallFailed(error.message))
