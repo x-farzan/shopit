@@ -150,6 +150,7 @@ const Register = () => {
                                 value={data.account.name}
                                 onChange={onChange}
                                 name="name"
+                                type="text"
                             />
                             <Input
                                 label="Email"
@@ -157,6 +158,7 @@ const Register = () => {
                                 value={data.account.email}
                                 onChange={onChange}
                                 name="email"
+                                type="email"
                             />
                             <Input
                                 label="Password"
@@ -164,6 +166,7 @@ const Register = () => {
                                 value={data.account.password}
                                 onChange={onChange}
                                 name="password"
+                                type="password"
                             />
                             <div className="row my-3">
                                 <div className="col-2">

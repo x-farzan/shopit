@@ -49,7 +49,7 @@ function App() {
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />
-        <Route exact path='/shipping' component={Shipping} />
+        <ProtectedRoute exact path='/shipping' component={Shipping} />
         <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />

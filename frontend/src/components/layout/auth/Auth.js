@@ -103,6 +103,7 @@ const Auth = (props) => {
                                 value={data.account.email}
                                 onChange={handleOnChange}
                                 name="email"
+                                type="email"
                             />
                             <Input
                                 label="Password"
@@ -110,6 +111,7 @@ const Auth = (props) => {
                                 value={data.account.password}
                                 onChange={handleOnChange}
                                 name="password"
+                                type="password"
                             />
                             <Link to='/forgot/password' style={{ float: "right", cursor: "pointer" }}>Forgot Password?</Link>
                             <input

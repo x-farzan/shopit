@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../auth/Input'
 import { countryList } from './CountriesOptions'
 import Joi from 'joi'
@@ -26,6 +26,11 @@ const Shipping = () => {
     }
     const [data, setData] = useState(initialState)
 
+
+    useEffect(() => {
+        setData(initialState)
+        //eslint-disable-next-line
+    }, [shippingInfo])
     const handleOnChange = (e) => {
         const newData = { ...data }
         newData.user[e.target.name] = e.target.value
@@ -51,7 +56,7 @@ const Shipping = () => {
             city: Joi.string().min(3).max(50).required(),
             phone: Joi.string().min(8).max(20).required(),
             postalCode: Joi.string().min(3).max(20).required(),
-            country: Joi.string().min(3).max(20).required()
+            country: Joi.string().min(3).max(50).required()
         })
         const { error } = schema.validate(data.user)
         if (!error) return null
@@ -59,7 +64,12 @@ const Shipping = () => {
         for (let item of error.details) errors[item.path[0]] = item.message
         return errors
     }
-
+    // const handleCountryChange = e => {
+    //     // console.log(e.target.value)
+    //     const newData = { ...data }
+    //     newData.user.country = e.target.value || ""
+    //     // setData(newData)
+    // }
     return (
         <div className="container" style={{ minHeight: "100vh", paddingTop: "5rem" }}>
             <div className="card w-50 mx-auto">
