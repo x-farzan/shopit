@@ -63,7 +63,7 @@ const ProductDetails = ({ match }) => {
             }, 2000);
             return
         }
-        dispatch(addProductToCart(match.params.id, count))
+        dispatch(addProductToCart(match.params.id, count, price))
     }
     return (
         <>
@@ -98,7 +98,7 @@ const ProductDetails = ({ match }) => {
                                 onClick={incrementQty}
                             >+</button>
                             <button
-                                className={`btn btn-sm btn-warning ml-5 ${stock === 0 ? "disabled" : ""}`}
+                                className={`btn btn-sm btn-warning ml-5 ${stock === 0 || count === 0 ? "d-none" : ""}`}
                                 onClick={addToCart}
                             >
                                 Add to Cart
