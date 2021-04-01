@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Summary = ({ length, totalPrice }) => {
+const Summary = ({ length, totalPrice, units }) => {
     return (
         <>
             <div className="card">
@@ -11,10 +11,16 @@ const Summary = ({ length, totalPrice }) => {
                     <hr />
                     <p className="d-flex justify-content-between">
                         <span>Subtotal:  </span>
-                        <span>{length}(units)</span>
+                        <span>{units}(units)</span>
                     </p>
+                    <hr />
                     <p className="d-flex justify-content-between">
-                        <span>Est. total:</span>
+                        <span>Categories: </span>
+                        <span>{length} (units)</span>
+                    </p>
+                    <hr />
+                    <p className="d-flex justify-content-between">
+                        <span>Est. total Price:</span>
                         <span>  $ {totalPrice}</span>
                     </p>
                     <hr />
@@ -22,7 +28,7 @@ const Summary = ({ length, totalPrice }) => {
                 <div className="card-footer">
                     <div className="btn btn-warning btn-block">
                         Check Out
-                                </div>
+                    </div>
                 </div>
             </div>
         </>

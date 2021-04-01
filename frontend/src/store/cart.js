@@ -33,13 +33,19 @@ const slice = createSlice({
             item.qty = qty
             item.totalPrice = price * qty
             localStorage.setItem("cartItems", JSON.stringify(cart.list))
+        },
+        removeItemFromCart: (cart, action) => {
+            const { id } = action.payload
+            const index = cart.list.findIndex(i => i._id === id)
+            cart.list.splice(index, 1)
+            localStorage.setItem("cartItems", JSON.stringify(cart.list))
         }
     }
 })
 
 export default slice.reducer
 
-const { getProductToCartFailed, getProductToCartRequest, getProductToCartSuccess, changeItemsCount } = slice.actions
+const { getProductToCartFailed, getProductToCartRequest, getProductToCartSuccess, changeItemsCount, removeItemFromCart } = slice.actions
 
 export const addProductToCart = (id, qty, price) => (dispatch) => {
     dispatch(
@@ -56,3 +62,4 @@ export const addProductToCart = (id, qty, price) => (dispatch) => {
 }
 
 export const changeItems = (change) => changeItemsCount(change)
+export const removeItem = (id) => removeItemFromCart(id)

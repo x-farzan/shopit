@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { changeItems } from '../../../store/cart'
-import { useDispatch } from "react-redux"
+import { changeItems, removeItem } from '../../../store/cart'
+import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from 'react-router-dom'
+
 const CartItem = ({ name, price, stock, qty, id }) => {
     const dispatch = useDispatch()
-
+    const cart = useSelector(state => state.entities.cart.list)
+    const history = useHistory()
     const [count, setCount] = useState(qty)
 
     useEffect(() => {
@@ -16,6 +19,12 @@ const CartItem = ({ name, price, stock, qty, id }) => {
     }
     const decrementQty = () => {
         setCount(Math.max(Number("1"), count - 1))
+    }
+    const handleRemoveProduct = () => {
+        dispatch(removeItem({ id }))
+        if (cart.length === 1) {
+            history.push('/products')
+        }
     }
     return (
         <div>
@@ -43,7 +52,10 @@ const CartItem = ({ name, price, stock, qty, id }) => {
                     <p className="mt-3">total: $ {price * count}</p>
                 </div>
                 <div className="col-md-1 text-danger">
-                    <i className="fas fa-trash-alt"></i>
+                    <i className="fas fa-trash-alt"
+                        onClick={handleRemoveProduct}
+                        style={{ cursor: "pointer" }}
+                    ></i>
                 </div>
             </div>
             <hr />

@@ -16,10 +16,8 @@ const cart = ({ dispatch, getState }) => next => async action => {
             url
         })
         dispatch(cartCallSuccess(response.data))
-        console.log(response.data.product)
-        if (onSuccess) dispatch({ type: onSuccess, payload: response.data, qty, id, price })
-        console.log(response.data.product)
 
+        if (onSuccess) dispatch({ type: onSuccess, payload: response.data, qty, id, price })
         localStorage.setItem("cartItems", JSON.stringify(getState().entities.cart.list))
     } catch (error) {
         dispatch(cartCallFailed(error.message))
