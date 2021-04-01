@@ -5,6 +5,7 @@ const slice = createSlice({
     name: "cart",
     initialState: {
         list: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
+        shippingInfo: {},
         loading: false,
         error: null
     },
@@ -39,13 +40,25 @@ const slice = createSlice({
             const index = cart.list.findIndex(i => i._id === id)
             cart.list.splice(index, 1)
             localStorage.setItem("cartItems", JSON.stringify(cart.list))
+        },
+        addShippingInfo: (cart, action) => {
+            const { address } = action.payload
+            cart.shippingInfo = address
+            localStorage.setItem("shippingInfo", JSON.stringify(cart.shippingInfo))
         }
     }
 })
 
 export default slice.reducer
 
-const { getProductToCartFailed, getProductToCartRequest, getProductToCartSuccess, changeItemsCount, removeItemFromCart } = slice.actions
+const {
+    getProductToCartFailed,
+    getProductToCartRequest,
+    getProductToCartSuccess,
+    changeItemsCount,
+    removeItemFromCart,
+    addShippingInfo
+} = slice.actions
 
 export const addProductToCart = (id, qty, price) => (dispatch) => {
     dispatch(
@@ -63,3 +76,4 @@ export const addProductToCart = (id, qty, price) => (dispatch) => {
 
 export const changeItems = (change) => changeItemsCount(change)
 export const removeItem = (id) => removeItemFromCart(id)
+export const getShippingInfo = (address) => addShippingInfo(address)

@@ -17,6 +17,7 @@ import Cart from './components/layout/cart/Cart'
 import ProtectedRoute from './components/layout/routes/ProtectedRoute';
 import Profile from './components/layout/cart/Profile';
 import UpdatingProfile from './components/layout/auth/UpdatingProfile';
+import Shipping from './components/layout/cart/Shipping';
 
 function App() {
   const dispatch = useDispatch()
@@ -48,6 +49,7 @@ function App() {
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />
+        <Route exact path='/shipping' component={Shipping} />
         <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />

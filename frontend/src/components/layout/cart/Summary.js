@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Summary = ({ length, totalPrice, units }) => {
     return (
@@ -26,9 +27,9 @@ const Summary = ({ length, totalPrice, units }) => {
                     <hr />
                 </div>
                 <div className="card-footer">
-                    <div className="btn btn-warning btn-block">
+                    <Link to='/shipping' className="btn btn-warning btn-block">
                         Check Out
-                    </div>
+                    </Link>
                 </div>
             </div>
         </>
