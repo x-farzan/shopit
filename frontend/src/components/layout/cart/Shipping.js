@@ -4,6 +4,7 @@ import { countryList } from './CountriesOptions'
 import Joi from 'joi'
 import { getShippingInfo } from '../../../store/cart'
 import { useDispatch, useSelector } from 'react-redux'
+import ShippingSteps from './ShippingSteps'
 const Shipping = () => {
     const shippingInfo = useSelector(state => state.entities.cart.shippingInfo)
 
@@ -64,15 +65,13 @@ const Shipping = () => {
         for (let item of error.details) errors[item.path[0]] = item.message
         return errors
     }
-    // const handleCountryChange = e => {
-    //     // console.log(e.target.value)
-    //     const newData = { ...data }
-    //     newData.user.country = e.target.value || ""
-    //     // setData(newData)
-    // }
+
     return (
-        <div className="container" style={{ minHeight: "100vh", paddingTop: "5rem" }}>
-            <div className="card w-50 mx-auto">
+        <div className="container" style={{ minHeight: "100vh" }}>
+            <ShippingSteps
+                shipping
+            />
+            <div className="card w-50 mx-auto mt-3">
                 <h1 className="card-header">
                     Shipping Info
                 </h1>
