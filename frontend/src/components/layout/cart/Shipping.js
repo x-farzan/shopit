@@ -5,7 +5,9 @@ import Joi from 'joi'
 import { getShippingInfo } from '../../../store/cart'
 import { useDispatch, useSelector } from 'react-redux'
 import ShippingSteps from './ShippingSteps'
+import { Link, useHistory } from 'react-router-dom'
 const Shipping = () => {
+    const history = useHistory();
     const shippingInfo = useSelector(state => state.entities.cart.shippingInfo)
 
     const dispatch = useDispatch()
@@ -49,6 +51,8 @@ const Shipping = () => {
         setData(newData)
         if (errors) { return null };
         dispatch(getShippingInfo(data.user))
+        history.push('/confirm/order')
+
     }
 
     const validation = () => {
@@ -133,12 +137,13 @@ const Shipping = () => {
                                 </div>}
                         </div>
                         <div className="form-group">
-                            <button
+                            <Link to="/confirm/order"
                                 placeholder="Select Country"
                                 type="submit"
+                                onClick={handleOnSubmit}
                                 className="btn btn-lg btn-warning btn-block">
                                 Continue
-                            </button>
+                            </Link>
                         </div>
                     </form>
                 </div>
