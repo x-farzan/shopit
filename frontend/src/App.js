@@ -18,6 +18,7 @@ import ProtectedRoute from './components/layout/routes/ProtectedRoute';
 import Profile from './components/layout/cart/Profile';
 import UpdatingProfile from './components/layout/auth/UpdatingProfile';
 import Shipping from './components/layout/cart/Shipping';
+import ConfirmOrder from './components/layout/cart/ConfirmOrder';
 
 function App() {
   const dispatch = useDispatch()
@@ -50,6 +51,8 @@ function App() {
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />
         <ProtectedRoute exact path='/shipping' component={Shipping} />
+        <ProtectedRoute exact path='/confirm/order' component={ConfirmOrder} />
+
         <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />
