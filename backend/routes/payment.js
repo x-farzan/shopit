@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router()
 const auth = require('../middleware/auth')
-const Joi = require('joi');
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 //process stripe payment => /api/v1/payment/process
 // protected by user
 router.post("/payment/process", auth, async (req, res) => {
-    const paymentIntent = await stripe.paymentIntent.create({
+    const paymentIntent = await stripe.paymentIntents.create({
         amount: req.body.amount,
         currency: "usd",
         metadata: { integration_check: "accept_a_payment" }

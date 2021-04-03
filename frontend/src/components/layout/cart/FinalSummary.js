@@ -11,7 +11,7 @@ const FinalSummary = ({ subTotal, shipping, totalPrice, tax }) => {
             tax,
             totalPrice
         }
-        sessionStorage.setItem("FinalOrderInfo", JSON.stringify(data))
+        sessionStorage.setItem("finalOrderInfo", JSON.stringify(data))
         history.push("/payment")
     }
     return (

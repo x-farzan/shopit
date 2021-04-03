@@ -24,6 +24,7 @@ import Payment from './components/layout/cart/Payment';
 
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
+import PaymentSuccess from './store/PaymentSuccess';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
   }, [dispatch])
 
   const { res, isAuthenticated } = useSelector(state => state.auth.login)
-  const stripeKey = useSelector(state => state.payment.stripeApiKey)
+  const stripeKey = useSelector(state => state.payment.stripeKey.stripeApiKey)
   return (
     <Router>
       <Navbar />
@@ -61,6 +62,8 @@ function App() {
         <Route exact path='/auth' component={Auth} />
         <ProtectedRoute exact path='/shipping' component={Shipping} />
         <ProtectedRoute exact path='/confirm/order' component={ConfirmOrder} />
+        <ProtectedRoute exact path='/success' component={PaymentSuccess} />
+
         {stripeKey &&
           <Elements stripe={loadStripe(stripeKey)}>
             <ProtectedRoute exact path="/payment" component={Payment} />
