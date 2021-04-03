@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     shippingInfo: {
         address: { type: String, required: true },
         city: { type: String, required: true },
-        phoneNo: { type: String, required: true },
+        phone: { type: String, required: true },
         postalCode: { type: String, required: true },
         country: { type: String, required: true }
 
@@ -18,8 +18,14 @@ const orderSchema = new mongoose.Schema({
     orderItems: [
         {
             name: { type: String, required: true },
-            quantity: { type: String, required: true },
-            image: { type: String, required: true },
+            qty: { type: Number, required: true },
+            images: [
+                {
+                    _id: { type: String },
+                    public_id: { type: String, required: true },
+                    url: { type: String, required: true }
+                }
+            ],
             price: { type: String, required: true },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
@@ -70,17 +76,22 @@ const orderSchema = new mongoose.Schema({
 const Order = mongoose.model('Order', orderSchema)
 
 const orderValidation = order => {
+    const imagesSchema = Joi.object({
+        _id: Joi.string(),
+        public_id: Joi.string().required(),
+        url: Joi.string().required(),
+    })
     const orderItemsSchema = Joi.object({
         name: Joi.string().required(),
-        quantity: Joi.string().required(),
-        image: Joi.string().required(),
-        price: Joi.string().required(),
+        qty: Joi.number().required(),
+        images: Joi.array().items(imagesSchema).min(1).required(),
+        price: Joi.number().required(),
         product: Joi.string().required(),
     })
     const shippingInfoSchema = {
         address: Joi.string().required(),
         city: Joi.string().required(),
-        phoneNo: Joi.string().required(),
+        phone: Joi.string().required(),
         postalCode: Joi.string().required(),
         country: Joi.string().required(),
     }
@@ -96,6 +107,7 @@ const orderValidation = order => {
         taxPrice: Joi.number().required(),
         shippingPrice: Joi.number().required(),
         totalPrice: Joi.number().required(),
+        user: Joi.string().required(),
         paymentInfo: Joi.object(paymentInfoSchema).required()
     })
     return schema.validate(order)

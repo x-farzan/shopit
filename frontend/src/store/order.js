@@ -18,11 +18,13 @@ const slice = createSlice({
         createOrderSuccess: (order, action) => {
             order.loading = false
             order.ordered = action.payload
+            order.error = null
         },
         ctreateOrderFailed: (order, action) => {
             order.loading = false;
             order.error = action.payload
-        }
+        },
+
     }
 })
 

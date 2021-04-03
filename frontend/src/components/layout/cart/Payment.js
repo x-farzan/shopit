@@ -4,15 +4,19 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import ShippingSteps from './ShippingSteps';
 import axios from 'axios'
+import { creatingOrderRequest } from '../../../store/order'
+import _ from "lodash"
 
 const Payment = () => {
     const [payError, setPayError] = useState("")
     const stripe = useStripe();
     const elements = useElements();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const history = useHistory()
     const { res } = useSelector(state => state.auth.login)
-    // const { list, shippingInfo } = useSelector(state => state.entities.cart)
+    const { list, shippingInfo } = useSelector(state => state.entities.cart)
+
+    const newList = _.map(list, o => _.pick(o, ['name', 'price', 'qty', 'images', 'product']))
 
     const options = {
         style: {
@@ -24,7 +28,19 @@ const Payment = () => {
             }
         }
     }
+    // order
+    const order = {
+        shippingInfo,
+        user: res._id,
+        orderItems: newList,
+    }
     const finalOrderInfo = JSON.parse(sessionStorage.getItem("finalOrderInfo"))
+    if (finalOrderInfo) {
+        order.itemPrice = finalOrderInfo.itemsPrice
+        order.shippingPrice = finalOrderInfo.shipping
+        order.taxPrice = finalOrderInfo.tax
+        order.totalPrice = finalOrderInfo.totalPrice
+    }
     const paymentData = {
         amount: Math.round(finalOrderInfo.totalPrice * 100)
     }
@@ -66,6 +82,12 @@ const Payment = () => {
                 // if payment is successed or not
                 if (result.paymentIntent.status === "succeeded") {
                     // TODO: New Order
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
+                    console.log(order)
+                    dispatch(creatingOrderRequest(order))
                     history.push("/success")
                 } else {
                     setPayError("There is some issue while payment processing")

@@ -24,7 +24,8 @@ import Payment from './components/layout/cart/Payment';
 
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
-import PaymentSuccess from './store/PaymentSuccess';
+import PaymentSuccess from './components/layout/cart/PaymentSuccess';
+import Order from './components/layout/cart/Order';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <ProtectedRoute exact path='/shipping' component={Shipping} />
         <ProtectedRoute exact path='/confirm/order' component={ConfirmOrder} />
         <ProtectedRoute exact path='/success' component={PaymentSuccess} />
+        <ProtectedRoute exact path='/orders' component={Order} />
 
         {stripeKey &&
           <Elements stripe={loadStripe(stripeKey)}>

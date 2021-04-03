@@ -18,6 +18,7 @@ const slice = createSlice({
             const { payload, qty, id, price } = action
             const item = cart.list.find(i => i._id === id)
             payload.product.qty = qty
+            payload.product.product = id
             payload.product.totalPrice = price * qty
 
             if (!item) {
