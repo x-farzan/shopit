@@ -10,7 +10,7 @@ const ShippingSteps = ({ shipping, confirmOrder, payment }) => {
     }
     const part = {
         width: "80%",
-        height: "80%",
+        height: "65%",
         marginTop: "auto",
         marginBottom: "auto"
     }
@@ -23,7 +23,7 @@ const ShippingSteps = ({ shipping, confirmOrder, payment }) => {
     }
     const partDim = {
         width: "80%",
-        height: "80%",
+        height: "65%",
         marginTop: "auto",
         marginBottom: "auto",
         backgroundColor: "#eee",
@@ -32,46 +32,46 @@ const ShippingSteps = ({ shipping, confirmOrder, payment }) => {
     return (
         <div className="d-flex container" style={{ width: "600px" }}>
             {shipping ? (
-                <Link to='/shipping'>
+                <Link to='#'>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={part} className="h6 px-3 bg-warning py-3 mid text-light text-center ">Shipping</div>
+                        <div style={part} className="h6 px-3 bg-warning pt-3 mid text-light text-center ">Shipping</div>
                         <div style={rightArrow} className="right"></div>
                     </div>
                 </Link>
             ) : (
                 <Link to='#' disabled style={{ textDecoration: "none" }}>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={partDim} className="h6 px-3 py-3 mid text-light text-center ">Shipping</div>
+                        <div style={partDim} className="h6 px-3 pt-3 mid text-light text-center ">Shipping</div>
                         <div style={rightArrowDim} className="right"></div>
                     </div>
                 </Link>
             )}
             {confirmOrder ? (
-                <Link to='/confirm/order'>
+                <Link to='#'>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={part} className="h6 px-3 bg-warning py-3 mid text-light text-center ">Confirm Order</div>
+                        <div style={part} className="h6 px-3 bg-warning pt-3 mid text-light text-center ">Confirm Order</div>
                         <div style={rightArrow} className="right"></div>
                     </div>
                 </Link>
             ) : (
                 <Link to='#' disabled style={{ textDecoration: "none" }}>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={partDim} className="h6 px-3 py-3 mid text-light text-center ">Confirm Order</div>
+                        <div style={partDim} className="h6 px-3 pt-3 mid text-light text-center ">Confirm Order</div>
                         <div style={rightArrowDim} className="right"></div>
                     </div>
                 </Link>
             )}
             {payment ? (
-                <Link to='/payment'>
+                <Link to='#'>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={part} className="h6 px-3 bg-warning py-3 mid text-light text-center ">Payment</div>
+                        <div style={part} className="h6 px-3 bg-warning pt-3 mid text-light text-center ">Payment</div>
                         <div style={rightArrow} className="right"></div>
                     </div>
                 </Link>
             ) : (
                 <Link to="#" disabled style={{ textDecoration: "none" }}>
                     <div className="container d-flex justify-content-start align-items-center" style={{ height: "100%", width: "100%" }}>
-                        <div style={partDim} className="h6 px-3 py-3 mid text-light text-center ">Payment</div>
+                        <div style={partDim} className="h6 px-3 pt-3 mid text-light text-center ">Payment</div>
                         <div style={rightArrowDim} className="right"></div>
                     </div>
                 </Link>

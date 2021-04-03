@@ -9,6 +9,7 @@ const admin = require('../routes/admin')
 const order = require('../routes/order')
 const review = require('../routes/reviews')
 const { urlencoded } = require('express')
+const payment = require("../routes/payment")
 
 module.exports = function (app) {
     app.use(express.json())
@@ -20,6 +21,7 @@ module.exports = function (app) {
     app.use('/api/v1', admin)
     app.use('/api/v1', order)
     app.use('/api/v1', review)
+    app.use('/api/v1', payment)
 
     // error middleware
     app.use(error)

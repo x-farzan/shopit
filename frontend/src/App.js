@@ -19,14 +19,23 @@ import Profile from './components/layout/cart/Profile';
 import UpdatingProfile from './components/layout/auth/UpdatingProfile';
 import Shipping from './components/layout/cart/Shipping';
 import ConfirmOrder from './components/layout/cart/ConfirmOrder';
+import { stripeKeyRequesting } from './store/payment'
+import Payment from './components/layout/cart/Payment';
+
+import { Elements } from "@stripe/react-stripe-js"
+import { loadStripe } from "@stripe/stripe-js"
+
 
 function App() {
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadingUserRequest())
+    dispatch(stripeKeyRequesting())
   }, [dispatch])
-  const { res, isAuthenticated } = useSelector(state => state.auth.login)
 
+  const { res, isAuthenticated } = useSelector(state => state.auth.login)
+  const stripeKey = useSelector(state => state.payment.stripeApiKey)
   return (
     <Router>
       <Navbar />
@@ -52,7 +61,11 @@ function App() {
         <Route exact path='/auth' component={Auth} />
         <ProtectedRoute exact path='/shipping' component={Shipping} />
         <ProtectedRoute exact path='/confirm/order' component={ConfirmOrder} />
-
+        {stripeKey &&
+          <Elements stripe={loadStripe(stripeKey)}>
+            <ProtectedRoute exact path="/payment" component={Payment} />
+          </Elements>
+        }
         <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />
