@@ -12,10 +12,7 @@ const Joi = require('joi');
 router.post('/order/new', auth, async (req, res) => {
     // console.log(req.body)
     const { error } = validation(req.body)
-    if (error) {
-        console.log(error.details[0].message)
-        return res.status(400).send(error.details[0].message)
-    }
+    if (error) return res.status(400).send(error.details[0].message)
 
     let order = new Order(_.pick(req.body, ['orderItems', 'shippingInfo', 'itemPrice', 'taxPrice', 'shippingPrice', 'totalPrice', 'paymentInfo']));
     // let order = new Order(_.pick(req.body, ['shippingInfo']));

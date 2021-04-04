@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from "react-router-dom"
-import useWebAnimations from "@wellyshen/use-web-animations";
 
 
 const PaymentSuccess = () => {
@@ -10,7 +9,7 @@ const PaymentSuccess = () => {
             <div className="animate__animated animate__backInDown d-flex target flex-column align-items-center justify-content-center">
                 <i style={{ fontSize: "20rem" }} className="fas text-success my-auto fa-check-circle"></i>
                 <h3>Your Order Has Been Placed Successfully</h3>
-                <h3>Go to <br /> <Link style={{ fontSize: "20px" }} to='/orders'>Your Orders</Link></h3>
+                <Link className="animate__animated animate__bounce animate__delay-2s " style={{ fontSize: "20px" }} to='/orders/me'>Go to Orders</Link>
             </div>
         </div>
     )
