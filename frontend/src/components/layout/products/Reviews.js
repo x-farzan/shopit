@@ -1,16 +1,15 @@
 import React from 'react'
+import RatingStars from './RatingStars'
 
-const Reviews = () => {
+const Reviews = ({ name, rating, comment }) => {
+
     return (
-        <div className="container my-5">
-            <h1>Other's Reviews</h1>
-            <div className="row">
-                <div className="col-md-6">
-                    <hr />
-
-                </div>
-            </div>
-        </div>
+        <>
+            <hr />
+            <RatingStars rating={rating} />
+            <small className="mx-2">by {name}</small>
+            <p className="my-2">{comment}</p>
+        </>
     )
 }
 

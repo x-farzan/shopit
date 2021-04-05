@@ -78,12 +78,7 @@ const productValidation = (product) => {
         public_id: Joi.string().required(),
         url: Joi.string().required()
     })
-    // const reviewSchema = Joi.object({
-    //     user: Joi.string().required(),
-    //     name: Joi.string().required(),
-    //     rating: Joi.number().required(),
-    //     comment: Joi.string().required()
-    // })
+
     const schema = Joi.object({
         name: Joi.string().min(3).max(1000).required(),
         price: Joi.number().required().default(0),
@@ -94,7 +89,6 @@ const productValidation = (product) => {
         seller: Joi.string().required(),
         stock: Joi.number().default(0).required(),
         numOfReviews: Joi.number().required().default(0),
-        // reviews: Joi.array().items(reviewSchema).min(1)
     })
     return schema.validate(product)
 }

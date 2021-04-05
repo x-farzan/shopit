@@ -132,7 +132,7 @@ router.delete('/delete/review', auth, async (req, res) => {
 const reviewValidation = (review) => {
     const schema = Joi.object({
         rating: Joi.number().required().valid(1, 2, 3, 4, 5),
-        comment: Joi.string().required().min(5),
+        comment: Joi.string().required().min(1),
         productId: Joi.string().required()
     })
     return schema.validate(review)

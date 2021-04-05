@@ -6,11 +6,12 @@ import Error from './Error'
 import Metadata from './Metadata';
 import { Rating } from './Rating';
 import ReviewModel from './ReviewModel';
+import Reviews from './Reviews';
 
 const ProductDetails = ({ match }) => {
 
     const dispatch = useDispatch()
-    const { list } = useSelector(state => state.entities.reviews)
+    const { review } = useSelector(state => state.entities.reviews)
     const [count, setCount] = useState(0)
     const initialState = {
         color: "",
@@ -22,7 +23,7 @@ const ProductDetails = ({ match }) => {
 
         dispatch(getProductDetails(`/api/v1/product/${match.params.id}`))
 
-    }, [dispatch, match.params.id, list])
+    }, [dispatch, match.params.id, review])
 
     const productDetail = useSelector(state => state.entities.productDetail)
     const cart = useSelector(state => state.entities.cart.list)
@@ -48,7 +49,17 @@ const ProductDetails = ({ match }) => {
         }
         //eslint-disable-next-line
     }, [])
-    const { description, name, numOfReviews, price, rating, stock, _id, seller } = productDetail.data
+    const {
+        description,
+        name,
+        numOfReviews,
+        price,
+        rating,
+        stock,
+        _id,
+        seller,
+        reviews,
+    } = productDetail.data
     const incrementQty = () => {
         setCount(Math.min(Number(stock), count + 1))
     }
@@ -70,7 +81,7 @@ const ProductDetails = ({ match }) => {
         dispatch(addProductToCart(match.params.id, count, price))
     }
     return (
-        <>
+        <div className="container">
             <Metadata title="Product Detail" />
             {productDetail.loading ? (<Error />) : (
                 <div className='container'>
@@ -126,7 +137,22 @@ const ProductDetails = ({ match }) => {
 
                 </div>
             )}
-        </>
+            <h1>Other's Reviews</h1>
+            <div className="row">
+                <div className="col-md-6">
+                    <div >
+                        {reviews && reviews.map(review => (
+                            <Reviews
+                                key={review._id}
+                                name={review.name}
+                                rating={review.rating}
+                                comment={review.comment}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

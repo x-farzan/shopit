@@ -25,6 +25,7 @@ const RatingStars = ({ rating }) => {
                 <i className="fa fa-star"></i>
                 <i className="fa fa-star"></i>
             </div>
+            <small className="mx-1">{rating}</small>
         </>
     )
 }

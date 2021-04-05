@@ -54,16 +54,19 @@ const ReviewModel = ({ productId }) => {
     }
     const handleOnSubmit = (e) => {
         if (!rating) return null
-        if (!comment || comment.length < 5) return null
+        if (!comment || comment.length < 1) return null
         const formData = new FormData()
 
         formData.set('rating', rating)
         formData.set('comment', comment)
         formData.set('productId', productId)
         dispatch(creatingReviewRequest(formData))
+        setComment("")
+        setRating(1)
     }
     const handleClosing = (e) => {
-        console.log("Closing")
+        setComment("")
+        setRating(1)
     }
     return (
         <div className="my-5">

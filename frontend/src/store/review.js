@@ -10,7 +10,8 @@ const slice = createSlice({
     initialState: {
         loading: false,
         error: null,
-        list: []
+        list: [],
+        review: {}
     },
     reducers: {
         createReviewRequest: (review, action) => {
@@ -18,7 +19,7 @@ const slice = createSlice({
         },
         createReviewSuccess: (review, action) => {
             review.loading = false
-            review.list = action.payload.review
+            review.review = action.payload.review
             review.error = null
         },
         createReviewFailed: (review, action) => {
@@ -28,6 +29,18 @@ const slice = createSlice({
         clearErrors: (review, action) => {
             review.loading = false
             review.error = null
+        },
+        getAllReviewsRequest: (review, action) => {
+            review.loading = true
+        },
+        getAllReviewsSuccess: (review, action) => {
+            review.loading = false
+            review.list = action.payload.reviews
+            review.error = null
+        },
+        getAllReviewsFailed: (review, action) => {
+            review.loading = false
+            review.error = action.payload
         }
     }
 })
@@ -42,7 +55,10 @@ const {
     clearErrors,
     createReviewFailed,
     createReviewRequest,
-    createReviewSuccess
+    createReviewSuccess,
+    getAllReviewsFailed,
+    getAllReviewsRequest,
+    getAllReviewsSuccess
 } = slice.actions
 
 export const creatingReviewRequest = (data) => (dispatch) => {
@@ -59,3 +75,15 @@ export const creatingReviewRequest = (data) => (dispatch) => {
     )
 }
 export const clearingReviewErrors = () => clearErrors()
+
+export const gettingAllReviewsRequest = (id) => (dispatch) => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/reviews/all?productId=${id}`,
+            method: "get",
+            onStart: getAllReviewsRequest.type,
+            onSuccess: getAllReviewsSuccess.type,
+            onError: getAllReviewsFailed.type
+        })
+    )
+}
