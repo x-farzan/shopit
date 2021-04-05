@@ -10,15 +10,19 @@ import ReviewModel from './ReviewModel';
 const ProductDetails = ({ match }) => {
 
     const dispatch = useDispatch()
+    const { list } = useSelector(state => state.entities.reviews)
     const [count, setCount] = useState(0)
     const initialState = {
         color: "",
         msg: ""
     }
     const [noti, setNoti] = useState({ color: "", msg: "" })
+
     useEffect(() => {
+
         dispatch(getProductDetails(`/api/v1/product/${match.params.id}`))
-    }, [dispatch, match.params.id])
+
+    }, [dispatch, match.params.id, list])
 
     const productDetail = useSelector(state => state.entities.productDetail)
     const cart = useSelector(state => state.entities.cart.list)
@@ -114,7 +118,9 @@ const ProductDetails = ({ match }) => {
                             <p>{description}</p>
                             <hr />
                             <p className="my-3">Sold By: <span className="h5">{seller}</span> </p>
-                            <ReviewModel />
+                            <ReviewModel
+                                productId={match.params.id}
+                            />
                         </div>
                     </div>
 

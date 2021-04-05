@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 const ListOrders = () => {
     const dispatch = useDispatch()
     const { orders, loading } = useSelector(state => state.entities.orders)
-    console.log(orders)
     useEffect(() => {
         dispatch(gettingAllOrdersRequest())
         // eslint-disable-next-line

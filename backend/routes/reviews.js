@@ -1,32 +1,36 @@
 const express = require('express');
 const Joi = require('joi');
+const { Mongoose } = require('mongoose');
 const router = express.Router();
 const auth = require('../middleware/auth')
 const { Product } = require('../models/productModel')
-
+const { User } = require('../models/userModel')
 
 
 // post or put a review
-// protected by user who purchased that product
+// protected by user who is loggedIn
 router.post('/review', auth, async (req, res) => {
     // Joi validation
     const { error } = reviewValidation(req.body)
-    if (error) res.status(400).send(error.details[0].message)
+    if (error) {
+        console.log(error.details[0].message)
+        return res.status(400).send(error.details[0].message)
+    }
 
     // destructuring the req.body
     const { rating, comment, productId } = req.body
-
+    const user = await User.findById(req.user._id).select("name")
     // create review object
     const review = {
-        user: req.user._id,
-        name: req.user.name,
+        user: user._id,
+        name: user.name,
         rating: Number(rating),
         comment
     }
+
     // find product  by id
     const product = await Product.findById(productId)
     if (!product) return res.status(400).send("The Product with the given id is not present")
-
     // find if current user reviewed?
     const isReviewed = product.reviews.find(
         r => r.user.toString() === req.user._id.toString()
@@ -45,8 +49,12 @@ router.post('/review', auth, async (req, res) => {
         product.numOfReviews = product.reviews.length
     }
 
+    //get all ratings
+    let ratings = product.reviews.map(review => review.rating)
     // update the average rating
-    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length
+    avgRatings = ratings.reduce((a, b) => a + b, 0) / ratings.length
+
+    product.rating = avgRatings.toFixed(2)
 
     // save the product
     await product.save({ validateBeforeSave: false })
