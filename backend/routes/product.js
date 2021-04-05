@@ -128,6 +128,18 @@ router.get('/product/:id', async (req, res) => {
     })
 })
 
+// get all product by
+// protected by admin
+router.get('/admin/products', [auth, admin], async (req, res) => {
+    const products = await Product.find().select("price stock name")
+    console.log(products)
+
+    res.send({
+        success: true,
+        products
+    })
+})
+
 // post a product 
 //By admin
 router.post('/admin/product/new', [auth, admin], async (req, res) => {

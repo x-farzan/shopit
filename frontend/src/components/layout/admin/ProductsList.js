@@ -9,71 +9,79 @@ const ProductsList = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(gettingAllProductsAdminRequest())
-
+        return () => {
+            dispatch(clearingAdminErrors())
+        }
     }, [dispatch])
-    // const setOrders = () => {
-    //     const data = {
-    //         columns: [
-    //             {
-    //                 label: "Order ID",
-    //                 field: "id",
-    //                 sort: "asc"
-    //             },
-    //             {
-    //                 label: "Num of Items",
-    //                 field: "numOfItems", // this is used to connect the row and columns properly
-    //                 sort: "asc"
-    //             },
-    //             {
-    //                 label: "Amount",
-    //                 field: "amount",
-    //                 sort: "asc"
-    //             },
-    //             {
-    //                 label: "Status",
-    //                 field: "status",
-    //                 sort: "asc"
-    //             },
-    //             {
-    //                 label: "Actions",
-    //                 field: "actions",
-    //                 sort: "asc"
-    //             },
-    //         ],
-    //         rows: []
-    //     }
-    //     orders.forEach(order => {
-    //         data.rows.push({
-    //             id: order._id,
-    //             numOfItems: order.orderItems.length,
-    //             amount: `$${order.totalPrice}`,
-    //             status: order.orderStatus && String(order.orderStatus).includes("Delivered")
-    //                 ? <p className="text-successs"> {order.orderStatus}</p>
-    //                 : <p className="text-danger"> {order.orderStatus}</p>,
-    //             actions:
-    //                 <Link to={`/order/${order._id}`} className="btn btn-primary" >
-    //                     <i className="fa fa-eye"></i>
-    //                 </Link>
-    //         })
-    //     });
-    //     return data
-    // }
+    const { products, loading } = useSelector(state => state.admin)
+    console.log(products)
+    const setProducts = () => {
+        const data = {
+            columns: [
+                {
+                    label: "ID",
+                    field: "id",
+                    sort: "asc"
+                },
+                {
+                    label: "Name",
+                    field: "name", // this is used to connect the row and columns properly
+                    sort: "asc"
+                },
+                {
+                    label: "Price",
+                    field: "price",
+                    sort: "asc"
+                },
+                {
+                    label: "Stock",
+                    field: "stock",
+                    sort: "asc"
+                },
+                {
+                    label: "Actions",
+                    field: "actions"
+                },
+            ],
+            rows: []
+        }
+        products.forEach(product => {
+            data.rows.push({
+                id: product._id,
+                name: product.name,
+                price: `$${product.price}`,
+                stock: product.stock,
+                actions:
+                    <>
+
+                        <Link to={`/admin/product/${product._id}`} className="py-1 px-2 btn btn-primary" >
+                            <i className="fas fa-pencil-alt"></i>
+                        </Link>
+
+                        <Link to={`/admin/product/delete/${product._id}`} className="py-1 px-2 btn btn-danger" >
+                            <i className="fa fa-trash"></i>
+                        </Link>
+                    </>
+            })
+        });
+        return data
+    }
     return (
         <div className="container">
-            {/* <h1 className="my-5">All Products</h1>
-        {!loading ? (
-            <>
-                <MDBDataTable
-                    data={setOrders()}
-                    className="px-3"
-                    bordered
-                    striped
-                    hover
-                />
-            </>
-        ) : (
-            <Error />
-        )} */}
+            <h1 className="my-5">All Products</h1>
+            {!loading ? (
+                <>
+                    <MDBDataTable
+                        data={setProducts()}
+                        className="px-3"
+                        bordered
+                        striped
+                        hover
+                    />
+                </>
+            ) : (
+                <Error />
+            )}
         </div>
     )
 }
