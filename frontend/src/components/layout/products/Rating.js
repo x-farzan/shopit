@@ -12,7 +12,7 @@ export const Rating = ({ rating, reviews, price, appr }) => {
         right: "0",
         width: `${100 - ((rating / 5) * 100)}%`,
         height: "100%",
-        backgroundColor: "#fff"
+        backgroundColor: "rgba(255,255,255,0.7)"
     }
     return (
         <>
