@@ -28,6 +28,8 @@ import PaymentSuccess from './components/layout/cart/PaymentSuccess';
 import ListOrders from './components/layout/order/ListOrders';
 import OrderAction from './components/layout/order/OrderAction';
 
+import Dashboard from './components/layout/admin/Dashboard';
+
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/about' component={About} />
@@ -68,12 +71,15 @@ function App() {
         <ProtectedRoute exact path='/order/:id' component={OrderAction} />
         <ProtectedRoute exact path='/orders/me' component={ListOrders} />
 
+
+        <Route exact path='/register' component={Register} />
+        <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />
+
         {stripeKey &&
           <Elements stripe={loadStripe(stripeKey)}>
             <ProtectedRoute exact path="/payment" component={Payment} />
           </Elements>
         }
-        <Route exact path='/register' component={Register} />
       </Switch>
       <Footer />
     </Router>

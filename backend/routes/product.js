@@ -135,7 +135,7 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message)
     req.body.user = req.user._id
     let product = new Product(_.pick(req.body, [
-        'name', 'price', 'description', 'rating', 'images', 'category', 'seller', 'stock', 'numOfReviews', 'reviews', 'user'
+        'name', 'price', 'description', 'rating', 'images', 'category', 'seller', 'stock', 'numOfReviews', 'user'
     ]))
     product = await product.save()
     res.send(product)
