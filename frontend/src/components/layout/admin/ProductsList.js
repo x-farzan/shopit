@@ -1,19 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { gettingAllProductsAdminRequest, clearingAdminErrors } from "../../../store/admin"
+import { deletingProductRequest, gettingAllProductsAdminRequest, clearingAdminErrors } from "../../../store/admin"
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
 
 const ProductsList = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const { products, loading, deleteProduct, deleteProductLoading, deleteProductError } = useSelector(state => state.admin)
+    const [errMsg, setErrMsg] = useState("")
+
     useEffect(() => {
         dispatch(gettingAllProductsAdminRequest())
+        if (deleteProduct !== "" && deleteProductLoading === false) {
+            setErrMsg("Product is Deleted Successfully")
+            clearError()
+            history.push("/admin/products")
+        }
+        if (deleteProductError) {
+            setErrMsg(deleteProductError)
+            clearError()
+        }
         return () => {
             dispatch(clearingAdminErrors())
+            setErrMsg("")
         }
-    }, [dispatch])
-    const { products, loading } = useSelector(state => state.admin)
+        //eslint-disable-next-line
+    }, [dispatch, deleteProduct, deleteProductError, history])
+    const clearError = () => {
+        setTimeout(() => {
+            setErrMsg("")
+        }, 2000);
+    }
     const setProducts = () => {
         const data = {
             columns: [
@@ -57,16 +77,29 @@ const ProductsList = () => {
                             <i className="fas fa-pencil-alt"></i>
                         </Link>
 
-                        <Link to={`/admin/product/delete/${product._id}`} className="py-1 px-2 btn btn-danger" >
+                        <button
+                            onClick={() => deletingProduct(product._id)}
+                            to="#"
+                            type="button"
+                            disabled={deleteProductLoading ? true : false}
+                            className="py-1 px-2 btn btn-danger" >
                             <i className="fa fa-trash"></i>
-                        </Link>
+                        </button>
                     </>
             })
         });
         return data
     }
+    const deletingProduct = (id) => {
+        dispatch(deletingProductRequest(id))
+    }
     return (
         <div className="container">
+            {errMsg ? (
+                <div className="alert alert-info">
+                    {errMsg}
+                </div>
+            ) : null}
             <h1 className="my-5">All Products</h1>
             {!loading ? (
                 <>

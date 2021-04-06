@@ -12,7 +12,11 @@ const slice = createSlice({
         loading: false,
         error: null,
         products: [],
-        newProduct: false
+        newProduct: false,
+        deleteProduct: "",
+        deleteProductError: null,
+        deleteProductLoading: false
+
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -42,6 +46,18 @@ const slice = createSlice({
             admin.loading = false
             admin.error = action.payload
         },
+        deleteProductRequest: (admin, action) => {
+            admin.deleteProductLoading = true
+            admin.deleteProduct = ""
+        },
+        deleteProductSuccess: (admin, action) => {
+            admin.deleteProductLoading = false
+            admin.deleteProduct = action.payload.msg
+        },
+        deleteProductFailed: (admin, action) => {
+            admin.deleteProductLoading = false
+            admin.deleteProductError = action.payload
+        }
     }
 })
 
@@ -59,7 +75,10 @@ const {
     clearAdminError,
     createNewProductAdminFailed,
     createNewProductAdminRequest,
-    createNewProductAdminSuccess
+    createNewProductAdminSuccess,
+    deleteProductFailed,
+    deleteProductRequest,
+    deleteProductSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -88,3 +107,15 @@ export const creatingNewProductAdminRequest = (data) => (dispatch) => {
     )
 }
 export const clearingAdminErrors = () => clearAdminError()
+
+export const deletingProductRequest = (id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/delete/product/${id}`,
+            method: "delete",
+            onStart: deleteProductRequest.type,
+            onSuccess: deleteProductSuccess.type,
+            onError: deleteProductFailed.type
+        })
+    )
+}

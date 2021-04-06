@@ -26,6 +26,7 @@ const Result = () => {
                                 name={product.name}
                                 rating={product.rating}
                                 wide="col-md-4"
+                                url={product.images[0].url}
                             />
                         ))}
                     </div>
