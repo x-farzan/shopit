@@ -5,7 +5,6 @@ const Slider = ({ url, index }) => {
         width: "100%",
         height: "80%"
     }
-    console.log(index)
 
     return (
         <>

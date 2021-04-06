@@ -12,7 +12,6 @@ const OrderAction = ({ match }) => {
 
     const isPaid = order.paymentInfo && order.paymentInfo.status === "succeeded" ? true : false
     const isDelivered = order.orderStatus && order.orderStatus === "Delivered" ? true : false
-
     return (
         <div className="container" style={{ minHeight: "100vh" }}>
             {!loading && order.user ? (
@@ -39,6 +38,7 @@ const OrderAction = ({ match }) => {
                                 name={item.name}
                                 price={item.price}
                                 qty={item.qty}
+                                url={item.images[0].url}
                             />
                         ))}
                     </div>

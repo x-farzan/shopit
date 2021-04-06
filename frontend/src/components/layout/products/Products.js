@@ -32,6 +32,7 @@ const Products = () => {
                                 name={product.name}
                                 rating={product.rating}
                                 wide="col-md-3"
+                                url={product.images[0].url}
                             />
                         ))}
                     </div>

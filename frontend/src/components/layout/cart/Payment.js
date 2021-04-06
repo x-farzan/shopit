@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import ShippingSteps from './ShippingSteps';
 import axios from 'axios'
 import { creatingOrderRequest } from '../../../store/order'
+import { clearingCartAfterPayment } from '../../../store/cart'
 import _ from "lodash"
 
 const Payment = () => {
@@ -86,8 +87,9 @@ const Payment = () => {
                         id: result.paymentIntent.id,
                         status: result.paymentIntent.status
                     }
-                    console.log(order)
+
                     dispatch(creatingOrderRequest(order))
+                    dispatch(clearingCartAfterPayment())
                     history.push("/success")
                 } else {
                     setPayError("There is some issue while payment processing")

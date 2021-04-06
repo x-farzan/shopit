@@ -17,6 +17,7 @@ const ConfirmOrder = () => {
     const taxPrice = Number((0.05 * subTotalPrice).toFixed(2))
 
     const totalPrice = subTotalPrice + taxPrice + shippingPrice
+
     return (
         <div className="container" style={{ minHeight: "100vh" }}>
             <ShippingSteps
@@ -43,6 +44,7 @@ const ConfirmOrder = () => {
                                         qty={item.qty}
                                         price={item.price}
                                         totalPrice={item.totalPrice}
+                                        url={item.images[0].url}
                                     />
                                 ))}
                             </div>

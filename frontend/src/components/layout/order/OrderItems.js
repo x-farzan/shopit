@@ -1,10 +1,10 @@
 import React from 'react'
 
-const OrderItems = ({ name, price, qty }) => {
+const OrderItems = ({ name, price, qty, url }) => {
     return (
         <>
             <div className="col-3">
-                <img src="/shoes.jpg" alt="" width="50%" height="50%" />
+                <img src={url} alt="" width="50%" height="50%" />
             </div>
             <div className="col-5">{name}</div>
             <div className="col-2">${price}</div>

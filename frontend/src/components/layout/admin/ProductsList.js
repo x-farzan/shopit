@@ -14,7 +14,6 @@ const ProductsList = () => {
         }
     }, [dispatch])
     const { products, loading } = useSelector(state => state.admin)
-    console.log(products)
     const setProducts = () => {
         const data = {
             columns: [

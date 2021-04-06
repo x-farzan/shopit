@@ -3,7 +3,7 @@ import { changeItems, removeItem } from '../../../store/cart'
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom'
 
-const CartItem = ({ name, price, stock, qty, id }) => {
+const CartItem = ({ name, price, stock, qty, id, url }) => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.entities.cart.list)
     const history = useHistory()
@@ -31,7 +31,7 @@ const CartItem = ({ name, price, stock, qty, id }) => {
             <hr />
             <div className="d-flex align-items-center">
                 <div className="col-md-3">
-                    <img src='/airpods3.jpg' width="80%" height="80%" alt="" />
+                    <img src={url} width="80%" height="80%" alt="" />
                 </div>
                 <div className="col-md-3">
                     {name}

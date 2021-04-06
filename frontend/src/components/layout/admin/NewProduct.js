@@ -55,7 +55,7 @@ const NewProduct = () => {
             }, 2000)
         }
         if (newProduct) {
-            newMsg.msg = newProduct
+            newMsg.msg = "Product is Added successfully"
             newMsg.color = "success"
             setNewProductError(newMsg)
             setTimeout(() => {
@@ -75,8 +75,6 @@ const NewProduct = () => {
         const errors = validation()
         const newData = { ...product }
         newData.errors = errors || {}
-        setProduct(newData)
-
         newData.product[e.currentTarget.name] = e.currentTarget.value
         setProduct(newData)
     }

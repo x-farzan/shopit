@@ -36,6 +36,7 @@ const Cart = () => {
                                         stock={item.stock}
                                         qty={item.qty}
                                         id={item._id}
+                                        url={item.images[0].url}
                                     />
                                 ))}
                             </div>

@@ -6,7 +6,7 @@ import Btn from './Btn';
 const Pagination = () => {
     const productsCount = useSelector(state => state.entities.products.count)
 
-    const [prodPerPage] = useState(6)
+    const [prodPerPage] = useState(8)
     const [currentPage, setCurrentPage] = useState(1)
 
     const handlePageChange = page => {

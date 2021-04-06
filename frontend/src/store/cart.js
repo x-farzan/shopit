@@ -45,6 +45,12 @@ const slice = createSlice({
         addShippingInfo: (cart, action) => {
             cart.shippingInfo = action.payload
             localStorage.setItem("shippingInfo", JSON.stringify(cart.shippingInfo))
+        },
+        clearCartAfterPayment: (cart, action) => {
+            cart.loading = false;
+            cart.error = null
+            cart.list = []
+            localStorage.removeItem("cartItems")
         }
     }
 })
@@ -57,7 +63,8 @@ const {
     getProductToCartSuccess,
     changeItemsCount,
     removeItemFromCart,
-    addShippingInfo
+    addShippingInfo,
+    clearCartAfterPayment
 } = slice.actions
 
 export const addProductToCart = (id, qty, price) => (dispatch) => {
@@ -77,3 +84,4 @@ export const addProductToCart = (id, qty, price) => (dispatch) => {
 export const changeItems = (change) => changeItemsCount(change)
 export const removeItem = (id) => removeItemFromCart(id)
 export const getShippingInfo = (address) => addShippingInfo(address)
+export const clearingCartAfterPayment = () => clearCartAfterPayment()

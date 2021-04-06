@@ -12,6 +12,7 @@ const Input = ({ label, error, value, onChange, name, type }) => {
                 value={value}
                 placeholder={name}
                 onChange={onChange}
+                min="0"
             />
             {error &&
                 <div className="invalid-feedback">

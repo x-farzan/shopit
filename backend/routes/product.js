@@ -182,7 +182,6 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
     }
     let product = new Product(data)
     product = await product.save()
-    console.log(product)
     res.send({
         success: true,
         product

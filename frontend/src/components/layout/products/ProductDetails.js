@@ -62,7 +62,7 @@ const ProductDetails = ({ match }) => {
         reviews,
         images
     } = productDetail.data
-    console.log(images)
+
     const incrementQty = () => {
         setCount(Math.min(Number(stock), count + 1))
     }
