@@ -30,6 +30,7 @@ import OrderAction from './components/layout/order/OrderAction';
 
 import Dashboard from './components/layout/admin/Dashboard';
 import ProductsList from './components/layout/admin/ProductsList';
+import NewProduct from './components/layout/admin/NewProduct';
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact isAdmin={true} path="/admin/products" component={ProductsList} />
+        <ProtectedRoute exact isAdmin={true} path="/admin/product/new" component={NewProduct} />
 
         {stripeKey &&
           <Elements stripe={loadStripe(stripeKey)}>

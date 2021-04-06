@@ -88,7 +88,8 @@ const productValidation = (product) => {
         category: Joi.string().required(),
         seller: Joi.string().required(),
         stock: Joi.number().default(0).required(),
-        numOfReviews: Joi.number().required().default(0),
+        numOfReviews: Joi.number().default(0),
+        user: Joi.string().required(),
     })
     return schema.validate(product)
 }

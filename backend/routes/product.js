@@ -4,7 +4,7 @@ const { User } = require('../models/userModel')
 const _ = require('lodash');
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
-
+const cloudinary = require("cloudinary")
 const router = express.Router()
 
 
@@ -143,14 +143,50 @@ router.get('/admin/products', [auth, admin], async (req, res) => {
 // post a product 
 //By admin
 router.post('/admin/product/new', [auth, admin], async (req, res) => {
-    const { error } = validation(req.body)
-    if (error) return res.status(400).send(error.details[0].message)
-    req.body.user = req.user._id
-    let product = new Product(_.pick(req.body, [
-        'name', 'price', 'description', 'rating', 'images', 'category', 'seller', 'stock', 'numOfReviews', 'user'
-    ]))
+    // console.log(req.body)
+
+    let images = []
+    if (typeof req.body.images === 'string') {
+        images.push(req.body.images)
+    } else {
+        images = req.body.images
+    }
+    let imagesLinks = []
+
+    for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(images[i], {
+            folder: "products"
+        });
+        imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url
+        })
+    }
+    const { name, price, description, category, stock, seller } = req.body
+    const data = {
+        name,
+        price,
+        category,
+        description,
+        stock,
+        seller,
+        images: imagesLinks,
+        user: req.user._id
+
+    }
+
+    const { error } = validation(data)
+    if (error) {
+        console.log(error.details[0].message)
+        return res.status(400).send(error.details[0].message)
+    }
+    let product = new Product(data)
     product = await product.save()
-    res.send(product)
+    console.log(product)
+    res.send({
+        success: true,
+        product
+    })
 })
 
 // Update a product 

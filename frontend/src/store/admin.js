@@ -12,7 +12,7 @@ const slice = createSlice({
         loading: false,
         error: null,
         products: [],
-        newProduct: {}
+        newProduct: false
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -29,13 +29,14 @@ const slice = createSlice({
         clearAdminError: (admin, action) => {
             admin.error = null;
             admin.loading = false
+            admin.newProduct = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
         },
         createNewProductAdminSuccess: (admin, action) => {
             admin.loading = false
-            admin.newProduct = action.payload
+            admin.newProduct = action.payload.success
         },
         createNewProductAdminFailed: (admin, action) => {
             admin.loading = false

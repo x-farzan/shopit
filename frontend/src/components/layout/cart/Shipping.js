@@ -114,9 +114,9 @@ const Shipping = () => {
                             type="number"
                         />
                         <div className="form-group">
-                            <label htmlFor="gender">Country</label>
+                            <label htmlFor="country">Country</label>
                             <select
-                                id="gender"
+                                id="country"
                                 name="country"
                                 className={`form-control ${data.errors.country ? "is-invalid" : ""}`}
                                 onChange={handleOnChange}
