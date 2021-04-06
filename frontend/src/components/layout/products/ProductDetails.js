@@ -7,6 +7,7 @@ import Metadata from './Metadata';
 import { Rating } from './Rating';
 import ReviewModel from './ReviewModel';
 import Reviews from './Reviews';
+import Slider from './Slider';
 
 const ProductDetails = ({ match }) => {
 
@@ -59,7 +60,9 @@ const ProductDetails = ({ match }) => {
         _id,
         seller,
         reviews,
+        images
     } = productDetail.data
+    console.log(images)
     const incrementQty = () => {
         setCount(Math.min(Number(stock), count + 1))
     }
@@ -91,8 +94,25 @@ const ProductDetails = ({ match }) => {
                         </div>
                     }
                     <div className="row mt-3">
-                        <div className="col-md-6" height="80vh">
-                            <img src="/pic1.jpg" className='d-block m-auto' width='80%' height='80%' alt="Product Pic" />
+                        <div className="col-md-6">
+                            <div className="carousel slide mb-5" data-ride="carousel" id="slider4">
+                                <div className="carousel-inner">
+                                    {images && images.map((img, index) => (
+                                        <Slider
+                                            key={img._id}
+                                            url={img.url}
+                                            index={index}
+                                        />
+                                    ))}
+                                </div>
+                                <a href="#slider4" className="carousel-control-prev" data-slide="prev">
+                                    <span style={{ backgroundColor: "#000" }} className="carousel-control-prev-icon"></span>
+                                </a>
+                                <a href="#slider4" className="carousel-control-next" data-slide="next">
+                                    <span style={{ backgroundColor: "#000" }} className="carousel-control-next-icon"></span>
+                                </a>
+                            </div>
+
                         </div>
 
                         <div className="col-md-6">
@@ -137,21 +157,25 @@ const ProductDetails = ({ match }) => {
 
                 </div>
             )}
-            <h1>Other's Reviews</h1>
-            <div className="row">
-                <div className="col-md-6">
-                    <div >
-                        {reviews && reviews.map(review => (
-                            <Reviews
-                                key={review._id}
-                                name={review.name}
-                                rating={review.rating}
-                                comment={review.comment}
-                            />
-                        ))}
+            {reviews && reviews.length !== 0 &&
+                <>
+                    <h1>Other's Reviews</h1>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div >
+                                {reviews && reviews.map(review => (
+                                    <Reviews
+                                        key={review._id}
+                                        name={review.name}
+                                        rating={review.rating}
+                                        comment={review.comment}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </>
+            }
         </div>
     )
 }

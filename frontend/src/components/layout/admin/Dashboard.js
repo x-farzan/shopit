@@ -8,6 +8,9 @@ const Dashboard = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(gettingAllProductsAdminRequest())
+        return () => {
+            dispatch(clearingAdminErrors())
+        }
     }, [dispatch])
     const { products, loading } = useSelector(state => state.admin)
 
