@@ -151,15 +151,19 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
     }
     let imagesLinks = []
 
+
     for (let i = 0; i < images.length; i++) {
+
         const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "products"
         });
+
         imagesLinks.push({
             public_id: result.public_id,
             url: result.secure_url
         })
     }
+
     const { name, price, description, category, stock, seller } = req.body
     const data = {
         name,
@@ -188,19 +192,87 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
 
 // Update a product 
 // By admin
-router.put('/admin/updata/product/:id', [auth, admin], async (req, res) => {
-    const { error } = validation(req.body)
-    if (error) return res.status(400).send(error.details[0].message)
+router.put('/admin/update/product/:id', [auth, admin], async (req, res) => {
 
-    const product = await Product.findByIdAndUpdate(req.params.id,
-        req.body, { new: true, runValidators: true, useFindAndModify: false }
-    )
-    if (!product) return res.status(400).send({
-        success: false,
-        message: "The Product with the given id is not present"
+
+    let images = []
+    let imagesLinks = []
+
+    let product = await Product.findById(req.params.id)
+    if (req.body.images !== undefined) {
+
+        if (!product) return res.status(400).send({
+            success: false,
+            message: "The Product with the given id is not present.."
+        })
+        for (let i = 0; i < product.images.length; i++) {
+            const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+        }
+
+        if (typeof req.body.images === 'string') {
+            images.push(req.body.images)
+        } else {
+            images = req.body.images
+        }
+
+
+        for (let i = 0; i < images.length; i++) {
+
+            const result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: "products"
+            });
+
+            imagesLinks.push({
+                public_id: result.public_id,
+                url: result.secure_url
+            })
+        }
+
+    }
+
+    if (req.body.images === undefined) {
+        console.log("hy")
+
+        product.images.forEach(img => {
+            imagesLinks.push({
+                public_id: img.public_id,
+                url: img.url
+            })
+        })
+    }
+    const { name, price, description, category, stock, seller } = req.body
+    const data = {
+        name,
+        price,
+        category,
+        description,
+        stock,
+        seller,
+        images: imagesLinks,
+        user: req.user._id
+
+    }
+
+    const { error } = validation(data)
+    if (error) {
+        console.log(error.details[0].message)
+        return res.status(400).send(error.details[0].message)
+    }
+    product.name = name
+    product.price = price
+    product.category = category
+    product.description = description
+    product.stock = stock
+    product.seller = seller
+    product.images = imagesLinks
+    product.user = req.user._id
+    await product.save()
+    res.send({
+        success: true,
+        product
     })
-    res.send(product)
 })
+
 // delete a product 
 // By admin
 router.delete('/admin/delete/product/:id', [auth, admin], async (req, res) => {

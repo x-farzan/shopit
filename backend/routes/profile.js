@@ -23,7 +23,6 @@ router.get('/users/me', auth, async (req, res) => {
 router.put('/users/me/update/password', auth, async (req, res) => {
     let user = await User.findById(req.user._id)
 
-    console.log(user)
 
     // Joi validate new entered passwords
     const passwords = _.pick(req.body, ['newPassword', 'confirmPassword'])

@@ -159,10 +159,10 @@ const NewProduct = () => {
                     <div className="card-header h2 text-dark">
                         New Product
                 </div>
-                    {/* {newProductError.msg &&
-                    <small className={`alert alert-${newProductError.color} text-center`}>
-                        {newProductError.msg}
-                    </small>} */}
+                    {newProductError.msg &&
+                        <small className={`alert alert-${newProductError.color} text-center`}>
+                            {newProductError.msg}
+                        </small>}
                     <div className="card-body">
                         <form onSubmit={handleOnSubmit}>
                             <Input
@@ -250,7 +250,9 @@ const NewProduct = () => {
                                 <div className="col-12">
                                     {imagesPreview && (
                                         imagesPreview.map(img => (
-                                            <img src={img} alt="images"
+                                            <img src={img}
+                                                alt="images"
+                                                key={Math.random() * 1234567}
                                                 className="mx-2"
                                                 style={{ width: "15%", height: "100%" }}
                                             />

@@ -15,7 +15,8 @@ const slice = createSlice({
         newProduct: false,
         deleteProduct: "",
         deleteProductError: null,
-        deleteProductLoading: false
+        deleteProductLoading: false,
+        isUpdated: false
 
     },
     reducers: {
@@ -34,6 +35,7 @@ const slice = createSlice({
             admin.error = null;
             admin.loading = false
             admin.newProduct = false
+            admin.isUpdated = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -57,6 +59,19 @@ const slice = createSlice({
         deleteProductFailed: (admin, action) => {
             admin.deleteProductLoading = false
             admin.deleteProductError = action.payload
+        },
+        updateProductRequest: (admin, action) => {
+            admin.loading = true
+            admin.isUpdated = false
+            admin.error = null
+        },
+        updateProductSuccess: (admin, action) => {
+            admin.loading = false
+            admin.isUpdated = action.payload.success
+        },
+        updateProductFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
         }
     }
 })
@@ -78,7 +93,10 @@ const {
     createNewProductAdminSuccess,
     deleteProductFailed,
     deleteProductRequest,
-    deleteProductSuccess
+    deleteProductSuccess,
+    updateProductFailed,
+    updateProductRequest,
+    updateProductSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -116,6 +134,20 @@ export const deletingProductRequest = (id) => dispatch => {
             onStart: deleteProductRequest.type,
             onSuccess: deleteProductSuccess.type,
             onError: deleteProductFailed.type
+        })
+    )
+}
+
+export const updatingProductRequest = (id, data) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/update/product//${id}`,
+            method: "put",
+            data,
+            headers: { "Content-Type": 'multipart/form-data' },
+            onStart: updateProductRequest.type,
+            onSuccess: updateProductSuccess.type,
+            onError: updateProductFailed.type
         })
     )
 }

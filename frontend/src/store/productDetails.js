@@ -9,7 +9,7 @@ const slice = createSlice({
     name: "productDetail",
     initialState: {
         loading: false,
-        data: {}
+        data: null
     },
     reducers: {
         productDetailRequest: (productDetail, action) => {
@@ -18,6 +18,10 @@ const slice = createSlice({
         productDetailReceived: (productDetail, action) => {
             productDetail.data = action.payload.product
             productDetail.loading = false
+        },
+        clearProductDetail: (productDetail, action) => {
+            productDetail.data = null
+            productDetail.loading = false
         }
     }
 })
@@ -25,7 +29,7 @@ const slice = createSlice({
 
 export default slice.reducer
 
-const { productDetailReceived, productDetailRequest } = slice.actions
+const { productDetailReceived, productDetailRequest, clearProductDetail } = slice.actions
 
 
 /////////////////////////////////////////////////
@@ -41,3 +45,5 @@ export const getProductDetails = (url) => (dispatch, getState) => {
         })
     )
 }
+
+export const clearingProductDetail = () => clearProductDetail()

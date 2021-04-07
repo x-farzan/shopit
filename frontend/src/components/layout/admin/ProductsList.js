@@ -73,7 +73,7 @@ const ProductsList = () => {
                 actions:
                     <>
 
-                        <Link to={`/admin/product/${product._id}`} className="py-1 px-2 btn btn-primary" >
+                        <Link to={`/admin/product/update/${product._id}`} className="py-1 px-2 btn btn-primary" >
                             <i className="fas fa-pencil-alt"></i>
                         </Link>
 
