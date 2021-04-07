@@ -16,8 +16,10 @@ const slice = createSlice({
         deleteProduct: "",
         deleteProductError: null,
         deleteProductLoading: false,
-        isUpdated: false
-
+        isUpdated: false,
+        orders: [],
+        orderLoading: false,
+        isDeleted: false
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -36,6 +38,7 @@ const slice = createSlice({
             admin.loading = false
             admin.newProduct = false
             admin.isUpdated = false
+            admin.isDeleted = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -72,6 +75,30 @@ const slice = createSlice({
         updateProductFailed: (admin, action) => {
             admin.loading = false
             admin.error = action.payload
+        },
+        getAllOrdersRequest: (admin, action) => {
+            admin.loading = true
+            admin.error = null
+        },
+        getAllOrdersSuccess: (admin, action) => {
+            admin.loading = false
+            admin.orders = action.payload.orders
+        },
+        getAllOrdersFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
+        },
+        deleteOrderRequest: (admin, action) => {
+            admin.orderLoading = true
+            admin.error = null
+        },
+        deleteOrderSuccess: (admin, action) => {
+            admin.orderLoading = false
+            admin.isDeleted = action.payload.success
+        },
+        deleteOrderFailed: (admin, action) => {
+            admin.orderLoading = false
+            admin.error = null
         }
     }
 })
@@ -96,7 +123,13 @@ const {
     deleteProductSuccess,
     updateProductFailed,
     updateProductRequest,
-    updateProductSuccess
+    updateProductSuccess,
+    getAllOrdersFailed,
+    getAllOrdersRequest,
+    getAllOrdersSuccess,
+    deleteOrderFailed,
+    deleteOrderRequest,
+    deleteOrderSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -148,6 +181,30 @@ export const updatingProductRequest = (id, data) => dispatch => {
             onStart: updateProductRequest.type,
             onSuccess: updateProductSuccess.type,
             onError: updateProductFailed.type
+        })
+    )
+}
+
+export const gettingAllOrders = () => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/orders`,
+            method: "get",
+            onStart: getAllOrdersRequest.type,
+            onSuccess: getAllOrdersSuccess.type,
+            onError: getAllOrdersFailed.type
+        })
+    )
+}
+export const deletingOrderRequest = (id) => dispatch => {
+
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/delete/order/${id}`,
+            method: 'delete',
+            onStart: deleteOrderRequest.type,
+            onSuccess: deleteOrderSuccess.type,
+            onError: deleteOrderFailed.type
         })
     )
 }

@@ -59,8 +59,14 @@ router.get('/admin/orders', [auth, admin], async (req, res) => {
         totalAmount += order.totalPrice
     })
 
+    // const totalItems = orders.map(order => order.orderItems).map(item => item.map(a => a.qty).reduce((acc, res) => acc + res, 0))
+    // const totalPrice = orders.map(order => order.totalPrice)
+    // const status = orders.map(sta => sta.orderStatus)
+    // const id = orders.map(i => i._id)
+
+
     res.send({
-        totalAmount,
+        totalAmount: totalAmount.toFixed(2),
         orders
     })
 })
@@ -68,12 +74,10 @@ router.get('/admin/orders', [auth, admin], async (req, res) => {
 // Delte an orders by admin 
 // protected by admin only 
 router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
-
     const order = await Order.findByIdAndRemove(req.params.id)
     if (!order) return res.status(400).send("No Orders found....")
     res.send({
-        message: "order is deleted successfully",
-        order
+        success: true
     })
 
 })
