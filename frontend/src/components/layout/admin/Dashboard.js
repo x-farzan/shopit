@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import Sidebar from './Sidebar'
 import { useSelector, useDispatch } from "react-redux"
-import { gettingAllProductsAdminRequest, clearingAdminErrors } from "../../../store/admin"
+import { gettingAllProductsAdminRequest, clearingAdminErrors, gettingAllOrders } from "../../../store/admin"
 import Error from '../products/Error'
 
 const Dashboard = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(gettingAllProductsAdminRequest())
+        dispatch(gettingAllOrders())
         return () => {
             dispatch(clearingAdminErrors())
         }
@@ -15,6 +16,8 @@ const Dashboard = () => {
     const { products, loading } = useSelector(state => state.admin)
 
     const outOfStock = products && products.filter(product => product.stock === 0)
+    const { orders } = useSelector(state => state.admin)
+    const totalAmount = orders && orders.map(order => order.totalPrice).reduce((a, b) => a + b, 0)
 
     return (
         <div className="row" style={{ marginTop: "-1rem" }}>
@@ -28,7 +31,7 @@ const Dashboard = () => {
                         <div className="col-10 mx-auto card bg-primary my-5">
                             <div className=" py-3 text-light card-body text-center">
                                 <h3>Total Amount</h3>
-                                <h4>$ 342.34</h4>
+                                <h4>$ {totalAmount.toFixed(2)}</h4>
                             </div>
                         </div>
                     </div>

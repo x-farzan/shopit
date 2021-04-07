@@ -97,7 +97,7 @@ const ProductDetails = ({ match }) => {
                         <div className="col-md-6">
                             <div className="carousel slide mb-5" data-ride="carousel" id="slider4">
                                 <div className="carousel-inner">
-                                    {data && data.images && data.images.map((img, index) => (
+                                    {data && data.images.map((img, index) => (
                                         <Slider
                                             key={img._id}
                                             url={img.url}
@@ -133,7 +133,7 @@ const ProductDetails = ({ match }) => {
                                 onClick={incrementQty}
                             >+</button>
                             <button
-                                className={`btn btn-sm btn-warning ml-5 ${data && data.stock === 0 || count === 0 ? "d-none" : ""}`}
+                                className={`btn btn-sm btn-warning ml-5 ${data && (data.stock === 0 || count === 0) ? "d-none" : ""}`}
                                 onClick={addToCart}
                             >
                                 Add to Cart
