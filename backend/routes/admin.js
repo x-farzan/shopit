@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
 const { User } = require('../models/userModel')
 const Joi = require('joi')
-
+const cloudinary = require("cloudinary")
 // get all users
 // protected
 router.get('/admin/all/users', [auth, admin], async (req, res) => {
@@ -49,11 +49,12 @@ router.put('/admin/user/:id', [auth, admin], async (req, res) => {
 // delete a User 
 // By admin
 router.delete('/admin/user/:id', [auth, admin], async (req, res) => {
-    const user = await User.findByIdAndRemove(req.params.id)
+    const user = await User.findByIdAndRemove(req.params.id, { useFindAndModify: false })
     if (!user) return res.status(400).send({
         success: false,
         message: "The User with the given id is not present.."
     })
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
     res.send({
         success: true,
         message: "User has been deleted successfully..."

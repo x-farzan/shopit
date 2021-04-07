@@ -19,7 +19,10 @@ const slice = createSlice({
         isUpdated: false,
         orders: [],
         orderLoading: false,
-        isDeleted: false
+        isDeleted: false,
+        users: [],
+        userLoading: false,
+        isUserDeleted: false
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -39,6 +42,7 @@ const slice = createSlice({
             admin.newProduct = false
             admin.isUpdated = false
             admin.isDeleted = false
+            admin.isUserDeleted = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -99,6 +103,30 @@ const slice = createSlice({
         deleteOrderFailed: (admin, action) => {
             admin.orderLoading = false
             admin.error = null
+        },
+        getAllUsersRequest: (admin, action) => {
+            admin.loading = true;
+            admin.error = null
+        },
+        getAllUsersSuccess: (admin, action) => {
+            admin.loading = false
+            admin.users = action.payload
+        },
+        getAllUsersFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
+        },
+        deleteUserRequest: (admin, action) => {
+            admin.userLoading = true
+            admin.error = null
+        },
+        deleteUserSuccess: (admin, action) => {
+            admin.userLoading = false
+            admin.isUserDeleted = action.payload.success
+        },
+        deleteUserFailed: (admin, action) => {
+            admin.userLoading = false
+            admin.error = null
         }
     }
 })
@@ -129,7 +157,13 @@ const {
     getAllOrdersSuccess,
     deleteOrderFailed,
     deleteOrderRequest,
-    deleteOrderSuccess
+    deleteOrderSuccess,
+    getAllUsersFailed,
+    getAllUsersRequest,
+    getAllUsersSuccess,
+    deleteUserFailed,
+    deleteUserRequest,
+    deleteUserSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -205,6 +239,28 @@ export const deletingOrderRequest = (id) => dispatch => {
             onStart: deleteOrderRequest.type,
             onSuccess: deleteOrderSuccess.type,
             onError: deleteOrderFailed.type
+        })
+    )
+}
+export const gettingAllUsersRequest = () => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: "/api/v1/admin/all/users",
+            method: "get",
+            onStart: getAllUsersRequest.type,
+            onSuccess: getAllUsersSuccess.type,
+            onError: getAllUsersFailed.type
+        })
+    )
+}
+export const deletingUserRequest = (id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/user/${id}`,
+            method: "delete",
+            onStart: deleteUserRequest.type,
+            onSuccess: deleteUserSuccess.type,
+            onError: deleteUserFailed.type
         })
     )
 }

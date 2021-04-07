@@ -70,7 +70,7 @@ const Orders = () => {
                 actions:
                     <>
 
-                        <Link to={`/admin/order/${order._id}`} className="py-1 px-2 btn btn-primary" >
+                        <Link to={`/admin/order/${order._id}`} className="mx-2 py-1 px-2 btn btn-primary" >
                             <i className="fas fa-eye"></i>
                         </Link>
                         <button
