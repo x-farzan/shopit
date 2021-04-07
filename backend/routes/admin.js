@@ -33,7 +33,7 @@ router.put('/admin/user/:id', [auth, admin], async (req, res) => {
     // updating profile
     const newUserUpdate = {
         name: req.body.name,
-        role: req.body.role
+        role: req.body.role,
     }
 
     const user = await User.findByIdAndUpdate(req.params.id, newUserUpdate, {
@@ -42,7 +42,10 @@ router.put('/admin/user/:id', [auth, admin], async (req, res) => {
         useFindAndModify: false
     })
 
-    res.send(user)
+    res.send({
+        user,
+        success: true
+    })
 
 })
 

@@ -22,7 +22,10 @@ const slice = createSlice({
         isDeleted: false,
         users: [],
         userLoading: false,
-        isUserDeleted: false
+        isUserDeleted: false,
+        user: {},
+        isUserUpdated: false,
+        userUpdatingLoading: false
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -43,6 +46,9 @@ const slice = createSlice({
             admin.isUpdated = false
             admin.isDeleted = false
             admin.isUserDeleted = false
+            admin.user = {}
+            admin.isUserUpdated = false
+            admin.userUpdatingLoading = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -127,6 +133,30 @@ const slice = createSlice({
         deleteUserFailed: (admin, action) => {
             admin.userLoading = false
             admin.error = null
+        },
+        getSingleUserRequest: (admin, action) => {
+            admin.loading = true
+            admin.error = null
+        },
+        getSingleUserSuccess: (admin, action) => {
+            admin.loading = false
+            admin.user = action.payload
+        },
+        getSingleUserFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
+        },
+        updateUserRequest: (admin, action) => {
+            admin.userUpdatingLoading = true
+            admin.error = action.payload
+        },
+        updateUserSuccess: (admin, action) => {
+            admin.userUpdatingLoading = false
+            admin.isUserUpdated = action.payload.success
+        },
+        updateUserFailed: (admin, action) => {
+            admin.userUpdatingLoading = false
+            admin.error = action.payload
         }
     }
 })
@@ -163,7 +193,13 @@ const {
     getAllUsersSuccess,
     deleteUserFailed,
     deleteUserRequest,
-    deleteUserSuccess
+    deleteUserSuccess,
+    getSingleUserRequest,
+    getSingleUserSuccess,
+    getSingleUserFailed,
+    updateUserRequest,
+    updateUserFailed,
+    updateUserSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -261,6 +297,32 @@ export const deletingUserRequest = (id) => dispatch => {
             onStart: deleteUserRequest.type,
             onSuccess: deleteUserSuccess.type,
             onError: deleteUserFailed.type
+        })
+    )
+}
+
+export const gettingSingleUserRequest = (id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/user/${id}`,
+            method: "get",
+            onStart: getSingleUserRequest.type,
+            onSuccess: getSingleUserSuccess.type,
+            onError: getSingleUserFailed.type
+        })
+    )
+}
+
+export const updatingUserRequest = (data, id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/user/${id}`,
+            method: "put",
+            data,
+            headers: { "Content-Type": 'multipart/form-data' },
+            onStart: updateUserRequest.type,
+            onSuccess: updateUserSuccess.type,
+            onError: updateUserFailed.type
         })
     )
 }

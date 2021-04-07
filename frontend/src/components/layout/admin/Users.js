@@ -7,13 +7,13 @@ import { Link } from "react-router-dom"
 
 const Users = () => {
     const dispatch = useDispatch()
-    const { users, userLoading, loading, isUserDeleted } = useSelector(state => state.admin)
+    const { users, userLoading, loading, isUserDeleted, isUserUpdated } = useSelector(state => state.admin)
     useEffect(() => {
         dispatch(gettingAllUsersRequest())
         return () => {
             dispatch(clearingAdminErrors())
         }
-    }, [dispatch, isUserDeleted])
+    }, [dispatch, isUserDeleted, isUserUpdated])
     const setUsers = () => {
         const data = {
             columns: [
