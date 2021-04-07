@@ -8,11 +8,6 @@ const NewProduct = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { loading, newProduct, error } = useSelector(state => state.admin)
-    const initialErrorState = {
-        msg: "",
-        color: ""
-    }
-    const [newProductError, setNewProductError] = useState(initialErrorState)
     const initialState = {
         product: {
             name: "",
@@ -45,26 +40,7 @@ const NewProduct = () => {
         'Sports'
     ]
     useEffect(() => {
-        const newMsg = { ...newProductError }
-        if (error) {
-            newMsg.msg = error
-            newMsg.color = "danger"
-            setNewProductError(newMsg)
-            setTimeout(() => {
-                setNewProductError(initialErrorState)
-            }, 2000)
-        }
-        if (newProduct) {
-            newMsg.msg = "Product is Added successfully"
-            newMsg.color = "success"
-            setNewProductError(newMsg)
-            setTimeout(() => {
-                setNewProductError(initialErrorState)
-            }, 1000)
-            history.push("/admin/products")
-        }
         return () => {
-            setNewProductError(initialErrorState)
             dispatch(clearingAdminErrors())
         }
         // eslint-disable-next-line
@@ -95,11 +71,6 @@ const NewProduct = () => {
                         }
                     }
                     reader.readAsDataURL(file)
-                } else {
-                    setNewProductError("Please Select the correct file extension")
-                    setTimeout(() => {
-                        setNewProductError("")
-                    }, 2000)
                 }
             }
         })
@@ -112,13 +83,6 @@ const NewProduct = () => {
         newData.errors = errors || {}
         setProduct(newData)
         if (errors) { return null };
-        if (!images) {
-            setNewProductError("Please Fill All Fields")
-            setTimeout(() => {
-                setNewProductError("")
-            }, 2000)
-            return;
-        }
 
         const formData = new FormData()
         const { name, price, category, description, stock, seller } = product.product
@@ -159,10 +123,6 @@ const NewProduct = () => {
                     <div className="card-header h2 text-dark">
                         New Product
                 </div>
-                    {newProductError.msg &&
-                        <small className={`alert alert-${newProductError.color} text-center`}>
-                            {newProductError.msg}
-                        </small>}
                     <div className="card-body">
                         <form onSubmit={handleOnSubmit}>
                             <Input

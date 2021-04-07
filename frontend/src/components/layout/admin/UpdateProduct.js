@@ -30,14 +30,8 @@ const UpdateProduct = ({ match }) => {
         }
         // eslint-disable-next-line
     }, [productDetail])
-    // console.log(data)
     const history = useHistory()
 
-    const initialErrorState = {
-        msg: "",
-        color: ""
-    }
-    const [newProductError, setNewProductError] = useState(initialErrorState)
     const initialState = {
         product: {
             name: "",
@@ -60,7 +54,6 @@ const UpdateProduct = ({ match }) => {
     const [imagesPreview, setImagesPreview] = useState([])
     const [oldImages, setOldImages] = useState([])
     const [product, setProduct] = useState(initialState)
-    console.log(product)
     const categories = [
         'Electronics',
         'Accessories',
@@ -72,26 +65,8 @@ const UpdateProduct = ({ match }) => {
         'Sports'
     ]
     useEffect(() => {
-        const newMsg = { ...newProductError }
-        if (error) {
-            newMsg.msg = error
-            newMsg.color = "danger"
-            setNewProductError(newMsg)
-            setTimeout(() => {
-                setNewProductError(initialErrorState)
-            }, 2000)
-        }
-        if (isUpdated) {
-            newMsg.msg = "Product is Updated successfully"
-            newMsg.color = "success"
-            setNewProductError(newMsg)
-            setTimeout(() => {
-                setNewProductError(initialErrorState)
-            }, 1000)
-            history.push("/admin/products")
-        }
+
         return () => {
-            setNewProductError(initialErrorState)
             dispatch(clearingAdminErrors())
         }
         // eslint-disable-next-line
@@ -123,11 +98,6 @@ const UpdateProduct = ({ match }) => {
                         }
                     }
                     reader.readAsDataURL(file)
-                } else {
-                    setNewProductError("Please Select the correct file extension")
-                    setTimeout(() => {
-                        setNewProductError("")
-                    }, 2000)
                 }
             }
         })
@@ -140,13 +110,7 @@ const UpdateProduct = ({ match }) => {
         newData.errors = errors || {}
         setProduct(newData)
         if (errors) { return null };
-        if (!images) {
-            setNewProductError("Please Fill All Fields")
-            setTimeout(() => {
-                setNewProductError("")
-            }, 2000)
-            return;
-        }
+
 
         const formData = new FormData()
         const { name, price, category, description, stock, seller } = product.product
