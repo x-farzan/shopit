@@ -7,7 +7,6 @@ import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 const Reviews = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
     const { reviews, loading, reviewLoading, error, isReviewDeleted } = useSelector(state => state.admin)
     const [msg, setMsg] = useState("")
     const [productId, setProductId] = useState("")

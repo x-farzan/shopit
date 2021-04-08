@@ -30,6 +30,7 @@ const slice = createSlice({
         reviews: [],
         isReviewDeleted: false,
         reviewLoading: false,
+        statusOfOrder: ""
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -57,6 +58,10 @@ const slice = createSlice({
             admin.isReviewDeleted = false
             admin.reviewLoading = false
             admin.order = null
+        },
+        resetError: (admin, action) => {
+            admin.orderLoading = false
+            admin.statusOfOrder = ""
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -125,6 +130,18 @@ const slice = createSlice({
         getSingleOrderSuccess: (admin, action) => {
             admin.loading = false
             admin.order = action.payload
+        },
+        changeOrderStatusRequest: (admin, action) => {
+            admin.orderLoading = true
+            admin.error = null
+        },
+        changeOrderStatusSuccess: (admin, action) => {
+            admin.orderLoading = false
+            admin.statusOfOrder = action.payload
+        },
+        changeOrderStatusFailed: (admin, action) => {
+            admin.orderLoading = false
+            admin.error = action.payload
         },
         getSingleOrderFailed: (admin, action) => {
             admin.loading = false
@@ -253,7 +270,11 @@ const {
     deleteReviewSuccess,
     getSingleOrderFailed,
     getSingleOrderRequest,
-    getSingleOrderSuccess
+    getSingleOrderSuccess,
+    changeOrderStatusFailed,
+    changeOrderStatusRequest,
+    changeOrderStatusSuccess,
+    resetError
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -415,3 +436,17 @@ export const gettingSingleOrderRequest = (id) => dispatch => {
         })
     )
 }
+export const changingOrderStatusRequest = (id, data) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/update/order/${id}`,
+            method: "put",
+            data,
+            headers: { "Content-Type": 'application/json' },
+            onStart: changeOrderStatusRequest.type,
+            onSuccess: changeOrderStatusSuccess.type,
+            onError: changeOrderStatusFailed.type
+        })
+    )
+}
+export const resettingError = () => resetError()

@@ -2,20 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 import { useSelector, useDispatch } from "react-redux"
-import { gettingSingleOrderRequest, clearingAdminErrors } from "../../../store/admin"
+import { gettingSingleOrderRequest, resettingError, changingOrderStatusRequest } from "../../../store/admin"
 import Error from "../products/Error"
 import OrderItems from '../order/OrderItems'
 
 const OrderStatus = ({ match }) => {
     const dispatch = useDispatch()
     const [ordStatus, setOrdStatus] = useState("")
-    const { loading, order, error } = useSelector(state => state.admin)
+    const { loading, order, error, statusOfOrder } = useSelector(state => state.admin)
 
     const [msg, setMsg] = useState("")
     // const {} = order
     const status = [
         "",
-        'Processing',
         "Shipped",
         "Delivered"
     ]
@@ -23,14 +22,52 @@ const OrderStatus = ({ match }) => {
         setOrdStatus(e.target.value)
     }
     useEffect(() => {
-        dispatch(gettingSingleOrderRequest(match.params.id))
+        if (error) {
+            setMsg(error)
+            setTimeout(() => {
+                setMsg("")
+                // dispatch(resettingError())
+                dispatch(gettingSingleOrderRequest(match.params.id))
 
-        return () => {
-            dispatch(clearingAdminErrors())
+            }, 2000);
+
         }
-    }, [dispatch, match])
+        if (statusOfOrder) {
+            setMsg(error)
+            setTimeout(() => {
+                setMsg("")
+                // dispatch(resettingError())
+                dispatch(gettingSingleOrderRequest(match.params.id))
 
+            }, 2000);
+        }
+        return () => {
+            dispatch(resettingError())
+            setMsg("")
+        }
+        // eslint-disable-next-line
+    }, [dispatch, match, statusOfOrder, error])
+
+    useEffect(() => {
+        dispatch(gettingSingleOrderRequest(match.params.id))
+        // eslint-disable-next-line
+    }, [])
+    console.log(msg)
     const { shippingInfo, paymentInfo, orderStatus, orderItems, user } = order || {}
+
+    const handleOnClick = () => {
+        if (ordStatus === "") {
+            setMsg("You Did Not Select the Status")
+            setTimeout(() => {
+                setMsg("")
+            }, 2000);
+            return
+        }
+        if (order && order._id) {
+            dispatch(changingOrderStatusRequest(order._id, { status: ordStatus }))
+        }
+    }
+
     return (
         <>
             <Metadata title="Order Detail" />
@@ -41,6 +78,7 @@ const OrderStatus = ({ match }) => {
                 <div className="col-12 col-md-7">
                     {loading ? (<Error />) : (
                         <div className="container my-3" style={{ minHeight: "100vh" }}>
+                            {msg && <div className="alert alert-info">{msg}</div>}
                             <div className="row">
                                 <div className="col-8">
                                     <div className="h1">
@@ -127,7 +165,9 @@ const OrderStatus = ({ match }) => {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <div className="btn btn-primary btn-block my-2">
+                                        <div
+                                            onClick={handleOnClick}
+                                            className="btn btn-primary btn-block my-2">
                                             Submit
                                     </div>
                                     </div>

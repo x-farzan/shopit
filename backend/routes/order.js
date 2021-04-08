@@ -89,14 +89,14 @@ router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
 // protected by admin
 
 router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
-
     const order = await Order.findById(req.params.id)
     if (!order) return res.status(400).send('Order with the given id is not present...')
     if (order.orderStatus === 'Delivered') return res.status(400).send("This Product is already Delivered")
+    // if (order.orderStatus === 'Shipped') return res.status(400).send("This Product is already Shipped")
 
     //update stock of each product
     order.orderItems.forEach(async item => {
-        await updateOrderStatus(item.product, item.quantity)
+        await updateOrderStatus(item.product, item.qty)
     })
 
     // Joi error checking
@@ -109,6 +109,7 @@ router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
 
     await order.save()
 
+
     res.send("Stock is updated and order is Delivered")
 })
 
@@ -116,14 +117,16 @@ const updateOrderStatus = async (id, quantity) => {
 
     const product = await Product.findById(id)
 
-    product.stock = product.stock - quantity
+    const stock = product.stock - quantity
+
+    product.stock = stock
 
     await product.save({ validateBeforeSave: false })
 }
 
 const orderProcessingValidation = (status) => {
     const schema = Joi.object({
-        status: Joi.string().required().valid("Processing", "Delivered")
+        status: Joi.string().required().valid("Processing", "Shipped", "Delivered")
     })
     return schema.validate(status)
 }
