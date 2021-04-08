@@ -49,13 +49,13 @@ const OrderStatus = ({ match }) => {
                                     <div>
                                         <h4>Shipping Info</h4>
                                         <div className="ml-5">
-                                            <p>Name: {user && user.name}</p>
-                                            <p>Email: {user && user.email}</p>
-                                            <p>Role: {user && user.role}</p>
-                                            <p>Address: {shippingInfo && shippingInfo.address}</p>
-                                            <p>City: {shippingInfo && shippingInfo.city}</p>
-                                            <p>Country: {shippingInfo && shippingInfo.country}</p>
-                                            <p>Contact: {shippingInfo && shippingInfo.phone}</p>
+                                            <p><span className="font-weight-bold">Name: </span> {user && user.name}</p>
+                                            <p><span className="font-weight-bold">Email: </span> {user && user.email}</p>
+                                            <p><span className="font-weight-bold">Role: </span> {user && user.role}</p>
+                                            <p><span className="font-weight-bold">Address: </span> {shippingInfo && shippingInfo.address}</p>
+                                            <p><span className="font-weight-bold">City: </span> {shippingInfo && shippingInfo.city}</p>
+                                            <p><span className="font-weight-bold">Country: </span> {shippingInfo && shippingInfo.country}</p>
+                                            <p><span className="font-weight-bold">Contact: </span> {shippingInfo && shippingInfo.phone}</p>
                                             <hr />
                                         </div>
                                     </div>
