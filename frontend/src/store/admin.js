@@ -18,6 +18,7 @@ const slice = createSlice({
         deleteProductLoading: false,
         isUpdated: false,
         orders: [],
+        order: {},
         orderLoading: false,
         isDeleted: false,
         users: [],
@@ -55,6 +56,7 @@ const slice = createSlice({
             admin.reviews = []
             admin.isReviewDeleted = false
             admin.reviewLoading = false
+            admin.order = null
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -115,6 +117,18 @@ const slice = createSlice({
         deleteOrderFailed: (admin, action) => {
             admin.orderLoading = false
             admin.error = null
+        },
+        getSingleOrderRequest: (admin, action) => {
+            admin.loading = true
+            admin.error = null
+        },
+        getSingleOrderSuccess: (admin, action) => {
+            admin.loading = false
+            admin.order = action.payload
+        },
+        getSingleOrderFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
         },
         getAllUsersRequest: (admin, action) => {
             admin.loading = true;
@@ -236,7 +250,10 @@ const {
     getAllReviewsSuccess,
     deleteReviewFailed,
     deleteReviewRequest,
-    deleteReviewSuccess
+    deleteReviewSuccess,
+    getSingleOrderFailed,
+    getSingleOrderRequest,
+    getSingleOrderSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -383,6 +400,18 @@ export const deletingReviewRequest = (productId, reviewId) => dispatch => {
             onStart: deleteReviewRequest.type,
             onSuccess: deleteReviewSuccess.type,
             onError: deleteReviewFailed.type
+        })
+    )
+}
+
+export const gettingSingleOrderRequest = (id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/order/${id}`,
+            method: "get",
+            onStart: getSingleOrderRequest.type,
+            onSuccess: getSingleOrderSuccess.type,
+            onError: getSingleOrderFailed.type
         })
     )
 }

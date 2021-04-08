@@ -6,7 +6,7 @@ const { Order, validation } = require('../models/orderModel')
 const { Product } = require('../models/productModel')
 const admin = require('../middleware/admin');
 const Joi = require('joi');
-
+const mongoose = require("mongoose")
 // create order
 // protected by user
 router.post('/order/new', auth, async (req, res) => {
@@ -59,16 +59,19 @@ router.get('/admin/orders', [auth, admin], async (req, res) => {
         totalAmount += order.totalPrice
     })
 
-    // const totalItems = orders.map(order => order.orderItems).map(item => item.map(a => a.qty).reduce((acc, res) => acc + res, 0))
-    // const totalPrice = orders.map(order => order.totalPrice)
-    // const status = orders.map(sta => sta.orderStatus)
-    // const id = orders.map(i => i._id)
-
-
     res.send({
         totalAmount: totalAmount.toFixed(2),
         orders
     })
+})
+
+// get single order
+// protected by admin
+router.get("/admin/order/:id", [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(400).send("This is not a correct ID")
+    const order = await Order.findById(req.params.id).populate("user", "-password").select("-itemPrice -taxPrice -shippingPrice -totalPrice")
+    if (!order) return res.status(400).send("Order with the Given ID is not present")
+    res.send(order)
 })
 
 // Delte an orders by admin 
