@@ -3,8 +3,10 @@ const router = express.Router()
 const auth = require('../middleware/auth')
 const admin = require('../middleware/admin')
 const { User } = require('../models/userModel')
+const { Product } = require('../models/productModel')
 const Joi = require('joi')
 const cloudinary = require("cloudinary")
+const mongoose = require('mongoose')
 // get all users
 // protected
 router.get('/admin/all/users', [auth, admin], async (req, res) => {
@@ -62,6 +64,17 @@ router.delete('/admin/user/:id', [auth, admin], async (req, res) => {
         success: true,
         message: "User has been deleted successfully..."
     })
+})
+
+// Get All Reviews of a product
+router.get("/admin/reviews/product/:id", [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
+    const product = await Product.findById(req.params.id).sort("_id")
+    if (!product) return res.status(400).send("Product With the given ID is not present")
+    reviews = product.reviews
+    res.send(reviews)
 })
 
 

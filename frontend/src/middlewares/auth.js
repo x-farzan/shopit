@@ -21,7 +21,6 @@ const auth = ({ dispatch }) => next => async action => {
         })
 
         dispatch(authCallSuccess(response.data))
-
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
     } catch (error) {
         dispatch(authCallFailed(error.response.data))

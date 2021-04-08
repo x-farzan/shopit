@@ -19,7 +19,6 @@ const Dashboard = () => {
     const outOfStock = products && products.filter(product => product.stock === 0)
     const { orders, users } = useSelector(state => state.admin)
     const totalAmount = orders && orders.map(order => order.totalPrice).reduce((a, b) => a + b, 0)
-    console.log(users)
     return (
         <div className="row" style={{ marginTop: "-1rem" }}>
             <div className="col-12 col-md-3 bg-dark ">

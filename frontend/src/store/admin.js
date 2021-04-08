@@ -25,7 +25,8 @@ const slice = createSlice({
         isUserDeleted: false,
         user: {},
         isUserUpdated: false,
-        userUpdatingLoading: false
+        userUpdatingLoading: false,
+        reviews: []
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -49,6 +50,7 @@ const slice = createSlice({
             admin.user = {}
             admin.isUserUpdated = false
             admin.userUpdatingLoading = false
+            admin.reviews = []
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -157,6 +159,19 @@ const slice = createSlice({
         updateUserFailed: (admin, action) => {
             admin.userUpdatingLoading = false
             admin.error = action.payload
+        },
+        getAllReviewsRequest: (admin, action) => {
+            admin.loading = true
+            admin.error = null
+        },
+        getAllReviewsSuccess: (admin, action) => {
+            admin.loading = false
+            admin.reviews = action.payload
+        },
+        getAllReviewsFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
+            console.log(action.payload)
         }
     }
 })
@@ -199,7 +214,10 @@ const {
     getSingleUserFailed,
     updateUserRequest,
     updateUserFailed,
-    updateUserSuccess
+    updateUserSuccess,
+    getAllReviewsFailed,
+    getAllReviewsRequest,
+    getAllReviewsSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -323,6 +341,17 @@ export const updatingUserRequest = (data, id) => dispatch => {
             onStart: updateUserRequest.type,
             onSuccess: updateUserSuccess.type,
             onError: updateUserFailed.type
+        })
+    )
+}
+export const gettingAllReviewsRequest = (id) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/reviews/product/${id}`,
+            method: "get",
+            onStart: getAllReviewsRequest.type,
+            onSuccess: getAllReviewsSuccess.type,
+            onError: getAllReviewsFailed.type
         })
     )
 }

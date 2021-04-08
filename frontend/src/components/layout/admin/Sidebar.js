@@ -26,7 +26,7 @@ const Sidebar = () => {
             }
             <Link style={linkStyle} to='/admin/orders'><i className="fas fa-shopping-basket"></i> Orders</Link>
             <Link style={linkStyle} to='/admin/users'><i className="fas fa-users"></i> Users</Link>
-            <Link style={linkStyle} to='/admin/orders'><i className="fas fa-star"></i> Reviews</Link>
+            <Link style={linkStyle} to='/admin/product/reviews'><i className="fas fa-star"></i> Reviews</Link>
         </div >
     )
 }
