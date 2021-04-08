@@ -26,7 +26,9 @@ const slice = createSlice({
         user: {},
         isUserUpdated: false,
         userUpdatingLoading: false,
-        reviews: []
+        reviews: [],
+        isReviewDeleted: false,
+        reviewLoading: false,
     },
     reducers: {
         getAllProductsAdminRequest: (admin, action) => {
@@ -51,6 +53,8 @@ const slice = createSlice({
             admin.isUserUpdated = false
             admin.userUpdatingLoading = false
             admin.reviews = []
+            admin.isReviewDeleted = false
+            admin.reviewLoading = false
         },
         createNewProductAdminRequest: (admin, action) => {
             admin.loading = true
@@ -171,7 +175,19 @@ const slice = createSlice({
         getAllReviewsFailed: (admin, action) => {
             admin.loading = false
             admin.error = action.payload
-            console.log(action.payload)
+        },
+        deleteReviewRequest: (admin, action) => {
+            admin.reviewLoading = true
+            admin.error = null
+        },
+        deleteReviewSuccess: (admin, action) => {
+            admin.reviewLoading = false
+            admin.isReviewDeleted = action.payload.success
+            admin.error = action.payload.msg
+        },
+        deleteReviewFailed: (admin, action) => {
+            admin.reviewLoading = false
+            admin.error = action.payload
         }
     }
 })
@@ -217,7 +233,10 @@ const {
     updateUserSuccess,
     getAllReviewsFailed,
     getAllReviewsRequest,
-    getAllReviewsSuccess
+    getAllReviewsSuccess,
+    deleteReviewFailed,
+    deleteReviewRequest,
+    deleteReviewSuccess
 } = slice.actions
 
 export const gettingAllProductsAdminRequest = () => (dispatch) => {
@@ -352,6 +371,18 @@ export const gettingAllReviewsRequest = (id) => dispatch => {
             onStart: getAllReviewsRequest.type,
             onSuccess: getAllReviewsSuccess.type,
             onError: getAllReviewsFailed.type
+        })
+    )
+}
+
+export const deletingReviewRequest = (productId, reviewId) => dispatch => {
+    dispatch(
+        apiCallBegan({
+            url: `/api/v1/admin/product/review?product_id=${productId}&review_id=${reviewId}`,
+            method: "delete",
+            onStart: deleteReviewRequest.type,
+            onSuccess: deleteReviewSuccess.type,
+            onError: deleteReviewFailed.type
         })
     )
 }

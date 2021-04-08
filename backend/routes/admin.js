@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 router.get('/admin/all/users', [auth, admin], async (req, res) => {
     const users = await User.find().sort('_id')
 
-    if (users.length === 0) return res.send("No Users Available..")
+    if (users.length === 0) return res.status(400).send("No Users Available..")
 
     res.send(users)
 })
@@ -74,9 +74,43 @@ router.get("/admin/reviews/product/:id", [auth, admin], async (req, res) => {
     const product = await Product.findById(req.params.id).sort("_id")
     if (!product) return res.status(400).send("Product With the given ID is not present")
     reviews = product.reviews
+    if (reviews.length === 0) return res.status(400).send("No Reviews")
     res.send(reviews)
 })
 
+//Delete a Reviews of a product
+// protected by admin
+router.delete("/admin/product/review", [auth, admin], async (req, res) => {
+    const { product_id, review_id } = req.query
+    if (!mongoose.Types.ObjectId.isValid(product_id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
+    if (!mongoose.Types.ObjectId.isValid(review_id)) {
+        return res.status(400).send("Invalid Review ID")
+    }
+    const product = await Product.findById(product_id).sort("_id")
+    if (!product) return res.status(400).send("Product With the given ID is not present")
+    let { reviews } = product
+    if (reviews.length === 0) return res.status(400).send("No Reviews Are Available for this product")
+    reviews = reviews.filter(review => review._id.toString() !== review_id.toString())
+    product.reviews = reviews
+    product.numOfReviews = reviews.length
+
+    let rating = reviews.length !== 0 && reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length
+
+    if (reviews.length === 0) {
+        rating = 0
+    }
+
+    // // calculate rating
+    product.rating = rating
+    console.log(product_id, review_id, reviews, product.reviews, product.numOfReviews, product.rating)
+    await product.save()
+    res.send({
+        success: true,
+        msg: "Review Has Been Removed Successfully",
+    })
+})
 
 // update user validation
 const updateUserValidation = req => {

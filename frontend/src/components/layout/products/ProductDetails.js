@@ -13,6 +13,7 @@ const ProductDetails = ({ match }) => {
 
     const dispatch = useDispatch()
     const { review } = useSelector(state => state.entities.reviews)
+
     const [count, setCount] = useState(0)
     const initialState = {
         color: "",

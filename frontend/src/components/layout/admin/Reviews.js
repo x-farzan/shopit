@@ -1,27 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { gettingAllReviewsRequest, clearingAdminErrors } from "../../../store/admin"
+import { deletingReviewRequest, gettingAllReviewsRequest, clearingAdminErrors } from "../../../store/admin"
 import { MDBDataTable } from "mdbreact"
-import Error from "../products/Error"
-import { Link } from 'react-router-dom'
+import { useHistory } from "react-router-dom"
 const Reviews = () => {
     const dispatch = useDispatch()
-
-    const { reviews, loading } = useSelector(state => state.admin)
+    const history = useHistory()
+    const { reviews, loading, reviewLoading, error, isReviewDeleted } = useSelector(state => state.admin)
+    const [msg, setMsg] = useState("")
+    const [productId, setProductId] = useState("")
 
     useEffect(() => {
+        if (error && isReviewDeleted) {
+            if (error !== "No Reviews") {
+                setMsg(error)
+                setTimeout(() => {
+                    setMsg("")
+                    dispatch(gettingAllReviewsRequest(productId))
+                    dispatch(clearingAdminErrors())
+                }, 2000);
+            }
 
+        }
+        if (error === "No Reviews") {
+            setMsg(error)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(clearingAdminErrors())
+            }, 2000);
+        }
+        // eslint-disable-next-line
+    }, [error, isReviewDeleted, dispatch])
+    useEffect(() => {
         return () => {
             dispatch(clearingAdminErrors())
+            setMsg("")
         }
-    }, [dispatch])
-    const [productId, setProductId] = useState("")
+        // eslint-disable-next-line
+    }, [])
+
 
     const handleOnClick = () => {
         dispatch(gettingAllReviewsRequest(productId))
-    }
-    if (reviews.length !== 0) {
-        console.log(reviews)
+
     }
     const setProducts = () => {
         const data = {
@@ -57,15 +78,15 @@ const Reviews = () => {
             data.rows.push({
                 reviewId: review._id,
                 rating: review.rating,
-                comment: `$${review.comment}`,
+                comment: review.comment,
                 user: review.user,
                 actions:
                     <>
                         <button
-                            // onClick={() => deletingreview(review._id)}
+                            onClick={() => deletingReview(review._id)}
                             to="#"
                             type="button"
-                            disabled={loading ? true : false}
+                            disabled={reviewLoading ? true : false}
                             className="py-1 px-2 btn btn-danger" >
                             <i className="fa fa-trash"></i>
                         </button>
@@ -74,10 +95,16 @@ const Reviews = () => {
         });
         return data
     }
+    const deletingReview = (id) => {
+        dispatch(deletingReviewRequest(productId, id))
+    }
 
     return (
         <div className="container" style={{ minHeight: "100vh" }}>
-            <div className="d-flex align-items-center justify-content-center">
+            <div className="d-flex flex-column align-items-center justify-content-center">
+                {msg ? (
+                    <div className="alert alert-info">{msg}</div>
+                ) : null}
                 <div className="form-group">
                     <label htmlFor="productId">Product ID</label>
                     <input

@@ -22,8 +22,9 @@ const products = ({ dispatch, getState }) => next => async action => {
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
 
     } catch (error) {
-        dispatch(apiCallFailed(error.message))
-        if (onError) dispatch({ type: onError, payload: error.message })
+
+        dispatch(apiCallFailed(error.response.data))
+        if (onError) dispatch({ type: onError, payload: error.response.data })
     }
 }
 export default products
