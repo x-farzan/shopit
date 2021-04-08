@@ -4,6 +4,7 @@ import { gettingAllOrdersRequest } from "../../../store/order"
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
 import { Link } from 'react-router-dom'
+import Metadata from '../products/Metadata'
 
 const ListOrders = () => {
     const dispatch = useDispatch()
@@ -61,6 +62,7 @@ const ListOrders = () => {
     }
     return (
         <div className="container">
+            <Metadata title="My Orders" />
             <h1 className="my-5">My Orders</h1>
             {!loading ? (
                 <>

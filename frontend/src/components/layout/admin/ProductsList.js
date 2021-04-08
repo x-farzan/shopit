@@ -4,6 +4,7 @@ import { deletingProductRequest, gettingAllProductsAdminRequest, clearingAdminEr
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
 import { Link, useHistory } from 'react-router-dom'
+import Metadata from '../products/Metadata'
 
 
 const ProductsList = () => {
@@ -95,6 +96,8 @@ const ProductsList = () => {
     }
     return (
         <div className="container">
+            <Metadata title="All Products" />
+
             {errMsg ? (
                 <div className="alert alert-info">
                     {errMsg}

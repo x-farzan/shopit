@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { deletingReviewRequest, gettingAllReviewsRequest, clearingAdminErrors } from "../../../store/admin"
 import { MDBDataTable } from "mdbreact"
 import { useHistory } from "react-router-dom"
+import Metadata from '../products/Metadata'
 const Reviews = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -101,6 +102,8 @@ const Reviews = () => {
 
     return (
         <div className="container" style={{ minHeight: "100vh" }}>
+            <Metadata title="Product Reviews" />
+
             <div className="d-flex flex-column align-items-center justify-content-center">
                 {msg ? (
                     <div className="alert alert-info">{msg}</div>

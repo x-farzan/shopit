@@ -37,6 +37,7 @@ import OrderStatus from './components/layout/admin/OrderStatus';
 import Users from './components/layout/admin/Users';
 import UserDetail from './components/layout/admin/UserDetail';
 import Reviews from './components/layout/admin/Reviews';
+import ForgotPassword from './components/layout/auth/ForgotPassword';
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
 
 
         <Route exact path='/register' component={Register} />
+        <Route exact path='/forgot/password' component={ForgotPassword} />
         <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact isAdmin={true} path="/admin/products" component={ProductsList} />
         <ProtectedRoute exact isAdmin={true} path="/admin/product/new" component={NewProduct} />

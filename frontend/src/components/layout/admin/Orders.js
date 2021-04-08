@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { gettingAllOrders, deletingOrderRequest, clearingAdminErrors } from "../../../store/admin"
 import Error from "../products/Error"
 import { MDBDataTable } from "mdbreact"
+import Metadata from '../products/Metadata'
 
 const Orders = () => {
     const dispatch = useDispatch()
@@ -91,6 +92,8 @@ const Orders = () => {
     }
     return (
         <div className="container" style={{ minHeight: "100vh" }}>
+            <Metadata title="Orders" />
+
             <h1 className="my-5">All Orders</h1>
             {loading ? (<Error />) : (
                 <>

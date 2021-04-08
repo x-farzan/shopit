@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import Joi from 'joi'
 import { creatingNewProductAdminRequest, clearingAdminErrors } from "../../../store/admin"
 import Input from '../auth/Input'
+import Metadata from '../products/Metadata'
 const NewProduct = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -118,6 +119,8 @@ const NewProduct = () => {
     }
     return (
         <div className="container" style={{ width: '100vw', minHeight: "100vh" }}>
+            <Metadata title="Create New Product" />
+
             <div className="d-flex align-item-center justify-content-center">
                 <div className="card w-50">
                     <div className="card-header h2 text-dark">

@@ -51,18 +51,6 @@ const ProductDetails = ({ match }) => {
         }
         //eslint-disable-next-line
     }, [])
-    // const {
-    //     description,
-    //     name,
-    //     numOfReviews,
-    //     price,
-    //     rating,
-    //     stock,
-    //     _id,
-    //     seller,
-    //     reviews,
-    //     images
-    // } = data
 
     const incrementQty = () => {
         setCount(Math.min(Number(data.stock), count + 1))

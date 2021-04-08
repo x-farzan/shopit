@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { gettingAllProductsAdminRequest, clearingAdminErrors, gettingAllOrders, gettingAllUsersRequest } from "../../../store/admin"
 import Error from '../products/Error'
 import { Link } from "react-router-dom"
+import Metadata from '../products/Metadata'
 const Dashboard = () => {
     const dispatch = useDispatch()
     useEffect(() => {
@@ -21,6 +22,8 @@ const Dashboard = () => {
     const totalAmount = orders && orders.map(order => order.totalPrice).reduce((a, b) => a + b, 0)
     return (
         <div className="row" style={{ marginTop: "-1rem" }}>
+            <Metadata title="Admin Dashboard" />
+
             <div className="col-12 col-md-3 bg-dark ">
                 <Sidebar />
             </div>

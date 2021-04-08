@@ -5,6 +5,7 @@ import Joi from 'joi'
 import { updatingProductRequest, clearingAdminErrors } from "../../../store/admin"
 import Input from '../auth/Input'
 import { getProductDetails, clearingProductDetail } from "../../../store/productDetails"
+import Metadata from '../products/Metadata'
 const UpdateProduct = ({ match }) => {
 
     const dispatch = useDispatch()
@@ -146,6 +147,8 @@ const UpdateProduct = ({ match }) => {
     }
     return (
         <div className="container" style={{ width: '100vw', minHeight: "100vh" }}>
+            <Metadata title="Update Product" />
+
             <div className="d-flex align-item-center justify-content-center">
                 <div className="card w-50">
                     <div className="card-header h2 text-dark">

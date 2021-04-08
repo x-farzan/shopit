@@ -2,11 +2,14 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Error from '../products/Error'
 import { Link } from 'react-router-dom'
+import Metadata from '../products/Metadata'
 const Profile = () => {
     const { res } = useSelector(state => state.auth.login)
 
     return (
         <>
+            <Metadata title="My Profile" />
+
             {res !== null ? (
                 <div className="container" style={{ height: "100vh" }}>
                     <div className="row py-3">

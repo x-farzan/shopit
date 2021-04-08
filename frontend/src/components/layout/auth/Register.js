@@ -5,6 +5,7 @@ import Input from './Input'
 import { registeringRequest, clearError } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import Metadata from '../products/Metadata'
 
 const Register = () => {
     const history = useHistory()
@@ -133,6 +134,8 @@ const Register = () => {
     return (
 
         <div className="container" style={{ width: '100vw', height: "100vh" }}>
+            <Metadata title="Register" />
+
             <div className="d-flex align-item-center justify-content-center">
                 <div className="card w-50">
                     <div className="card-header h2 text-dark">

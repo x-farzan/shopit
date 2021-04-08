@@ -6,6 +6,7 @@ import { clearError, loginRequest } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import Metadata from '../products/Metadata'
 
 const Auth = (props) => {
     const history = useHistory()
@@ -86,6 +87,8 @@ const Auth = (props) => {
     }
     return (
         <div className="container" style={{ width: '100vw', height: "100vh" }}>
+            <Metadata title="Login" />
+
             <div className="d-flex align-item-center justify-content-center">
                 <div className="card w-50">
                     <div className="card-header h2 text-dark">
