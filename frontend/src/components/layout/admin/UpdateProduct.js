@@ -6,6 +6,7 @@ import { updatingProductRequest, clearingAdminErrors } from "../../../store/admi
 import Input from '../auth/Input'
 import { getProductDetails, clearingProductDetail } from "../../../store/productDetails"
 import Metadata from '../products/Metadata'
+import Sidebar from './Sidebar'
 const UpdateProduct = ({ match }) => {
 
     const dispatch = useDispatch()
@@ -146,132 +147,141 @@ const UpdateProduct = ({ match }) => {
         return errors
     }
     return (
-        <div className="container" style={{ width: '100vw', minHeight: "100vh" }}>
-            <Metadata title="Update Product" />
-
-            <div className="d-flex align-item-center justify-content-center">
-                <div className="card w-50">
-                    <div className="card-header h2 text-dark">
-                        New Product
+        <>
+            <div className="row">
+                <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
+                    <Sidebar />
                 </div>
-                    <div className="card-body">
-                        <form onSubmit={handleOnSubmit}>
-                            <Input
-                                label="Name"
-                                error={product.errors.name}
-                                value={product.product.name}
-                                onChange={onChange}
-                                name="name"
-                                type="text"
-                            />
-                            <Input
-                                label="Price"
-                                error={product.errors.price}
-                                value={product.product.price}
-                                onChange={onChange}
-                                name="price"
-                                type="number"
-                            />
-                            <div className="form-group">
-                                <label htmlFor="name">Description</label>
-                                <textarea name="description" cols="5" rows="3" className={`form-control ${product.errors.description ? "is-invalid" : ""}`}
-                                    value={product.product.description}
-                                    onChange={onChange}
-                                ></textarea>
+                <div className="col-12 col-md-7">
+                    <div className="container" style={{ width: '100vw', minHeight: "100vh" }}>
+                        <Metadata title="Update Product" />
 
-                                {product.errors.description &&
-                                    <div className="invalid-feedback">
-                                        {product.errors.description}
-                                    </div>}
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="category">Category</label>
-                                <select
-                                    id="category"
-                                    name="category"
-                                    className={`form-control ${product.errors.category ? "is-invalid" : ""}`}
-                                    onChange={onChange}
-                                    value={product.product.category}
-                                    type="text"
-                                >
-                                    {categories.map(category => (
-                                        <option
-                                            key={category}
-                                            value={category}
-                                        >{category}</option>
-                                    ))}
-
-                                </select>
-                                {product.errors.category &&
-                                    <div className="invalid-feedback">
-                                        {product.errors.category}
-                                    </div>}
-                            </div>
-                            <Input
-                                label="Stock"
-                                error={product.errors.stock}
-                                value={product.product.stock}
-                                onChange={onChange}
-                                name="stock"
-                                type="number"
-                            />
-                            <Input
-                                label="Seller"
-                                error={product.errors.seller}
-                                value={product.product.seller}
-                                onChange={onChange}
-                                name="seller"
-                                type="text"
-                            />
-                            <div className="row my-3">
-
-                                <div className="col-12">
-                                    <div className="custom-file">
-                                        <input
-                                            type="file"
-                                            name="avatar"
-                                            className="custom-file-input"
-                                            id="customFile"
-                                            multiple
-                                            onChange={handleChangeImages}
+                        <div className="d-flex align-item-center justify-content-center">
+                            <div className="card w-50">
+                                <div className="card-header h2 text-dark">
+                                    New Product
+                </div>
+                                <div className="card-body">
+                                    <form onSubmit={handleOnSubmit}>
+                                        <Input
+                                            label="Name"
+                                            error={product.errors.name}
+                                            value={product.product.name}
+                                            onChange={onChange}
+                                            name="name"
+                                            type="text"
                                         />
-                                        <label className="custom-file-label" htmlFor="customFile">Images</label>
-                                    </div>
-                                </div>
-                                <div className="col-12">
-                                    {imagesPreview.length !== 0 ? (
-                                        imagesPreview.map(img => (
-                                            <img
-                                                key={Math.random() * 123456789}
-                                                src={img} alt="images"
-                                                className="mx-2"
-                                                style={{ width: "15%", height: "100%" }}
-                                            />
-                                        ))
-                                    ) : (
-                                        oldImages && oldImages.map(img => (
-                                            <img src={img.url}
-                                                key={Math.random() * 123456789}
-                                                alt="images"
-                                                className="mx-2"
-                                                style={{ width: "15%", height: "100%" }}
-                                            />
-                                        ))
-                                    )}
+                                        <Input
+                                            label="Price"
+                                            error={product.errors.price}
+                                            value={product.product.price}
+                                            onChange={onChange}
+                                            name="price"
+                                            type="number"
+                                        />
+                                        <div className="form-group">
+                                            <label htmlFor="name">Description</label>
+                                            <textarea name="description" cols="5" rows="3" className={`form-control ${product.errors.description ? "is-invalid" : ""}`}
+                                                value={product.product.description}
+                                                onChange={onChange}
+                                            ></textarea>
+
+                                            {product.errors.description &&
+                                                <div className="invalid-feedback">
+                                                    {product.errors.description}
+                                                </div>}
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="category">Category</label>
+                                            <select
+                                                id="category"
+                                                name="category"
+                                                className={`form-control ${product.errors.category ? "is-invalid" : ""}`}
+                                                onChange={onChange}
+                                                value={product.product.category}
+                                                type="text"
+                                            >
+                                                {categories.map(category => (
+                                                    <option
+                                                        key={category}
+                                                        value={category}
+                                                    >{category}</option>
+                                                ))}
+
+                                            </select>
+                                            {product.errors.category &&
+                                                <div className="invalid-feedback">
+                                                    {product.errors.category}
+                                                </div>}
+                                        </div>
+                                        <Input
+                                            label="Stock"
+                                            error={product.errors.stock}
+                                            value={product.product.stock}
+                                            onChange={onChange}
+                                            name="stock"
+                                            type="number"
+                                        />
+                                        <Input
+                                            label="Seller"
+                                            error={product.errors.seller}
+                                            value={product.product.seller}
+                                            onChange={onChange}
+                                            name="seller"
+                                            type="text"
+                                        />
+                                        <div className="row my-3">
+
+                                            <div className="col-12">
+                                                <div className="custom-file">
+                                                    <input
+                                                        type="file"
+                                                        name="avatar"
+                                                        className="custom-file-input"
+                                                        id="customFile"
+                                                        multiple
+                                                        onChange={handleChangeImages}
+                                                    />
+                                                    <label className="custom-file-label" htmlFor="customFile">Images</label>
+                                                </div>
+                                            </div>
+                                            <div className="col-12">
+                                                {imagesPreview.length !== 0 ? (
+                                                    imagesPreview.map(img => (
+                                                        <img
+                                                            key={Math.random() * 123456789}
+                                                            src={img} alt="images"
+                                                            className="mx-2"
+                                                            style={{ width: "15%", height: "100%" }}
+                                                        />
+                                                    ))
+                                                ) : (
+                                                    oldImages && oldImages.map(img => (
+                                                        <img src={img.url}
+                                                            key={Math.random() * 123456789}
+                                                            alt="images"
+                                                            className="mx-2"
+                                                            style={{ width: "15%", height: "100%" }}
+                                                        />
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                        <input
+                                            type="submit"
+                                            value="Submit"
+                                            className="btn btn-warning  btn-lg btn-block"
+                                            onClick={handleOnSubmit}
+                                            disabled={loading ? true : false}
+                                        />
+                                    </form>
                                 </div>
                             </div>
-                            <input
-                                type="submit"
-                                value="Submit"
-                                className="btn btn-warning  btn-lg btn-block"
-                                onClick={handleOnSubmit}
-                                disabled={loading ? true : false}
-                            />
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

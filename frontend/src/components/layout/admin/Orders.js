@@ -5,7 +5,7 @@ import { gettingAllOrders, deletingOrderRequest, clearingAdminErrors } from "../
 import Error from "../products/Error"
 import { MDBDataTable } from "mdbreact"
 import Metadata from '../products/Metadata'
-
+import Sidebar from './Sidebar'
 const Orders = () => {
     const dispatch = useDispatch()
 
@@ -91,23 +91,33 @@ const Orders = () => {
         dispatch(deletingOrderRequest(id))
     }
     return (
-        <div className="container" style={{ minHeight: "100vh" }}>
+        <>
             <Metadata title="Orders" />
+            <div className="row">
+                <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-7">
+                    <div className="container" style={{ minHeight: "100vh" }}>
 
-            <h1 className="my-5">All Orders</h1>
-            {loading ? (<Error />) : (
-                <>
 
-                    <MDBDataTable
-                        data={setOrders()}
-                        className="px-3"
-                        bordered
-                        striped
-                        hover
-                    />
-                </>
-            )}
-        </div>
+                        <h1 className="my-5">All Orders</h1>
+                        {loading ? (<Error />) : (
+                            <>
+
+                                <MDBDataTable
+                                    data={setOrders()}
+                                    className="px-3"
+                                    bordered
+                                    striped
+                                    hover
+                                />
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

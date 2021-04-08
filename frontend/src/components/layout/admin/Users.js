@@ -4,6 +4,8 @@ import Error from "../products/Error"
 import { gettingAllUsersRequest, deletingUserRequest, clearingAdminErrors } from "../../../store/admin"
 import { MDBDataTable } from "mdbreact"
 import { Link } from "react-router-dom"
+import Sidebar from './Sidebar'
+import Metadata from '../products/Metadata'
 
 const Users = () => {
     const dispatch = useDispatch()
@@ -53,7 +55,7 @@ const Users = () => {
                 actions:
                     <>
 
-                        <Link to={`/admin/user/${user._id}`} className="py-1 px-2 btn btn-primary mx-2" >
+                        <Link to={`/admin/user/${user._id}`} className="py-1 my-1 btn btn-primary d-block" >
                             <i className="fas fa-eye"></i>
                         </Link>
                         <button
@@ -61,7 +63,7 @@ const Users = () => {
                             to="#"
                             type="button"
                             disabled={userLoading ? true : false}
-                            className="py-1 px-2 btn btn-danger" >
+                            className="py-1 my-1 btn btn-danger btn-block" >
                             <i className="fa fa-trash"></i>
                         </button>
                     </>
@@ -73,21 +75,31 @@ const Users = () => {
         dispatch(deletingUserRequest(id))
     }
     return (
-        <div className="container" style={{ minHeight: "100vh" }}>
-            <h1 className="my-5">All Users</h1>
-            {loading ? (<Error />) : (
-                <>
+        <>
+            <Metadata title="Users" />
+            <div className="row">
+                <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-7">
+                    <div className="container" style={{ minHeight: "100vh" }}>
+                        <h1 className="my-5">All Users</h1>
+                        {loading ? (<Error />) : (
+                            <>
 
-                    <MDBDataTable
-                        data={setUsers()}
-                        className="px-3"
-                        bordered
-                        striped
-                        hover
-                    />
-                </>
-            )}
-        </div>
+                                <MDBDataTable
+                                    data={setUsers()}
+                                    className="px-3"
+                                    bordered
+                                    striped
+                                    hover
+                                />
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

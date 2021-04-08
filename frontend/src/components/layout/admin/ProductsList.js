@@ -5,6 +5,7 @@ import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
 import { Link, useHistory } from 'react-router-dom'
 import Metadata from '../products/Metadata'
+import Sidebar from './Sidebar'
 
 
 const ProductsList = () => {
@@ -95,29 +96,39 @@ const ProductsList = () => {
         dispatch(deletingProductRequest(id))
     }
     return (
-        <div className="container">
+        <>
             <Metadata title="All Products" />
 
-            {errMsg ? (
-                <div className="alert alert-info">
-                    {errMsg}
+            <div className="row" style={{ marginTop: "-1rem" }}>
+                <div className="col-12 col-md-3 bg-dark">
+                    <Sidebar />
                 </div>
-            ) : null}
-            <h1 className="my-5">All Products</h1>
-            {!loading ? (
-                <>
-                    <MDBDataTable
-                        data={setProducts()}
-                        className="px-3"
-                        bordered
-                        striped
-                        hover
-                    />
-                </>
-            ) : (
-                <Error />
-            )}
-        </div>
+                <div className="col-12 col-md-7">
+                    <div className="container">
+
+                        {errMsg ? (
+                            <div className="alert alert-info">
+                                {errMsg}
+                            </div>
+                        ) : null}
+                        <h1 className="my-5">All Products</h1>
+                        {!loading ? (
+                            <>
+                                <MDBDataTable
+                                    data={setProducts()}
+                                    className="px-3"
+                                    bordered
+                                    striped
+                                    hover
+                                />
+                            </>
+                        ) : (
+                            <Error />
+                        )}
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import { deletingReviewRequest, gettingAllReviewsRequest, clearingAdminErrors } 
 import { MDBDataTable } from "mdbreact"
 import { useHistory } from "react-router-dom"
 import Metadata from '../products/Metadata'
+import Sidebar from './Sidebar'
 const Reviews = () => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -12,6 +13,13 @@ const Reviews = () => {
     const [productId, setProductId] = useState("")
 
     useEffect(() => {
+        if (error) {
+            setMsg(error)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(clearingAdminErrors())
+            }, 2000);
+        }
         if (error && isReviewDeleted) {
             if (error !== "No Reviews") {
                 setMsg(error)
@@ -31,7 +39,7 @@ const Reviews = () => {
             }, 2000);
         }
         // eslint-disable-next-line
-    }, [error, isReviewDeleted, dispatch])
+    }, [error, isReviewDeleted, dispatch, productId])
     useEffect(() => {
         return () => {
             dispatch(clearingAdminErrors())
@@ -42,8 +50,16 @@ const Reviews = () => {
 
 
     const handleOnClick = () => {
-        dispatch(gettingAllReviewsRequest(productId))
 
+        setMsg("There is no Product ID is Provided")
+        setTimeout(() => {
+            setMsg("")
+            dispatch(clearingAdminErrors())
+        }, 2000);
+
+        if (productId !== "") {
+            dispatch(gettingAllReviewsRequest(productId))
+        }
     }
     const setProducts = () => {
         const data = {
@@ -101,44 +117,54 @@ const Reviews = () => {
     }
 
     return (
-        <div className="container" style={{ minHeight: "100vh" }}>
+        <>
             <Metadata title="Product Reviews" />
 
-            <div className="d-flex flex-column align-items-center justify-content-center">
-                {msg ? (
-                    <div className="alert alert-info">{msg}</div>
-                ) : null}
-                <div className="form-group">
-                    <label htmlFor="productId">Product ID</label>
-                    <input
-                        type="text"
-                        placeholder="Product ID"
-                        className="form-control"
-                        id="productId"
-                        value={productId}
-                        onChange={(e) => setProductId(e.target.value)}
-                    />
-                    <div
-                        className="btn btn-primary my-3 btn-block"
-                        onClick={handleOnClick}
-                    >Search</div>
+            <div className="row">
+                <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-7">
+                    <div className="container" style={{ minHeight: "100vh" }}>
+
+                        <div className="d-flex flex-column align-items-center justify-content-center">
+                            {msg ? (
+                                <div className="alert alert-info">{msg}</div>
+                            ) : null}
+                            <div className="form-group">
+                                <label htmlFor="productId">Product ID</label>
+                                <input
+                                    type="text"
+                                    placeholder="Product ID"
+                                    className="form-control"
+                                    id="productId"
+                                    value={productId}
+                                    onChange={(e) => setProductId(e.target.value)}
+                                />
+                                <div
+                                    className="btn btn-primary my-3 btn-block"
+                                    onClick={handleOnClick}
+                                >Search</div>
+                            </div>
+                        </div>
+                        {(!loading && reviews.length !== 0) ? (
+                            <>
+                                <MDBDataTable
+                                    data={setProducts()}
+                                    className="px-3"
+                                    bordered
+                                    striped
+                                    hover
+                                />
+                            </>
+                        ) : (
+                            // <Error />
+                            null
+                        )}
+                    </div>
                 </div>
             </div>
-            {(!loading && reviews.length !== 0) ? (
-                <>
-                    <MDBDataTable
-                        data={setProducts()}
-                        className="px-3"
-                        bordered
-                        striped
-                        hover
-                    />
-                </>
-            ) : (
-                // <Error />
-                null
-            )}
-        </div>
+        </>
     )
 }
 

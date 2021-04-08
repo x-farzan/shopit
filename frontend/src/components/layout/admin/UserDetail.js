@@ -5,6 +5,7 @@ import { gettingSingleUserRequest, clearingAdminErrors, updatingUserRequest } fr
 import Input from '../auth/Input';
 import { useHistory } from "react-router-dom"
 import Joi from 'joi';
+import Sidebar from './Sidebar';
 const UserDetail = ({ match }) => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -84,58 +85,67 @@ const UserDetail = ({ match }) => {
 
 
     return (
-        <div className="container" style={{ minHeight: "100vh" }}>
-            <div className="d-flex align-items-center justify-content-center">
-                {user && (user.name && !loading) ? (
-                    <div className="card w-50">
-                        <div className="card-header h2 text-dark">
-                            Update a User
+        <>
+            <div className="row">
+                <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-7">
+                    <div className="container" style={{ minHeight: "100vh" }}>
+                        <div className="d-flex align-items-center justify-content-center">
+                            {user && (user.name && !loading) ? (
+                                <div className="card w-50">
+                                    <div className="card-header h2 text-dark">
+                                        Update a User
                     </div>
-                        <div className="card-body">
-                            <form onSubmit={handleOnSubmit}>
-                                <Input
-                                    label="Name"
-                                    error={data.errors.name}
-                                    value={data.account.name}
-                                    onChange={onChange}
-                                    name="name"
-                                    type="text"
-                                />
-                                <div className="form-group">
-                                    <label htmlFor="role">Role</label>
-                                    <select
-                                        id="role"
-                                        name="role"
-                                        className={`form-control ${data.errors.role ? "is-invalid" : ""}`}
-                                        onChange={onChange}
-                                        value={data.account.role}
-                                    >
-                                        {role.map(role => (
-                                            <option
-                                                key={role}
-                                                value={role}
-                                            >{role}</option>
-                                        ))}
+                                    <div className="card-body">
+                                        <form onSubmit={handleOnSubmit}>
+                                            <Input
+                                                label="Name"
+                                                error={data.errors.name}
+                                                value={data.account.name}
+                                                onChange={onChange}
+                                                name="name"
+                                                type="text"
+                                            />
+                                            <div className="form-group">
+                                                <label htmlFor="role">Role</label>
+                                                <select
+                                                    id="role"
+                                                    name="role"
+                                                    className={`form-control ${data.errors.role ? "is-invalid" : ""}`}
+                                                    onChange={onChange}
+                                                    value={data.account.role}
+                                                >
+                                                    {role.map(role => (
+                                                        <option
+                                                            key={role}
+                                                            value={role}
+                                                        >{role}</option>
+                                                    ))}
 
-                                    </select>
-                                    {data.errors.role &&
-                                        <div className="invalid-feedback">
-                                            {data.errors.role}
-                                        </div>}
+                                                </select>
+                                                {data.errors.role &&
+                                                    <div className="invalid-feedback">
+                                                        {data.errors.role}
+                                                    </div>}
+                                            </div>
+                                            <input
+                                                type="submit"
+                                                value="Register"
+                                                className="btn btn-warning  btn-lg btn-block"
+                                                onClick={handleOnSubmit}
+                                                disabled={loading ? true : false}
+                                            />
+                                        </form>
+                                    </div>
                                 </div>
-                                <input
-                                    type="submit"
-                                    value="Register"
-                                    className="btn btn-warning  btn-lg btn-block"
-                                    onClick={handleOnSubmit}
-                                    disabled={loading ? true : false}
-                                />
-                            </form>
+                            ) : (<Error />)}
                         </div>
-                    </div>
-                ) : (<Error />)}
+                    </div >
+                </div>
             </div>
-        </div >
+        </>
     )
 }
 
