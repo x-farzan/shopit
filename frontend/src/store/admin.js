@@ -131,6 +131,11 @@ const slice = createSlice({
             admin.loading = false
             admin.order = action.payload
         },
+
+        getSingleOrderFailed: (admin, action) => {
+            admin.loading = false
+            admin.error = action.payload
+        },
         changeOrderStatusRequest: (admin, action) => {
             admin.orderLoading = true
             admin.error = null
@@ -141,10 +146,6 @@ const slice = createSlice({
         },
         changeOrderStatusFailed: (admin, action) => {
             admin.orderLoading = false
-            admin.error = action.payload
-        },
-        getSingleOrderFailed: (admin, action) => {
-            admin.loading = false
             admin.error = action.payload
         },
         getAllUsersRequest: (admin, action) => {

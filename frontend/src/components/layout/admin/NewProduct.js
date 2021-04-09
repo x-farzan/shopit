@@ -32,6 +32,7 @@ const NewProduct = () => {
     const [imagesPreview, setImagesPreview] = useState([])
     const [product, setProduct] = useState(initialState)
     const categories = [
+        "",
         'Electronics',
         'Accessories',
         'Food',
@@ -42,6 +43,9 @@ const NewProduct = () => {
         'Sports'
     ]
     useEffect(() => {
+        if (newProduct) {
+            history.push("/admin/products")
+        }
         return () => {
             dispatch(clearingAdminErrors())
         }
@@ -106,7 +110,7 @@ const NewProduct = () => {
         const schema = Joi.object({
             name: Joi.string().min(3).max(255).required(),
             price: Joi.string().min(1).max(10).required(),
-            category: Joi.string().min(3).max(255).required(),
+            category: Joi.string().required(),
             description: Joi.string().min(3).max(1024).required(),
             stock: Joi.string().max(20).required(),
             seller: Joi.string().min(3).max(255).required()
@@ -176,6 +180,7 @@ const NewProduct = () => {
                                             >
                                                 {categories.map(category => (
                                                     <option
+                                                        name="category"
                                                         key={category}
                                                         value={category}
                                                     >{category}</option>

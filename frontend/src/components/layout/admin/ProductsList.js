@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deletingProductRequest, gettingAllProductsAdminRequest, clearingAdminErrors } from "../../../store/admin"
+
+import { gettingAllProductsAdminRequest, resetGetProducts } from "../../../store/admin/products/getProducts"
+import { deletingProductRequest, resetDeleteProduct } from "../../../store/admin/products/deleteProduct"
+
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
 import { Link, useHistory } from 'react-router-dom'
@@ -11,31 +14,44 @@ import Sidebar from './Sidebar'
 const ProductsList = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { products, loading, deleteProduct, deleteProductLoading, deleteProductError } = useSelector(state => state.admin)
+    const { products, gPLoading, gPError } = useSelector(state => state.newAdmin.products.getProducts)
+    const { deleteProduct, dPLoading, dPError } = useSelector(state => state.newAdmin.products.deleteProduct)
     const [errMsg, setErrMsg] = useState("")
 
     useEffect(() => {
         dispatch(gettingAllProductsAdminRequest())
-        if (deleteProduct !== "" && deleteProductLoading === false) {
-            setErrMsg("Product is Deleted Successfully")
+        if (deleteProduct) {
+            setErrMsg(deleteProduct)
             clearError()
-            history.push("/admin/products")
         }
-        if (deleteProductError) {
-            setErrMsg(deleteProductError)
+        if (dPError) {
+            setErrMsg(dPError)
             clearError()
+
+        }
+        if (gPError) {
+            setErrMsg(gPError)
+            clearError()
+
         }
         return () => {
-            dispatch(clearingAdminErrors())
             setErrMsg("")
         }
         //eslint-disable-next-line
-    }, [dispatch, deleteProduct, deleteProductError, history])
+    }, [dispatch, deleteProduct, dPError, history, gPError])
+    useEffect(() => {
+        dispatch(resetDeleteProduct())
+        dispatch(resetGetProducts())
+
+        //eslint-disable-next-line
+    }, [])
     const clearError = () => {
         setTimeout(() => {
             setErrMsg("")
+            history.push("/admin/products")
         }, 2000);
     }
+
     const setProducts = () => {
         const data = {
             columns: [
@@ -83,7 +99,7 @@ const ProductsList = () => {
                             onClick={() => deletingProduct(product._id)}
                             to="#"
                             type="button"
-                            disabled={deleteProductLoading ? true : false}
+                            disabled={dPLoading ? true : false}
                             className="py-1 px-2 btn btn-danger" >
                             <i className="fa fa-trash"></i>
                         </button>
@@ -106,13 +122,13 @@ const ProductsList = () => {
                 <div className="col-12 col-md-7">
                     <div className="container">
 
-                        {errMsg ? (
-                            <div className="alert alert-info">
+                        {errMsg &&
+                            <div className="alert my-3 alert-info">
                                 {errMsg}
                             </div>
-                        ) : null}
+                        }
                         <h1 className="my-5">All Products</h1>
-                        {!loading ? (
+                        {!gPLoading ? (
                             <>
                                 <MDBDataTable
                                     data={setProducts()}
