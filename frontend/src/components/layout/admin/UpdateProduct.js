@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import Joi from 'joi'
-import { updatingProductRequest, clearingAdminErrors } from "../../../store/admin"
+import { reset, updatingProductRequest } from "../../../store/admin/products/updateProduct"
 import Input from '../auth/Input'
 import { getProductDetails, clearingProductDetail } from "../../../store/productDetails"
 import Metadata from '../products/Metadata'
@@ -10,7 +10,7 @@ import Sidebar from './Sidebar'
 const UpdateProduct = ({ match }) => {
 
     const dispatch = useDispatch()
-    const { loading, isUpdated, error } = useSelector(state => state.admin)
+    const { loading, isUpdated, error } = useSelector(state => state.newAdmin.products.updateProduct)
     const { data: productDetail } = useSelector(state => state.entities.productDetail)
     useEffect(() => {
         dispatch(getProductDetails(`/api/v1/product/${match.params.id}`))
@@ -67,9 +67,12 @@ const UpdateProduct = ({ match }) => {
         'Sports'
     ]
     useEffect(() => {
+        if (isUpdated) {
+            history.push('/admin/products')
+        }
 
         return () => {
-            dispatch(clearingAdminErrors())
+            dispatch(reset())
         }
         // eslint-disable-next-line
     }, [dispatch, error, isUpdated, history])
@@ -148,12 +151,12 @@ const UpdateProduct = ({ match }) => {
     }
     return (
         <>
-            <div className="row">
+            <div className="row minHeight">
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    <div className="container" style={{ width: '100vw', minHeight: "100vh" }}>
+                    <div >
                         <Metadata title="Update Product" />
 
                         <div className="d-flex align-item-center justify-content-center">
