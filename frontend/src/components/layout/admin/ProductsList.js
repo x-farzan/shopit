@@ -115,12 +115,12 @@ const ProductsList = () => {
         <>
             <Metadata title="All Products" />
 
-            <div className="row" style={{ marginTop: "-1rem" }}>
+            <div className="row minHeight" style={{ marginTop: "-1rem" }}>
                 <div className="col-12 col-md-3 bg-dark">
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    <div className="container">
+                    <div >
 
                         {errMsg &&
                             <div className="alert my-3 alert-info">

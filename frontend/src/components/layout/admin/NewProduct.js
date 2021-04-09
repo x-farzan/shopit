@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import Joi from 'joi'
-import { creatingNewProductAdminRequest, clearingAdminErrors } from "../../../store/admin"
+import { creatingNewProductAdminRequest } from "../../../store/admin/products/createProduct"
+import { reset } from "../../../store/admin/products/createProduct"
 import Input from '../auth/Input'
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 const NewProduct = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { loading, newProduct, error } = useSelector(state => state.admin)
+    const { loading, newProduct, error } = useSelector(state => state.newAdmin.products.createProduct)
     const initialState = {
         product: {
             name: "",
@@ -47,7 +48,7 @@ const NewProduct = () => {
             history.push("/admin/products")
         }
         return () => {
-            dispatch(clearingAdminErrors())
+            dispatch(reset())
         }
         // eslint-disable-next-line
     }, [dispatch, error, newProduct, history])
@@ -125,14 +126,12 @@ const NewProduct = () => {
     return (
         <>
             <Metadata title="Create New Product" />
-            <div className="row" style={{ marginTop: "-1rem" }}>
+            <div className="row minHeight" style={{ marginTop: "-1rem" }}>
                 <div className="col-12 col-md-3 bg-dark">
                     <Sidebar />
                 </div>
-                <div className="col-12 col-md-7">
+                <div className="col-12 col-md-7 my-5">
                     <div >
-
-
                         <div className="d-flex align-item-center justify-content-center">
                             <div className="card w-50">
                                 <div className="card-header h2 text-dark">
