@@ -104,11 +104,12 @@ router.delete("/admin/product/review", [auth, admin], async (req, res) => {
 
     // // calculate rating
     product.rating = rating
-    console.log(product_id, review_id, reviews, product.reviews, product.numOfReviews, product.rating)
+
     await product.save()
     res.send({
         success: true,
         msg: "Review Has Been Removed Successfully",
+        reviews
     })
 })
 

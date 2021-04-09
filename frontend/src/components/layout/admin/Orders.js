@@ -1,25 +1,55 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { gettingAllOrders, deletingOrderRequest, clearingAdminErrors } from "../../../store/admin"
+import { gettingAllOrders, resetGetOrdersError } from "../../../store/admin/orders/getAllOrders"
+import { deletingOrderRequest, resetDeleteOrderError } from "../../../store/admin/orders/deleteOrder"
 import Error from "../products/Error"
 import { MDBDataTable } from "mdbreact"
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
+import { useHistory } from "react-router-dom"
 const Orders = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
 
 
-    const { orders, loading, orderLoading, isDeleted } = useSelector(state => state.admin)
+    const { orders, gOLoading, gOError } = useSelector(state => state.newAdmin.orders.getOrders)
+    const { dOLoading, dOError, isDeleted } = useSelector(state => state.newAdmin.orders.deleteOrder)
+    const [msg, setMsg] = useState("")
     useEffect(() => {
         dispatch(gettingAllOrders())
+        if (isDeleted) {
+            setMsg("Ordr is Removed Successfully")
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetDeleteOrderError())
+            }, 2000)
+        }
+        if (gOError) {
+            setMsg(gOError)
+            setTimeout(() => {
+                setMsg("")
+                history.push('/dashboard')
+            }, 2000)
+        }
+        if (dOError) {
+            setMsg(dOError)
+            setTimeout(() => {
+                setMsg("")
+                history.push('/admin/orders')
+            }, 2000)
+        }
         return () => {
-            dispatch(clearingAdminErrors())
+            dispatch(resetGetOrdersError())
         }
 
         //eslint-disable-next-line
-    }, [dispatch, isDeleted])
-
+    }, [dispatch, isDeleted, gOError, dOError])
+    useEffect(() => {
+        dispatch(resetGetOrdersError())
+        dispatch(resetDeleteOrderError())
+        //eslint-disable-next-line
+    }, [])
     const setOrders = () => {
         const data = {
             columns: [
@@ -78,7 +108,7 @@ const Orders = () => {
                             onClick={() => deletingOrder(order._id)}
                             to="#"
                             type="button"
-                            disabled={orderLoading ? true : false}
+                            disabled={dOLoading ? true : false}
                             className="py-1 px-2 btn btn-danger" >
                             <i className="fa fa-trash"></i>
                         </button>
@@ -93,16 +123,15 @@ const Orders = () => {
     return (
         <>
             <Metadata title="Orders" />
-            <div className="row">
+            <div className="row minHeight">
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    <div className="container" style={{ minHeight: "100vh" }}>
-
-
+                    {msg && <div className="alert alert-info">{msg}</div>}
+                    <div >
                         <h1 className="my-5">All Orders</h1>
-                        {loading ? (<Error />) : (
+                        {gOLoading ? (<Error />) : (
                             <>
 
                                 <MDBDataTable

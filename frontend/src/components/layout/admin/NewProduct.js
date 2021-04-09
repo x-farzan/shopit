@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import Joi from 'joi'
-import { creatingNewProductAdminRequest } from "../../../store/admin/products/createProduct"
-import { reset } from "../../../store/admin/products/createProduct"
+import { creatingNewProductAdminRequest, resetCreateProduct } from "../../../store/admin/products/products"
 import Input from '../auth/Input'
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
@@ -11,7 +10,7 @@ const NewProduct = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const [msg, setMsg] = useState("")
-    const { loading, newProduct, error } = useSelector(state => state.newAdmin.products.createProduct)
+    const { cPLoading, newProduct, cPError } = useSelector(state => state.newAdmin.products)
     const initialState = {
         product: {
             name: "",
@@ -53,10 +52,10 @@ const NewProduct = () => {
             }, 2000)
         }
         return () => {
-            dispatch(reset())
+            dispatch(resetCreateProduct())
         }
         // eslint-disable-next-line
-    }, [dispatch, error, newProduct, history])
+    }, [dispatch, cPError, newProduct, history])
 
     const onChange = (e) => {
 
@@ -246,7 +245,7 @@ const NewProduct = () => {
                                             value="Submit"
                                             className="btn btn-warning  btn-lg btn-block"
                                             onClick={handleOnSubmit}
-                                            disabled={loading ? true : false}
+                                            disabled={cPLoading ? true : false}
                                         />
                                     </form>
                                 </div>

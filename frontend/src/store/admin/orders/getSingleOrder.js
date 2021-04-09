@@ -9,27 +9,27 @@ import { apiCallBegan } from "../../api"
 const slice = createSlice({
     name: "admin",
     initialState: {
-        loading: false,
-        error: null,
+        gOLoading: false,
+        gOError: null,
         order: {},
     },
     reducers: {
         getSingleOrderRequest: (admin, action) => {
-            admin.loading = true
-            admin.error = null
+            admin.gOLoading = true
+            admin.gOError = null
         },
         getSingleOrderSuccess: (admin, action) => {
-            admin.loading = false
+            admin.gOLoading = false
             admin.order = action.payload
         },
 
         getSingleOrderFailed: (admin, action) => {
-            admin.loading = false
-            admin.error = action.payload
+            admin.gOLoading = false
+            admin.gOError = action.payload
         },
         resettingGetSingleOrder: (admin, action) => {
-            admin.loading = false
-            admin.error = null
+            admin.gOLoading = false
+            admin.gOError = null
             admin.order = {}
         }
     },
@@ -54,4 +54,4 @@ export const gettingSingleOrderRequest = (id) => dispatch => {
         })
     )
 }
-export const reset = () => resettingGetSingleOrder()
+export const resetGetSingleOrder = () => resettingGetSingleOrder()

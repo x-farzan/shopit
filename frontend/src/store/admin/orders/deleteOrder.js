@@ -9,26 +9,26 @@ import { apiCallBegan } from "../../api"
 const slice = createSlice({
     name: "admin",
     initialState: {
-        loading: false,
-        error: null,
+        dOLoading: false,
+        dOError: null,
         isDeleted: false,
     },
     reducers: {
         deleteOrderRequest: (admin, action) => {
-            admin.loading = true
-            admin.error = null
+            admin.dOLoading = true
+            admin.dOError = null
         },
         deleteOrderSuccess: (admin, action) => {
-            admin.loading = false
+            admin.dOLoading = false
             admin.isDeleted = action.payload.success
         },
         deleteOrderFailed: (admin, action) => {
-            admin.loading = false
-            admin.error = null
+            admin.dOLoading = false
+            admin.dOError = null
         },
         resettingDeleteOrder: (admin, action) => {
-            admin.loading = false
-            admin.error = null
+            admin.dOLoading = false
+            admin.dOError = null
             admin.isDeleted = false
         }
     },
@@ -54,4 +54,4 @@ export const deletingOrderRequest = (id) => dispatch => {
         })
     )
 }
-export const reset = () => resettingDeleteOrder()
+export const resetDeleteOrderError = () => resettingDeleteOrder()

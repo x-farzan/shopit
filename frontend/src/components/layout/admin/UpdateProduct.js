@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import Joi from 'joi'
-import { reset, updatingProductRequest } from "../../../store/admin/products/updateProduct"
+import { resetUpdateProduct, updatingProductRequest } from "../../../store/admin/products/products"
 import Input from '../auth/Input'
 import { getProductDetails, clearingProductDetail } from "../../../store/productDetails"
 import Metadata from '../products/Metadata'
@@ -10,7 +10,7 @@ import Sidebar from './Sidebar'
 const UpdateProduct = ({ match }) => {
 
     const dispatch = useDispatch()
-    const { loading, isUpdated, error } = useSelector(state => state.newAdmin.products.updateProduct)
+    const { uPLoading, isUpdated, uPError } = useSelector(state => state.newAdmin.products)
     const { data: productDetail } = useSelector(state => state.entities.productDetail)
     const [msg, setMsg] = useState("")
     useEffect(() => {
@@ -78,10 +78,10 @@ const UpdateProduct = ({ match }) => {
         }
 
         return () => {
-            dispatch(reset())
+            dispatch(resetUpdateProduct())
         }
         // eslint-disable-next-line
-    }, [dispatch, error, isUpdated, history])
+    }, [dispatch, uPError, isUpdated, history])
 
     const onChange = (e) => {
 
@@ -282,7 +282,7 @@ const UpdateProduct = ({ match }) => {
                                             value="Submit"
                                             className="btn btn-warning  btn-lg btn-block"
                                             onClick={handleOnSubmit}
-                                            disabled={loading ? true : false}
+                                            disabled={uPLoading ? true : false}
                                         />
                                     </form>
                                 </div>

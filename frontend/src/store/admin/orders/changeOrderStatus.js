@@ -9,26 +9,26 @@ import { apiCallBegan } from "../../api"
 const slice = createSlice({
     name: "admin",
     initialState: {
-        loading: false,
-        error: null,
+        cOLoading: false,
+        cOError: null,
         statusOfOrder: ""
     },
     reducers: {
         changeOrderStatusRequest: (admin, action) => {
-            admin.loading = true
-            admin.error = null
+            admin.cOLoading = true
+            admin.cOError = null
         },
         changeOrderStatusSuccess: (admin, action) => {
-            admin.loading = false
+            admin.cOLoading = false
             admin.statusOfOrder = action.payload
         },
         changeOrderStatusFailed: (admin, action) => {
-            admin.loading = false
-            admin.error = action.payload
+            admin.cOLoading = false
+            admin.cOError = action.payload
         },
         resettingChangeOrderStatus: (admin, action) => {
-            admin.loading = false
-            admin.error = null
+            admin.cOLoading = false
+            admin.cOError = null
             admin.statusOfOrder = ""
         }
     },
@@ -55,4 +55,4 @@ export const changingOrderStatusRequest = (id, data) => dispatch => {
         })
     )
 }
-export const reset = () => resettingChangeOrderStatus()
+export const resetChangeOrderStatus = () => resettingChangeOrderStatus()

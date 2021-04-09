@@ -1,47 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { deletingReviewRequest, gettingAllReviewsRequest, clearingAdminErrors } from "../../../store/admin"
+import { resetGetAllReview, gettingAllReviewsRequest, deletingReviewRequest, resetDeleteReview } from "../../../store/admin/reviews/reviews"
+
 import { MDBDataTable } from "mdbreact"
-import { useHistory } from "react-router-dom"
+// import { useHistory } from "react-router-dom"
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 const Reviews = () => {
     const dispatch = useDispatch()
-    const { reviews, loading, reviewLoading, error, isReviewDeleted } = useSelector(state => state.admin)
+
+    const {
+        dRLoading,
+        dRError,
+        isReviewDeleted,
+        message,
+        reviews,
+        gRLoading,
+        gRError
+    } = useSelector(state => state.newAdmin.reviews)
+
     const [msg, setMsg] = useState("")
     const [productId, setProductId] = useState("")
 
     useEffect(() => {
-        if (error) {
-            setMsg(error)
+        if (dRError) {
+            setMsg(dRError)
             setTimeout(() => {
                 setMsg("")
-                dispatch(clearingAdminErrors())
-            }, 2000);
+                dispatch(resetDeleteReview())
+            }, 2000)
         }
-        if (error && isReviewDeleted) {
-            if (error !== "No Reviews") {
-                setMsg(error)
-                setTimeout(() => {
-                    setMsg("")
-                    dispatch(gettingAllReviewsRequest(productId))
-                    dispatch(clearingAdminErrors())
-                }, 2000);
-            }
+        if (gRError) {
+            setMsg(gRError)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetGetAllReview())
+            }, 2000)
+        }
+        if (isReviewDeleted || message) {
+            setMsg(message)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetDeleteReview())
+            }, 2000)
+        }
+    }, [dispatch, dRError, message, gRError, isReviewDeleted])
 
-        }
-        if (error === "No Reviews") {
-            setMsg(error)
-            setTimeout(() => {
-                setMsg("")
-                dispatch(clearingAdminErrors())
-            }, 2000);
-        }
-        // eslint-disable-next-line
-    }, [error, isReviewDeleted, dispatch, productId])
     useEffect(() => {
         return () => {
-            dispatch(clearingAdminErrors())
+            dispatch(resetDeleteReview())
+            dispatch(resetGetAllReview())
             setMsg("")
         }
         // eslint-disable-next-line
@@ -49,13 +57,14 @@ const Reviews = () => {
 
 
     const handleOnClick = () => {
+        if (productId === "") {
 
-        setMsg("There is no Product ID is Provided")
-        setTimeout(() => {
-            setMsg("")
-            dispatch(clearingAdminErrors())
-        }, 2000);
+            setMsg("There is no Product ID is Provided")
+            setTimeout(() => {
+                setMsg("")
+            }, 2000);
 
+        }
         if (productId !== "") {
             dispatch(gettingAllReviewsRequest(productId))
         }
@@ -95,14 +104,14 @@ const Reviews = () => {
                 reviewId: review._id,
                 rating: review.rating,
                 comment: review.comment,
-                user: review.user,
+                user: review.name,
                 actions:
                     <>
                         <button
                             onClick={() => deletingReview(review._id)}
                             to="#"
                             type="button"
-                            disabled={reviewLoading ? true : false}
+                            disabled={dRLoading ? true : false}
                             className="py-1 px-2 btn btn-danger" >
                             <i className="fa fa-trash"></i>
                         </button>
@@ -146,7 +155,7 @@ const Reviews = () => {
                                 >Search</div>
                             </div>
                         </div>
-                        {(!loading && reviews.length !== 0) ? (
+                        {(!gRLoading && reviews.length !== 0) ? (
                             <>
                                 <MDBDataTable
                                     data={setProducts()}

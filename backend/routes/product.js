@@ -141,7 +141,6 @@ router.get('/admin/products', [auth, admin], async (req, res) => {
 // post a product 
 //By admin
 router.post('/admin/product/new', [auth, admin], async (req, res) => {
-    // console.log(req.body)
 
     let images = []
     if (typeof req.body.images === 'string') {
@@ -151,18 +150,21 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
     }
     let imagesLinks = []
 
+    // console.log(req.body)
+    console.log("Upper")
 
     for (let i = 0; i < images.length; i++) {
 
         const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "products"
         });
-
+        console.log("Inside")
         imagesLinks.push({
             public_id: result.public_id,
             url: result.secure_url
         })
     }
+    console.log("Lower")
 
     const { name, price, description, category, stock, seller } = req.body
     const data = {
@@ -287,9 +289,11 @@ router.delete('/admin/delete/product/:id', [auth, admin], async (req, res) => {
 
     }
     await product.remove()
+    const products = await Product.find().sort("_id").select("price stock name")
     res.send({
         success: true,
-        msg: "Product has been deleted successfully..."
+        msg: "Product has been deleted successfully...",
+        products
     })
 })
 

@@ -89,10 +89,11 @@ router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
 // protected by admin
 
 router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(400).send("Invalid Order ID")
     const order = await Order.findById(req.params.id)
-    if (!order) return res.status(400).send('Order with the given id is not present...')
-    if (order.orderStatus === 'Delivered') return res.status(400).send("This Product is already Delivered")
-    // if (order.orderStatus === 'Shipped') return res.status(400).send("This Product is already Shipped")
+    if (!order) return res.status(400).send('Order Not Present')
+
+    if (order.orderStatus === 'Shipped' || order.orderStatus === 'Delivered') return res.status(400).send("This Product is already Shipped")
 
     //update stock of each product
     order.orderItems.forEach(async item => {

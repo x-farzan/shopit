@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { gettingAllProductsAdminRequest, resetGetProducts } from "../../../store/admin/products/getProducts"
-import { deletingProductRequest, resetDeleteProduct } from "../../../store/admin/products/deleteProduct"
+import {
+    deletingProductRequest,
+    resetDeleteProduct,
+    gettingAllProductsAdminRequest,
+    resetGetProducts
+} from "../../../store/admin/products/products"
 
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
@@ -14,12 +18,11 @@ import Sidebar from './Sidebar'
 const ProductsList = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { products, gPLoading, gPError } = useSelector(state => state.newAdmin.products.getProducts)
-    const { deleteProduct, dPLoading, dPError } = useSelector(state => state.newAdmin.products.deleteProduct)
+    const { products, gPLoading, gPError, deleteProduct, dPLoading, dPError } = useSelector(state => state.newAdmin.products)
+
     const [errMsg, setErrMsg] = useState("")
 
     useEffect(() => {
-        dispatch(gettingAllProductsAdminRequest())
         if (deleteProduct) {
             setErrMsg(deleteProduct)
             clearError()
@@ -42,6 +45,7 @@ const ProductsList = () => {
     useEffect(() => {
         dispatch(resetDeleteProduct())
         dispatch(resetGetProducts())
+        dispatch(gettingAllProductsAdminRequest())
 
         //eslint-disable-next-line
     }, [])

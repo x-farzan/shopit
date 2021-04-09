@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 import { useSelector, useDispatch } from "react-redux"
-import { gettingSingleOrderRequest, resettingError, changingOrderStatusRequest } from "../../../store/admin"
+import { gettingSingleOrderRequest, resetGetSingleOrder } from "../../../store/admin/orders/getSingleOrder"
+import { changingOrderStatusRequest, resetChangeOrderStatus } from "../../../store/admin/orders/changeOrderStatus"
 import Error from "../products/Error"
 import OrderItems from '../order/OrderItems'
-
+import { useHistory } from "react-router-dom"
 const OrderStatus = ({ match }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [ordStatus, setOrdStatus] = useState("")
-    const { loading, order, error, statusOfOrder } = useSelector(state => state.admin)
+    const { gOLoading, gOError, order } = useSelector(state => state.newAdmin.orders.singleOrder)
+    const { cOLoading, cOError, statusOfOrder } = useSelector(state => state.newAdmin.orders.orderStatus)
 
     const [msg, setMsg] = useState("")
     // const {} = order
@@ -22,37 +25,35 @@ const OrderStatus = ({ match }) => {
         setOrdStatus(e.target.value)
     }
     useEffect(() => {
-        if (error) {
-            setMsg(error)
+        dispatch(gettingSingleOrderRequest(match.params.id))
+
+        if (gOError) {
+            history.push("/dashboard")
+        }
+        if (cOError) {
+            setMsg(cOError)
             setTimeout(() => {
                 setMsg("")
-                // dispatch(resettingError())
-                dispatch(gettingSingleOrderRequest(match.params.id))
-
+                dispatch(resetChangeOrderStatus())
             }, 2000);
-
         }
         if (statusOfOrder) {
-            setMsg(error)
+            setMsg(statusOfOrder)
             setTimeout(() => {
                 setMsg("")
-                // dispatch(resettingError())
-                dispatch(gettingSingleOrderRequest(match.params.id))
-
+                dispatch(resetChangeOrderStatus())
             }, 2000);
         }
         return () => {
-            dispatch(resettingError())
             setMsg("")
+            dispatch(resetChangeOrderStatus())
+            dispatch(resetGetSingleOrder())
+
         }
         // eslint-disable-next-line
-    }, [dispatch, match, statusOfOrder, error])
+    }, [dispatch, match, statusOfOrder, gOError, cOError])
 
-    useEffect(() => {
-        dispatch(gettingSingleOrderRequest(match.params.id))
-        // eslint-disable-next-line
-    }, [])
-    console.log(msg)
+
     const { shippingInfo, paymentInfo, orderStatus, orderItems, user } = order || {}
 
     const handleOnClick = () => {
@@ -71,14 +72,15 @@ const OrderStatus = ({ match }) => {
     return (
         <>
             <Metadata title="Order Detail" />
-            <div className="row">
+            <div className="row minHeight">
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    {loading ? (<Error />) : (
-                        <div className="container my-3" style={{ minHeight: "100vh" }}>
-                            {msg && <div className="alert alert-info">{msg}</div>}
+                    {msg && <div className="alert alert-info">{msg}</div>}
+                    {gOLoading ? (<Error />) : (
+                        <div>
+
                             <div className="row">
                                 <div className="col-8">
                                     <div className="h1">
@@ -165,11 +167,12 @@ const OrderStatus = ({ match }) => {
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <div
+                                        <button
                                             onClick={handleOnClick}
+                                            disabled={cOLoading ? true : false}
                                             className="btn btn-primary btn-block my-2">
                                             Submit
-                                    </div>
+                                    </button>
                                     </div>
                                     <div>
                                         <img src={user && user.avatar.url} width="80%" height="80%" style={{ borderRadius: "50%" }} alt="" />
