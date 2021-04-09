@@ -10,6 +10,7 @@ import Sidebar from './Sidebar'
 const NewProduct = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const [msg, setMsg] = useState("")
     const { loading, newProduct, error } = useSelector(state => state.newAdmin.products.createProduct)
     const initialState = {
         product: {
@@ -45,7 +46,11 @@ const NewProduct = () => {
     ]
     useEffect(() => {
         if (newProduct) {
-            history.push("/admin/products")
+            setMsg("Product is added Successfully")
+            setTimeout(() => {
+                setMsg("")
+                history.push("/admin/products")
+            }, 2000)
         }
         return () => {
             dispatch(reset())
@@ -131,6 +136,7 @@ const NewProduct = () => {
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7 my-5">
+                    {msg && <div className="alert alert-info">{msg}</div>}
                     <div >
                         <div className="d-flex align-item-center justify-content-center">
                             <div className="card w-50">

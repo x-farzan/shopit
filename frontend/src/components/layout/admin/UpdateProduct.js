@@ -12,6 +12,7 @@ const UpdateProduct = ({ match }) => {
     const dispatch = useDispatch()
     const { loading, isUpdated, error } = useSelector(state => state.newAdmin.products.updateProduct)
     const { data: productDetail } = useSelector(state => state.entities.productDetail)
+    const [msg, setMsg] = useState("")
     useEffect(() => {
         dispatch(getProductDetails(`/api/v1/product/${match.params.id}`))
         return () => {
@@ -68,7 +69,12 @@ const UpdateProduct = ({ match }) => {
     ]
     useEffect(() => {
         if (isUpdated) {
-            history.push('/admin/products')
+            setMsg("Product hass been Updated Successfully")
+            setTimeout(() => {
+                setMsg("")
+                history.push('/admin/products')
+
+            }, 2000)
         }
 
         return () => {
@@ -155,7 +161,8 @@ const UpdateProduct = ({ match }) => {
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
-                <div className="col-12 col-md-7">
+                <div className="col-12 mt-3 col-md-7">
+                    {msg && <div className="alert alert-info">{msg}</div>}
                     <div >
                         <Metadata title="Update Product" />
 
