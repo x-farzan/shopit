@@ -290,6 +290,7 @@ router.delete('/admin/delete/product/:id', [auth, admin], async (req, res) => {
     }
     await product.remove()
     const products = await Product.find().sort("_id").select("price stock name")
+    if (products.length === 0) return res.status(400).send("No Products Available..")
     res.send({
         success: true,
         msg: "Product has been deleted successfully...",

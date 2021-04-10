@@ -1,34 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import Error from "../products/Error"
-import { gettingSingleUserRequest, clearingAdminErrors, updatingUserRequest } from "../../../store/admin"
+import { gettingSingleUserRequest, resetGetSingleUser, updatingUserRequest, resetUpdateUser } from "../../../store/admin/users/users"
 import Input from '../auth/Input';
 import { useHistory } from "react-router-dom"
 import Joi from 'joi';
 import Sidebar from './Sidebar';
 const UserDetail = ({ match }) => {
     const dispatch = useDispatch()
+    const [msg, setMsg] = useState("")
     const history = useHistory()
-    const { user, loading, isUserUpdated } = useSelector(state => state.admin)
-    useEffect(() => {
-        dispatch(gettingSingleUserRequest(match.params.id))
-        return () => {
-            dispatch(clearingAdminErrors())
-        }
-    }, [dispatch, match])
-    useEffect(() => {
-        const newData = { ...data }
-        if (user && user.name) {
+    const { user, gSULoading, gSUError, isUserUpdated, uULoading, uUError } = useSelector(state => state.newAdmin.users)
 
-            newData.account.name = user.name
-
-            setData(newData)
-        }
-        if (isUserUpdated) {
-            history.push('/admin/users')
-        }
-        // eslint-disable-next-line
-    }, [dispatch, user, isUserUpdated])
     const initialState = {
         account: {
             name: '',
@@ -42,6 +25,50 @@ const UserDetail = ({ match }) => {
         }
     }
     const [data, setData] = useState(initialState)
+    useEffect(() => {
+        dispatch(gettingSingleUserRequest(match.params.id))
+
+        return () => {
+            dispatch(resetUpdateUser())
+            dispatch(resetGetSingleUser())
+        }
+    }, [dispatch, match])
+    useEffect(() => {
+        if (user && !gSULoading && !gSUError) {
+            const newData = { ...data }
+            newData.account.name = user.name
+            newData.account.role = user.role
+            setData(newData)
+        }
+        if (gSUError) {
+            setMsg(gSUError)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetGetSingleUser())
+            }, 2000);
+        }
+        if (uUError) {
+            setMsg(uUError)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetUpdateUser())
+            }, 2000);
+        }
+        if (isUserUpdated) {
+            setMsg("User is Updated Successfully")
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetUpdateUser())
+                history.push('/admin/users')
+            }, 2000);
+        }
+
+        return () => {
+            dispatch(resetGetSingleUser())
+            dispatch(resetUpdateUser())
+        }
+    }, [dispatch, user, isUserUpdated, uUError, gSUError])
+
     const onChange = (e) => {
         const newData = { ...data }
         const errors = validation()
@@ -86,14 +113,15 @@ const UserDetail = ({ match }) => {
 
     return (
         <>
-            <div className="row">
+            <div className="row minHeight">
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    <div className="container" style={{ minHeight: "100vh" }}>
+                    {msg && <div className="alert alert-info">{msg}</div>}
+                    <div >
                         <div className="d-flex align-items-center justify-content-center">
-                            {user && (user.name && !loading) ? (
+                            {!gSULoading && !uULoading ? (
                                 <div className="card w-50">
                                     <div className="card-header h2 text-dark">
                                         Update a User
@@ -135,7 +163,7 @@ const UserDetail = ({ match }) => {
                                                 value="Register"
                                                 className="btn btn-warning  btn-lg btn-block"
                                                 onClick={handleOnSubmit}
-                                                disabled={loading ? true : false}
+                                                disabled={uULoading ? true : false}
                                             />
                                         </form>
                                     </div>

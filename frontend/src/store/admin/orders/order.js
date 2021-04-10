@@ -43,13 +43,13 @@ const slice = createSlice({
         resettingGetAllOrders: (admin, action) => {
             admin.gAOLoading = false
             admin.gAOError = null
-            admin.orders = []
         },
 
 
         getSingleOrderRequest: (admin, action) => {
             admin.gSOLoading = true
             admin.gSOError = null
+            admin.order = {}
         },
         getSingleOrderSuccess: (admin, action) => {
             admin.gSOLoading = false
@@ -63,7 +63,6 @@ const slice = createSlice({
         resettingGetSingleOrder: (admin, action) => {
             admin.gSOLoading = false
             admin.gSOError = null
-            admin.order = {}
         },
 
 
@@ -73,7 +72,8 @@ const slice = createSlice({
         },
         changeOrderStatusSuccess: (admin, action) => {
             admin.cOLoading = false
-            admin.statusOfOrder = action.payload
+            admin.statusOfOrder = action.payload.msg
+            admin.order = action.payload.order
         },
         changeOrderStatusFailed: (admin, action) => {
             admin.cOLoading = false
@@ -93,6 +93,7 @@ const slice = createSlice({
         deleteOrderSuccess: (admin, action) => {
             admin.dOLoading = false
             admin.isDeleted = action.payload.success
+            admin.orders = action.payload.orders
         },
         deleteOrderFailed: (admin, action) => {
             admin.dOLoading = false

@@ -26,7 +26,8 @@ const slice = createSlice({
         // delete User
         dULoading: false,
         dUError: null,
-        isDeleted: false
+        isDeleted: false,
+        dUMsg: ""
     },
     reducers: {
         updateUserRequest: (admin, action) => {
@@ -63,7 +64,6 @@ const slice = createSlice({
         resettingGetSingleUser: (admin, action) => {
             admin.gSULoading = false
             admin.gSUError = null
-            admin.user = {}
         },
 
         getAllUsersRequest: (admin, action) => {
@@ -81,7 +81,6 @@ const slice = createSlice({
         resettingGetAllUsers: (admin, action) => {
             admin.gAULoading = false
             admin.gAUError = null
-            admin.users = []
         },
 
         deleteUserRequest: (admin, action) => {
@@ -91,6 +90,8 @@ const slice = createSlice({
         deleteUserSuccess: (admin, action) => {
             admin.dULoading = false
             admin.isDeleted = action.payload.success
+            admin.users = action.payload.users
+            admin.dUMsg = action.payload.message
         },
         deleteUserFailed: (admin, action) => {
             admin.dULoading = false
@@ -100,6 +101,7 @@ const slice = createSlice({
             admin.dULoading = false
             admin.dUError = null
             admin.isDeleted = false
+            admin.dUMsg = ""
         }
     },
 })

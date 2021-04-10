@@ -1,21 +1,57 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Error from "../products/Error"
-import { gettingAllUsersRequest, deletingUserRequest, clearingAdminErrors } from "../../../store/admin"
+import {
+    gettingAllUsersRequest,
+    deletingUserRequest,
+    resetGetAllUsers,
+    resetDeleteUser,
+    resetUpdateUser
+} from "../../../store/admin/users/users"
 import { MDBDataTable } from "mdbreact"
 import { Link } from "react-router-dom"
 import Sidebar from './Sidebar'
 import Metadata from '../products/Metadata'
 
 const Users = () => {
+    const [msg, setMsg] = useState("")
     const dispatch = useDispatch()
-    const { users, userLoading, loading, isUserDeleted, isUserUpdated } = useSelector(state => state.admin)
+    const { users, gAULoading, gAUError, dULoading, dUError, isDeleted, dUMsg } = useSelector(state => state.newAdmin.users)
+
+    useEffect(() => {
+        if (gAUError) {
+            setMsg(gAUError)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetGetAllUsers())
+            }, 2000);
+        }
+        if (dUError) {
+            setMsg(dUError)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetDeleteUser())
+            }, 2000);
+        }
+
+        if (isDeleted || dUMsg) {
+            setMsg(dUMsg)
+            setTimeout(() => {
+                setMsg("")
+                dispatch(resetDeleteUser())
+            }, 2000);
+        }
+
+        return () => {
+            dispatch(resetDeleteUser())
+            dispatch(resetGetAllUsers())
+        }
+    }, [dispatch, isDeleted, gAUError, dUError, dUMsg])
+
     useEffect(() => {
         dispatch(gettingAllUsersRequest())
-        return () => {
-            dispatch(clearingAdminErrors())
-        }
-    }, [dispatch, isUserDeleted, isUserUpdated])
+        // eslint-disable-next-line
+    }, [])
     const setUsers = () => {
         const data = {
             columns: [
@@ -62,7 +98,7 @@ const Users = () => {
                             onClick={() => deletingUser(user._id)}
                             to="#"
                             type="button"
-                            disabled={userLoading ? true : false}
+                            disabled={dULoading ? true : false}
                             className="py-1 my-1 btn btn-danger btn-block" >
                             <i className="fa fa-trash"></i>
                         </button>
@@ -77,14 +113,15 @@ const Users = () => {
     return (
         <>
             <Metadata title="Users" />
-            <div className="row">
+            <div className="row minHeight">
                 <div className="col-12 col-md-3 bg-dark" style={{ marginTop: "-1rem" }}>
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-7">
-                    <div className="container" style={{ minHeight: "100vh" }}>
+                    {msg && <div className="alert alert-info">{msg}</div>}
+                    <div >
                         <h1 className="my-5">All Users</h1>
-                        {loading ? (<Error />) : (
+                        {gAULoading ? (<Error />) : (
                             <>
 
                                 <MDBDataTable

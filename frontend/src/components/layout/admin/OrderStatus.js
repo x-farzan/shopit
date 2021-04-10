@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 import { useSelector, useDispatch } from "react-redux"
-import { gettingSingleOrderRequest, resetGetSingleOrder } from "../../../store/admin/orders/getSingleOrder"
-import { changingOrderStatusRequest, resetChangeOrderStatus } from "../../../store/admin/orders/changeOrderStatus"
+import {
+    changingOrderStatusRequest,
+    resetChangeOrderStatus,
+    gettingSingleOrderRequest,
+    resetGetSingleOrder
+} from "../../../store/admin/orders/order"
+
 import Error from "../products/Error"
 import OrderItems from '../order/OrderItems'
 import { useHistory } from "react-router-dom"
@@ -11,8 +16,8 @@ const OrderStatus = ({ match }) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const [ordStatus, setOrdStatus] = useState("")
-    const { gOLoading, gOError, order } = useSelector(state => state.newAdmin.orders.singleOrder)
-    const { cOLoading, cOError, statusOfOrder } = useSelector(state => state.newAdmin.orders.orderStatus)
+
+    const { gOLoading, gOError, order, cOLoading, cOError, statusOfOrder } = useSelector(state => state.newAdmin.orders)
 
     const [msg, setMsg] = useState("")
     // const {} = order
@@ -25,7 +30,6 @@ const OrderStatus = ({ match }) => {
         setOrdStatus(e.target.value)
     }
     useEffect(() => {
-        dispatch(gettingSingleOrderRequest(match.params.id))
 
         if (gOError) {
             history.push("/dashboard")
@@ -35,6 +39,7 @@ const OrderStatus = ({ match }) => {
             setTimeout(() => {
                 setMsg("")
                 dispatch(resetChangeOrderStatus())
+                dispatch(gettingSingleOrderRequest(match.params.id))
             }, 2000);
         }
         if (statusOfOrder) {
@@ -42,17 +47,27 @@ const OrderStatus = ({ match }) => {
             setTimeout(() => {
                 setMsg("")
                 dispatch(resetChangeOrderStatus())
+                dispatch(gettingSingleOrderRequest(match.params.id))
             }, 2000);
         }
-        return () => {
-            setMsg("")
-            dispatch(resetChangeOrderStatus())
-            dispatch(resetGetSingleOrder())
 
-        }
         // eslint-disable-next-line
     }, [dispatch, match, statusOfOrder, gOError, cOError])
 
+    useEffect(() => {
+
+        dispatch(resetChangeOrderStatus())
+        dispatch(resetGetSingleOrder())
+
+        dispatch(gettingSingleOrderRequest(match.params.id))
+        return () => {
+
+            setMsg("")
+            dispatch(resetChangeOrderStatus())
+            dispatch(resetGetSingleOrder())
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const { shippingInfo, paymentInfo, orderStatus, orderItems, user } = order || {}
 
@@ -175,7 +190,7 @@ const OrderStatus = ({ match }) => {
                                     </button>
                                     </div>
                                     <div>
-                                        <img src={user && user.avatar.url} width="80%" height="80%" style={{ borderRadius: "50%" }} alt="" />
+                                        <img src={order && order.user && order.user.avatar.url} width="80%" height="80%" style={{ borderRadius: "50%" }} alt="" />
                                     </div>
                                 </div>
                             </div>

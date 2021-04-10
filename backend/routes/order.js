@@ -79,8 +79,14 @@ router.get("/admin/order/:id", [auth, admin], async (req, res) => {
 router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
     const order = await Order.findByIdAndRemove(req.params.id)
     if (!order) return res.status(400).send("No Orders found....")
+
+    const orders = await Order.find().sort("_id")
+    if (!orders) return res.status(400).send("No Orders found....")
+
+
     res.send({
-        success: true
+        success: true,
+        orders
     })
 
 })
@@ -90,10 +96,24 @@ router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
 
 router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) return res.status(400).send("Invalid Order ID")
-    const order = await Order.findById(req.params.id)
+    const order = await Order.findById(req.params.id).populate("user", "-password")
     if (!order) return res.status(400).send('Order Not Present')
 
-    if (order.orderStatus === 'Shipped' || order.orderStatus === 'Delivered') return res.status(400).send("This Product is already Shipped")
+    if (order.orderStatus === 'Shipped' || order.orderStatus === 'Delivered') {
+
+        if (order.orderStatus === 'Delivered') {
+            return res.status(400).send("This Product is already Delivered")
+        }
+        if (req.body.status === "Shipped") return res.status(400).send("This Product is already Shipped")
+        if (req.body.status === "Delivered") {
+            order.orderStatus = req.body.status;
+            await order.save()
+
+            return res.send({
+                msg: "Product is Delivered Successfully"
+            })
+        }
+    }
 
     //update stock of each product
     order.orderItems.forEach(async item => {
@@ -110,8 +130,10 @@ router.put('/admin/update/order/:id', [auth, admin], async (req, res) => {
 
     await order.save()
 
-
-    res.send("Stock is updated and order is Delivered")
+    res.send({
+        msg: "Stock is updated and order is Shipped",
+        order
+    })
 })
 
 const updateOrderStatus = async (id, quantity) => {

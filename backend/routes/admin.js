@@ -20,7 +20,7 @@ router.get('/admin/all/users', [auth, admin], async (req, res) => {
 // get a single users detail
 // protected by admin
 router.get('/admin/user/:id', [auth, admin], async (req, res) => {
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).select("-password")
     if (!user) return res.status(400).send("User With the given id is not present")
     res.send(user)
 })
@@ -60,9 +60,13 @@ router.delete('/admin/user/:id', [auth, admin], async (req, res) => {
         message: "The User with the given id is not present.."
     })
     await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+    const users = await User.find().sort("_id")
+
+    if (users.length === 0) return res.status(400).send("No Users Available..")
     res.send({
         success: true,
-        message: "User has been deleted successfully..."
+        message: "User has been deleted successfully...",
+        users
     })
 })
 

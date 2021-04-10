@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { gettingAllOrders, resetGetOrdersError } from "../../../store/admin/orders/getAllOrders"
-import { deletingOrderRequest, resetDeleteOrderError } from "../../../store/admin/orders/deleteOrder"
+import {
+    deletingOrderRequest,
+    resetDeleteOrderError,
+    gettingAllOrders,
+    resetGetOrdersError
+} from "../../../store/admin/orders/order"
+
 import Error from "../products/Error"
 import { MDBDataTable } from "mdbreact"
 import Metadata from '../products/Metadata'
@@ -13,11 +18,9 @@ const Orders = () => {
     const dispatch = useDispatch()
 
 
-    const { orders, gOLoading, gOError } = useSelector(state => state.newAdmin.orders.getOrders)
-    const { dOLoading, dOError, isDeleted } = useSelector(state => state.newAdmin.orders.deleteOrder)
+    const { orders, gOLoading, gOError, dOLoading, dOError, isDeleted } = useSelector(state => state.newAdmin.orders)
     const [msg, setMsg] = useState("")
     useEffect(() => {
-        dispatch(gettingAllOrders())
         if (isDeleted) {
             setMsg("Ordr is Removed Successfully")
             setTimeout(() => {
@@ -46,6 +49,7 @@ const Orders = () => {
         //eslint-disable-next-line
     }, [dispatch, isDeleted, gOError, dOError])
     useEffect(() => {
+        dispatch(gettingAllOrders())
         dispatch(resetGetOrdersError())
         dispatch(resetDeleteOrderError())
         //eslint-disable-next-line
