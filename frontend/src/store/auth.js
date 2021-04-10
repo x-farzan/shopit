@@ -14,7 +14,11 @@ const slice = createSlice({
         res: null,
         error: null,
         loadError: null,
-        updateProfile: false
+        updateProfile: false,
+
+        cPassLoading: false,
+        cPassError: null,
+        isChangedPass: false
     },
     reducers: {
         loginRequested: (auth, action) => {
@@ -89,6 +93,28 @@ const slice = createSlice({
             auth.loading = false;
             auth.updateProfile = false
             auth.error = action.payload
+        },
+
+        changePasswordRequest: (auth, action) => {
+            auth.cPassLoading = true
+            auth.cPassError = null
+            auth.isChangedPass = false
+        },
+        changePasswordSuccess: (auth, action) => {
+            auth.cPassLoading = false
+            auth.isChangedPass = true
+            auth.res = action.payload.user
+
+        },
+        changePasswordFailed: (auth, action) => {
+            auth.cPassLoading = false
+            auth.cPassError = action.payload
+            auth.isChangedPass = false
+        },
+        resettingChangePassword: (auth, action) => {
+            auth.cPassLoading = false
+            auth.cPassError = null
+            auth.isChangedPass = false
         }
     }
 })
@@ -109,7 +135,11 @@ const {
     clearingError,
     updateProfileFailed,
     updateProfileRequest,
-    updateProfileSucceed
+    updateProfileSucceed,
+    changePasswordFailed,
+    changePasswordRequest,
+    changePasswordSuccess,
+    resettingChangePassword
 } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
@@ -178,3 +208,19 @@ export const updatingProfileRequest = (data) => (dispatch) => {
 }
 
 export const clearError = () => clearingError()
+
+
+export const changingPasswordRequest = (data) => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/change/password',
+            method: 'post',
+            data,
+            onStart: changePasswordRequest.type,
+            onSuccess: changePasswordSuccess.type,
+            onError: changePasswordFailed.type
+        })
+    )
+}
+
+export const resetChangePassword = () => resettingChangePassword()

@@ -3,9 +3,9 @@ import Metadata from '../products/Metadata'
 
 const ForgotPassword = () => {
     return (
-        <div>
+        <div className="container minHeight">
             <Metadata title="Forgot Password" />
-
+            forgot password
         </div>
     )
 }

@@ -8,7 +8,7 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto')
 const router = express.Router();
-
+const auth = require("../middleware/auth")
 
 // login
 router.post('/auth', async (req, res) => {
@@ -24,9 +24,33 @@ router.post('/auth', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send("Invalid Email or Password")
 
-
     sendToken(user, 200, res)
 })
+
+// change password 
+router.post("/change/password", auth, async (req, res) => {
+    const { oldPassword, newPassword, confirmPassword } = req.body
+    const { error } = validateChangePassword(req.body)
+    if (error) return res.status(400).send(error.details[0].message)
+    // console.log(oldPassword, newPassword, confirmPassword)
+    if (newPassword !== confirmPassword) return res.status(400).send("New and Confirm Passwords are not same")
+
+    // find user
+    const user = await User.findById(req.user._id)
+    if (!user) return res.status(400).send("Invalid User")
+    // console.log(user)
+
+    // validate the password
+    const validPassword = await bcrypt.compare(oldPassword, user.password);
+    if (!validPassword) return res.status(400).send("You Entered Incorrect old Password")
+
+    user.password = newPassword
+    await user.save()
+
+    sendToken(user, 200, res)
+
+})
+
 
 // logout router
 router.get('/logout', async (req, res) => {
@@ -123,6 +147,36 @@ const validation = (req) => {
     const schema = Joi.object({
         email: Joi.string().min(5).required().email(),
         password: new PasswordComplexity({
+            min: 8,
+            max: 50,
+            lowerCase: 1,
+            upperCase: 1,
+            numeric: 1,
+            symbol: 1
+        }).required()
+    })
+    return schema.validate(req)
+}
+
+const validateChangePassword = (req) => {
+    const schema = Joi.object({
+        oldPassword: new PasswordComplexity({
+            min: 8,
+            max: 50,
+            lowerCase: 1,
+            upperCase: 1,
+            numeric: 1,
+            symbol: 1
+        }).required(),
+        newPassword: new PasswordComplexity({
+            min: 8,
+            max: 50,
+            lowerCase: 1,
+            upperCase: 1,
+            numeric: 1,
+            symbol: 1
+        }).required(),
+        confirmPassword: new PasswordComplexity({
             min: 8,
             max: 50,
             lowerCase: 1,

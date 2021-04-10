@@ -87,6 +87,8 @@ function App() {
         <Route exact path='/register' component={Register} />
         <Route exact path='/forgot/password' component={ForgotPassword} />
         <Route exact path='/change/password' component={ChangePassword} />
+
+        {/* Admin Routes */}
         <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact isAdmin={true} path="/admin/products" component={ProductsList} />
         <ProtectedRoute exact isAdmin={true} path="/admin/product/new" component={NewProduct} />

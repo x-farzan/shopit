@@ -44,9 +44,9 @@ const Profile = () => {
                                     My Orders
                                 </Link>
                             )}
-                            <button className="btn btn-danger btn-block w-75 mx-auto">
+                            <Link to="/change/password" className="btn btn-danger btn-block w-75 mx-auto">
                                 Change Password
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
