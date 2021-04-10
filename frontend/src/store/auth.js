@@ -18,7 +18,18 @@ const slice = createSlice({
 
         cPassLoading: false,
         cPassError: null,
-        isChangedPass: false
+        isChangedPass: false,
+
+        fPassLoading: false,
+        fPassError: null,
+        isURLSent: false,
+        message: "",
+
+        nPassLoading: false,
+        nPassError: null,
+        isPasUpdated: false,
+        nPMessage: ""
+
     },
     reducers: {
         loginRequested: (auth, action) => {
@@ -115,6 +126,48 @@ const slice = createSlice({
             auth.cPassLoading = false
             auth.cPassError = null
             auth.isChangedPass = false
+        },
+        forgotPasswordRequest: (auth, action) => {
+            auth.fPassLoading = true
+            auth.fPassError = null
+            auth.isURLSent = false
+        },
+        forgotPasswordSuccess: (auth, action) => {
+            auth.fPassLoading = false
+            auth.isURLSent = true
+            auth.message = action.payload
+
+        },
+        forgotPasswordFailed: (auth, action) => {
+            auth.fPassLoading = false
+            auth.fPassError = action.payload
+            auth.isURLSent = false
+        },
+        resettingForgotPassword: (auth, action) => {
+            auth.fPassLoading = false
+            auth.fPassError = null
+            auth.isURLSent = false
+        },
+        newPasswordRequest: (auth, action) => {
+            auth.nPassLoading = true
+            auth.nPassError = null
+            auth.isPasUpdated = false
+        },
+        newPasswordSuccess: (auth, action) => {
+            auth.nPassLoading = false
+            auth.isPasUpdated = true
+            auth.isAuthenticated = true
+            auth.res = action.payload.user
+        },
+        newPasswordFailed: (auth, action) => {
+            auth.nPassLoading = false
+            auth.nPassError = action.payload
+            auth.isPasUpdated = false
+        },
+        resettingNewPassword: (auth, action) => {
+            auth.nPassLoading = false
+            auth.nPassError = null
+            auth.isPasUpdated = false
         }
     }
 })
@@ -139,7 +192,15 @@ const {
     changePasswordFailed,
     changePasswordRequest,
     changePasswordSuccess,
-    resettingChangePassword
+    resettingChangePassword,
+    forgotPasswordFailed,
+    forgotPasswordRequest,
+    forgotPasswordSuccess,
+    resettingForgotPassword,
+    newPasswordFailed,
+    newPasswordRequest,
+    newPasswordSuccess,
+    resettingNewPassword
 } = slice.actions
 
 /////////////////////////////////////////////////////////////////////
@@ -224,3 +285,39 @@ export const changingPasswordRequest = (data) => (dispatch) => {
 }
 
 export const resetChangePassword = () => resettingChangePassword()
+
+
+export const forgot_PasswordRequest = (data) => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: '/api/v1/forgot/password',
+            method: 'post',
+            data,
+            onStart: forgotPasswordRequest.type,
+            onSuccess: forgotPasswordSuccess.type,
+            onError: forgotPasswordFailed.type
+        })
+    )
+}
+
+export const resetForgotPassword = () => resettingForgotPassword()
+
+
+
+export const new_PasswordRequest = (token, data) => (dispatch) => {
+    dispatch(
+        authCallBegan({
+            url: `/api/v1/password/reset/${token}`,
+            method: 'put',
+            data,
+            onStart: newPasswordRequest.type,
+            onSuccess: newPasswordSuccess.type,
+            onError: newPasswordFailed.type
+        })
+    )
+}
+
+export const resetNewPassword = () => resettingNewPassword()
+
+
+

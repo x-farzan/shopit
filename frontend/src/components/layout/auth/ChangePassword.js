@@ -84,7 +84,7 @@ const ChangePassword = (props) => {
             }, 2000)
         }
 
-    }, [dispatch, cPassError, isChangedPass])
+    }, [dispatch, cPassError, isChangedPass, history])
 
     const validation = () => {
         const schema = Joi.object({

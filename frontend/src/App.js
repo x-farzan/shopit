@@ -39,6 +39,7 @@ import UserDetail from './components/layout/admin/UserDetail';
 import Reviews from './components/layout/admin/Reviews';
 import ForgotPassword from './components/layout/auth/ForgotPassword';
 import ChangePassword from './components/layout/auth/ChangePassword';
+import NewPassword from './components/layout/auth/NewPassword';
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <Route exact path='/forgot/password' component={ForgotPassword} />
         <Route exact path='/change/password' component={ChangePassword} />
+        <Route exact path='/api/v1/password/reset/:token' component={NewPassword} />
 
         {/* Admin Routes */}
         <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />

@@ -30,15 +30,15 @@ router.post('/auth', async (req, res) => {
 // change password 
 router.post("/change/password", auth, async (req, res) => {
     const { oldPassword, newPassword, confirmPassword } = req.body
+
     const { error } = validateChangePassword(req.body)
     if (error) return res.status(400).send(error.details[0].message)
-    // console.log(oldPassword, newPassword, confirmPassword)
+
     if (newPassword !== confirmPassword) return res.status(400).send("New and Confirm Passwords are not same")
 
     // find user
     const user = await User.findById(req.user._id)
     if (!user) return res.status(400).send("Invalid User")
-    // console.log(user)
 
     // validate the password
     const validPassword = await bcrypt.compare(oldPassword, user.password);
@@ -67,11 +67,11 @@ router.get('/logout', async (req, res) => {
 
 
 // forgot password
-router.post('/password/reset', async (req, res) => {
+router.post('/forgot/password', async (req, res) => {
+
     // validate entered email syntax
     const { error } = validateForgotPassEmail(req.body)
     if (error) return res.status(400).send(error.message[0].details)
-
     // check for user presence
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(400).send("This email is not registered. send a valid email")
@@ -92,10 +92,7 @@ router.post('/password/reset', async (req, res) => {
             subject: "ShopIT password recovery email",
             message
         })
-        res.send({
-            success: true,
-            message: `Email send to ${user.email}`
-        })
+        res.send(`Email send to ${user.email}`)
 
     } catch (err) {
         user.resetPasswordToken = undefined;
@@ -118,7 +115,6 @@ router.put('/password/reset/:token', async (req, res) => {
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
     })
-
     if (!user) return res.status(400).send(" Password reset token in invalid or has been expired")
 
     if (req.body.password !== req.body.confirmPassword) {
