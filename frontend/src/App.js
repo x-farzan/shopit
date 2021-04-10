@@ -19,7 +19,7 @@ import Profile from './components/layout/cart/Profile';
 import UpdatingProfile from './components/layout/auth/UpdatingProfile';
 import Shipping from './components/layout/cart/Shipping';
 import ConfirmOrder from './components/layout/cart/ConfirmOrder';
-import { stripeKeyRequesting } from './store/payment'
+import { stripeKeyRequesting } from './store/user/payment'
 import Payment from './components/layout/cart/Payment';
 
 import { Elements } from "@stripe/react-stripe-js"
@@ -38,6 +38,7 @@ import Users from './components/layout/admin/Users';
 import UserDetail from './components/layout/admin/UserDetail';
 import Reviews from './components/layout/admin/Reviews';
 import ForgotPassword from './components/layout/auth/ForgotPassword';
+import ChangePassword from './components/layout/auth/ChangePassword';
 
 
 function App() {
@@ -71,9 +72,11 @@ function App() {
             return <UpdatingProfile {...props} />
           }}
         />
+
         <Route exact path='/search/:keyword' component={SearchResult} />
         <Route exact path='/product/:id' component={ProductDetails} />
         <Route exact path='/auth' component={Auth} />
+
         <ProtectedRoute exact path='/shipping' component={Shipping} />
         <ProtectedRoute exact path='/confirm/order' component={ConfirmOrder} />
         <ProtectedRoute exact path='/success' component={PaymentSuccess} />
@@ -83,6 +86,7 @@ function App() {
 
         <Route exact path='/register' component={Register} />
         <Route exact path='/forgot/password' component={ForgotPassword} />
+        <Route exact path='/change/password' component={ChangePassword} />
         <ProtectedRoute exact isAdmin={true} path="/dashboard" component={Dashboard} />
         <ProtectedRoute exact isAdmin={true} path="/admin/products" component={ProductsList} />
         <ProtectedRoute exact isAdmin={true} path="/admin/product/new" component={NewProduct} />

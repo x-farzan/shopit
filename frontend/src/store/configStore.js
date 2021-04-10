@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import auth from '../middlewares/auth';
 import cart from '../middlewares/cart';
 import products from '../middlewares/products';
-import reducer from './entities'
+import reducer from './combineReducers/entities'
 
 export default configureStore({
     reducer,

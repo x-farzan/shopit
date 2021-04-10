@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './review.css'
-import { creatingReviewRequest, clearingReviewErrors } from "../../../store/review"
+import { creatingReviewRequest, clearingReviewErrors } from "../../../store/user/review"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from 'react-router-dom'
 

@@ -5,7 +5,7 @@ const Contact = () => {
     return (
         <>
             <Metadata title="Contact us" />
-            <div className='container'>
+            <div className='container minHeight'>
                 <p className="display-4 text-center">Contact Us </p>
                 <hr />
                 <div className="card">

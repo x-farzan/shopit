@@ -40,9 +40,9 @@ const Profile = () => {
                                 <p>{String(res.createdAt).substring(0, 10)}</p>
                             </div>
                             {res.role !== "admin" && (
-                                <button className="btn btn-primary btn-block w-75 mx-auto">
+                                <Link to="/orders/me" className="btn btn-primary btn-block w-75 mx-auto">
                                     My Orders
-                                </button>
+                                </Link>
                             )}
                             <button className="btn btn-danger btn-block w-75 mx-auto">
                                 Change Password

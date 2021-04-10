@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import productsReducer from './products'
-import productDetailReducer from './productDetails'
-import cartReducer from './cart'
-import orderReducer from "./order"
-import reviewReducer from './review'
+import productsReducer from '../user/products'
+import productDetailReducer from '../user/productDetails'
+import cartReducer from '../user/cart'
+import orderReducer from "../user/order"
+import reviewReducer from '../user/review'
 export default combineReducers({
     products: productsReducer,
     productDetail: productDetailReducer,

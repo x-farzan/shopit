@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <>
             <Metadata title="Buy Best Products Online" />
-            <div className="carousel slide mb-5" data-ride="carousel" id="slider4">
+            <div className="carousel slide mb-5 minHeight" data-ride="carousel" id="slider4">
                 <ol className="carousel-indicators">
                     <li className="active" data-target="#slider4" data-slide-to="0"></li>
                     <li data-target="#slider4" data-slide-to="1"></li>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { changeItems, removeItem } from '../../../store/cart'
+import { changeItems, removeItem } from '../../../store/user/cart'
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom'
 

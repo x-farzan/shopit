@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { searchByPrice } from '../../../store/products'
+import { searchByPrice } from '../../../store/user/products'
 import Categories from './Categories';
 
 const Price = ({ keyword }) => {

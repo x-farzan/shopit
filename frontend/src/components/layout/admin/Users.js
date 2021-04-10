@@ -6,7 +6,6 @@ import {
     deletingUserRequest,
     resetGetAllUsers,
     resetDeleteUser,
-    resetUpdateUser
 } from "../../../store/admin/users/users"
 import { MDBDataTable } from "mdbreact"
 import { Link } from "react-router-dom"

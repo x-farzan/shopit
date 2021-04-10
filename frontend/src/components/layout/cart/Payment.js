@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import ShippingSteps from './ShippingSteps';
 import axios from 'axios'
-import { creatingOrderRequest } from '../../../store/order'
-import { clearingCartAfterPayment } from '../../../store/cart'
+import { creatingOrderRequest } from '../../../store/user/order'
+import { clearingCartAfterPayment } from '../../../store/user/cart'
 import _ from "lodash"
 
 const Payment = () => {

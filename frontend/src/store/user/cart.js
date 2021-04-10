@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { cartCallBegan } from './api';
+import { cartCallBegan } from '../api';
 
 const slice = createSlice({
     name: "cart",

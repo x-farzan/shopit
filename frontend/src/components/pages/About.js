@@ -5,7 +5,7 @@ const About = () => {
     return (
         <>
             <Metadata title="About " />
-            <div className='container'>
+            <div className='container minHeight'>
                 <p className="display-4 text-center">About Us </p>
                 <hr />
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur magnam illum eaque officia eius dolorem numquam ipsa architecto. Quisquam quod mollitia sint molestias, soluta vero itaque, voluptas optio nam corrupti ut ab voluptatibus ex, dolorem minima earum. Beatae, et autem!</p>

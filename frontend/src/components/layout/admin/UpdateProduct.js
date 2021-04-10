@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 import Joi from 'joi'
 import { resetUpdateProduct, updatingProductRequest } from "../../../store/admin/products/products"
 import Input from '../auth/Input'
-import { getProductDetails, clearingProductDetail } from "../../../store/productDetails"
+import { getProductDetails, clearingProductDetail } from "../../../store/user/productDetails"
 import Metadata from '../products/Metadata'
 import Sidebar from './Sidebar'
 const UpdateProduct = ({ match }) => {

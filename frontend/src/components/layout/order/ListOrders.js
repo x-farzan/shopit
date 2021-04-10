@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { gettingAllOrdersRequest } from "../../../store/order"
+import { gettingAllOrdersRequest } from "../../../store/user/order"
 import { MDBDataTable } from "mdbreact"
 import Error from "../products/Error"
 import { Link } from 'react-router-dom'
@@ -61,7 +61,7 @@ const ListOrders = () => {
         return data
     }
     return (
-        <div className="container">
+        <div className="container minHeight">
             <Metadata title="My Orders" />
             <h1 className="my-5">My Orders</h1>
             {!loading ? (

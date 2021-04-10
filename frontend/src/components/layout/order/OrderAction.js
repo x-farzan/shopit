@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { gettingSingleOrderRequest } from "../../../store/order"
+import { gettingSingleOrderRequest } from "../../../store/user/order"
 import Error from '../products/Error'
 import OrderItems from './OrderItems'
 const OrderAction = ({ match }) => {
@@ -13,7 +13,7 @@ const OrderAction = ({ match }) => {
     const isPaid = order.paymentInfo && order.paymentInfo.status === "succeeded" ? true : false
     const isDelivered = order.orderStatus && order.orderStatus === "Delivered" ? true : false
     return (
-        <div className="container" style={{ minHeight: "100vh" }}>
+        <div className="container minHeight">
             {!loading && order.user ? (
                 <>
                     <h1 className="display-5 my-4">Order # {order._id}</h1>

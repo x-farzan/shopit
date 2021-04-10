@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductDetails } from '../../../store/productDetails'
-import { addProductToCart } from '../../../store/cart'
+import { getProductDetails } from '../../../store/user/productDetails'
+import { addProductToCart } from '../../../store/user/cart'
 import Error from './Error'
 import Metadata from './Metadata';
 import { Rating } from './Rating';
