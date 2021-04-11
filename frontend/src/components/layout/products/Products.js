@@ -21,7 +21,7 @@ const Products = () => {
             <Metadata title="Products" />
             <Search />
             {products.loading ? (<Error />) : (
-                <div className="container">
+                <div className="container minHeight">
                     <div className='row'>
                         {products.list.map(product => (
                             <Product

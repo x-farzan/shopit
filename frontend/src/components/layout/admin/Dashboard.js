@@ -51,7 +51,7 @@ const Dashboard = () => {
         }
     }, [dispatch, gPError, gUError, gOError])
     return (
-        <div className="row minHeight" style={{ marginTop: "-1rem" }}>
+        <div className="row minHeight overflow" style={{ marginTop: "-1rem" }}>
             <Metadata title="Admin Dashboard" />
 
             <div className="col-12 col-md-3 bg-dark ">

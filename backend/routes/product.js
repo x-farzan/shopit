@@ -53,7 +53,6 @@ router.get('/products', async (req, res) => {
 // Search products by name
 router.get('/products/searchbyname', async (req, res) => {
     let { name } = req.query
-    console.log(name)
     const regexp = new RegExp(".*" + name + ".*", "i")
 
     let products = await Product
@@ -93,7 +92,6 @@ router.get('/products/searchbycategory', async (req, res) => {
     const regexp = new RegExp(".*" + name + ".*", "i")
     let products;
 
-    // console.log(name, min, max)
     if (cat[0] !== '') {
 
         products = await Product
@@ -150,21 +148,19 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
     }
     let imagesLinks = []
 
-    // console.log(req.body)
-    console.log("Upper")
 
     for (let i = 0; i < images.length; i++) {
 
         const result = await cloudinary.v2.uploader.upload(images[i], {
             folder: "products"
         });
-        console.log("Inside")
+
         imagesLinks.push({
             public_id: result.public_id,
             url: result.secure_url
         })
     }
-    console.log("Lower")
+
 
     const { name, price, description, category, stock, seller } = req.body
     const data = {
@@ -181,7 +177,6 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
 
     const { error } = validation(data)
     if (error) {
-        console.log(error.details[0].message)
         return res.status(400).send(error.details[0].message)
     }
     let product = new Product(data)
@@ -233,7 +228,6 @@ router.put('/admin/update/product/:id', [auth, admin], async (req, res) => {
     }
 
     if (req.body.images === undefined) {
-        console.log("hy")
 
         product.images.forEach(img => {
             imagesLinks.push({
@@ -257,7 +251,6 @@ router.put('/admin/update/product/:id', [auth, admin], async (req, res) => {
 
     const { error } = validation(data)
     if (error) {
-        console.log(error.details[0].message)
         return res.status(400).send(error.details[0].message)
     }
     product.name = name

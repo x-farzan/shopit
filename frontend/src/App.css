@@ -1,6 +1,6 @@
-/* * {
+.overflow {
   overflow-x: hidden;
-} */
+}
 
 .minHeight {
   min-height: 100vh;

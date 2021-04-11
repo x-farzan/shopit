@@ -10,7 +10,7 @@ const Product = ({ id, price, reviews, wide, name, rating, url }) => {
     }
     return (
         <div className={`${wide} my-3`}>
-            <div className="d-flex flex-fill card animate__animated animate__headShake">
+            <div className="d-flex flex-fill card ">
                 <img style={height} className="card-img-top" src={url} alt="" />
                 <div className="card-body">
                     <Link to={`/product/${id}`} style={{ textDecoration: 'none' }} className="card-text text-truncate d-block text-dark">{name}</Link>
