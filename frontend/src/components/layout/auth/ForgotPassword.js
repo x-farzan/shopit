@@ -4,8 +4,9 @@ import Input from './Input'
 import { forgot_PasswordRequest, resetForgotPassword } from '../../../store/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import Metadata from '../products/Metadata'
-
+import { useHistory } from "react-router-dom"
 const ForgotPassword = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const { fPassLoading, fPassError, isURLSent, message } = useSelector(state => state.auth.login)
 
@@ -63,7 +64,8 @@ const ForgotPassword = () => {
             setTimeout(() => {
                 setMsg("")
                 dispatch(resetForgotPassword())
-            }, 2000)
+                history.push("/auth")
+            }, 10000)
         }
 
     }, [dispatch, fPassError, isURLSent, message])
