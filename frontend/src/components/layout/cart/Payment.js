@@ -107,7 +107,7 @@ const Payment = () => {
         }
     }
     return (
-        <div className="container">
+        <div className="container minHeight">
             <ShippingSteps shipping confirmOrder payment />
             <div className="d-flex align-items-center justify-content-center">
                 <div className="card mt-3" style={{ minWidth: "50%" }}>
