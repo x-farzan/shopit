@@ -10,6 +10,9 @@
     "seeder": "node backend/utils/seeder.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend npm run build --prefix frontend"
   },
+  "engines": {
+    "node": "15.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ehmusman/shopit.git"
