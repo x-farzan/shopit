@@ -1,0 +1,89 @@
+[{
+  "_id": {
+    "$oid": "606421712672f379a2b9a709"
+  },
+  "role": "admin",
+  "name": "Hafiz Muhammad Usman Bakhsh",
+  "email": "ehmusman@gmail.com",
+  "password": "$2b$10$C6ziEu74snIOtMwrUA5hb.3yqqduUJWut4SVteL9dvjlPAHFBPBZu",
+  "avatar": {
+    "public_id": "avatar/e7bqhxcjrszgrbariau5",
+    "url": "https://res.cloudinary.com/ehmusman/image/upload/v1617174897/avatar/e7bqhxcjrszgrbariau5.jpg"
+  },
+  "createdAt": {
+    "$date": "2021-03-31T07:14:57.864Z"
+  },
+  "__v": 0,
+  "resetPasswordExpire": {
+    "$date": "2021-04-11T13:19:09.502Z"
+  },
+  "resetPasswordToken": "9208a9cba5ad68cb05217c084013351c67b66a23db2b2804b68c796e4612f9ba"
+},{
+  "_id": {
+    "$oid": "606424d6f475f97c5e5a8d56"
+  },
+  "role": "admin",
+  "name": "m Bakhsh Ramzan",
+  "email": "m.bakhsh@gmail.com",
+  "password": "$2b$10$IaV14gzJ6CT8SqQ74A9VgO8BjCQ8JVZR.VoTy.2sVZkwVbfblari2",
+  "avatar": {
+    "public_id": "avatar/w07qwbilttqsctf1crsg",
+    "url": "https://res.cloudinary.com/ehmusman/image/upload/v1617175846/avatar/w07qwbilttqsctf1crsg.png"
+  },
+  "createdAt": {
+    "$date": "2021-03-31T07:29:26.695Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60713f1f15a51c5d769e20d5"
+  },
+  "role": "user",
+  "name": "Mam rukhsana kauser ",
+  "email": "rukh@gmail.com",
+  "password": "$2b$10$i6eAkvveiKzy.77nYPJnVOb3E/Q2BmmL.99yyK2ilW90mF5t8ODPG",
+  "avatar": {
+    "public_id": "avatar/vntvx3xkjk18u5y73rzn",
+    "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618034463/avatar/vntvx3xkjk18u5y73rzn.jpg"
+  },
+  "createdAt": {
+    "$date": "2021-04-10T06:01:03.603Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60713f3b15a51c5d769e20d6"
+  },
+  "role": "user",
+  "name": "Umer Programmer",
+  "email": "umer@gmail.com",
+  "password": "$2b$10$9of7JPvANjNtIjR4oFfT5Oi7LCdDtbqDbtla9PnjkUmS0plGI2JPa",
+  "avatar": {
+    "public_id": "avatar/kce85z9q2q11vz3hpwqc",
+    "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618034491/avatar/kce85z9q2q11vz3hpwqc.jpg"
+  },
+  "createdAt": {
+    "$date": "2021-04-10T06:01:31.920Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60713ffc15a51c5d769e20dc"
+  },
+  "role": "user",
+  "name": "Farooq Shahzad",
+  "email": "farooq@gmail.com",
+  "password": "$2b$10$tWt/AE7TPmT1Se25GYvxmeduuivMjICMzhAOou0mnzOfp/knsm186",
+  "avatar": {
+    "public_id": "avatar/vnwp7o5zb8r2gwcgslqi",
+    "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618034683/avatar/vnwp7o5zb8r2gwcgslqi.jpg"
+  },
+  "createdAt": {
+    "$date": "2021-04-10T06:04:44.017Z"
+  },
+  "__v": 0,
+  "resetPasswordExpire": {
+    "$date": "2021-04-11T13:19:47.867Z"
+  },
+  "resetPasswordToken": "c6e8dec617127e2f9644e330522dc7c80ba7d78cb52a1b4dec73fe4d255e05e0"
+}]

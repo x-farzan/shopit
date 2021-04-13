@@ -1,0 +1,71 @@
+[{
+  "_id": {
+    "$oid": "60732cea33cb07430b692c21"
+  },
+  "itemPrice": 12,
+  "taxPrice": 0.6,
+  "shippingPrice": 200,
+  "totalPrice": 212.6,
+  "orderStatus": "Processing",
+  "orderItems": [
+    {
+      "_id": {
+        "$oid": "60732cea33cb07430b692c22"
+      },
+      "name": "Hand Bandage",
+      "price": "6",
+      "qty": 2,
+      "images": [
+        {
+          "_id": "607193a6a224c63fce821c73",
+          "public_id": "products/sw4ctdtyxb2ywmrxssdz",
+          "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618056094/products/sw4ctdtyxb2ywmrxssdz.jpg"
+        },
+        {
+          "_id": "607193a6a224c63fce821c74",
+          "public_id": "products/x9bs2aqef2ujrgqbuvpt",
+          "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618056096/products/x9bs2aqef2ujrgqbuvpt.jpg"
+        },
+        {
+          "_id": "607193a6a224c63fce821c75",
+          "public_id": "products/vnpwgjzj9xhdkmn9bmxy",
+          "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618056098/products/vnpwgjzj9xhdkmn9bmxy.jpg"
+        },
+        {
+          "_id": "607193a6a224c63fce821c76",
+          "public_id": "products/jqgke6sm8mltatngiuqd",
+          "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618056100/products/jqgke6sm8mltatngiuqd.jpg"
+        },
+        {
+          "_id": "607193a6a224c63fce821c77",
+          "public_id": "products/isvmdxpuf4xpgtqteh0v",
+          "url": "https://res.cloudinary.com/ehmusman/image/upload/v1618056102/products/isvmdxpuf4xpgtqteh0v.jpg"
+        }
+      ],
+      "product": {
+        "$oid": "607193a6a224c63fce821c72"
+      }
+    }
+  ],
+  "shippingInfo": {
+    "address": "House No. P-732, Street No. 05, New Green Town Millat Road,",
+    "city": "Karachi",
+    "phone": "1234567890",
+    "postalCode": "123456789023222",
+    "country": "Pakistan"
+  },
+  "paymentInfo": {
+    "id": "pi_1If6l8JRQjrq2rSj6bXX92Pf",
+    "status": "succeeded"
+  },
+  "createdAt": {
+    "$date": "2021-04-11T17:07:54.297Z"
+  },
+  "user": {
+    "$oid": "60713ffc15a51c5d769e20dc"
+  },
+  "paidAt": {
+    "$date": "2021-04-11T17:07:54.298Z"
+  },
+  "__v": 0
+}]
