@@ -20,7 +20,6 @@ const products = ({ dispatch, getState }) => next => async action => {
         })
         dispatch(apiCallSuccess(response.data))
         if (onSuccess) dispatch({ type: onSuccess, payload: response.data })
-
     } catch (error) {
         dispatch(apiCallFailed(error.response.data))
         if (onError) dispatch({ type: onError, payload: error.response.data })

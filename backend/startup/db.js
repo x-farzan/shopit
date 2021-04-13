@@ -3,11 +3,10 @@ const winston = require("winston")
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect("mongodb://localhost:27017/shopit", {
+        const conn = await mongoose.connect(process.env.DB_URI, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
-            useCreateIndex: true,
-            ignoreUndefined: true
+            useCreateIndex: true
         })
         winston.info(`MongoDB Connected: ${conn.connection.host}`)
     } catch (err) {

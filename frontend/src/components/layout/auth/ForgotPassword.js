@@ -68,7 +68,7 @@ const ForgotPassword = () => {
             }, 10000)
         }
 
-    }, [dispatch, fPassError, isURLSent, message])
+    }, [dispatch, fPassError, isURLSent, message, history])
 
     const validation = () => {
         const schema = Joi.object({

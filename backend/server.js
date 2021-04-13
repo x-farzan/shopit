@@ -1,6 +1,7 @@
 const express = require('express');
 const cloudinary = require('cloudinary')
 const app = express()
+const path = require("path")
 const fileUpload = require('express-fileupload');
 app.use(fileUpload())
 app.use(express.urlencoded({ extended: true }))
@@ -28,6 +29,18 @@ cloudinary.config({
 require('./startup/db')();
 // logging messages
 require('./startup/logging')();
+
+if (process.env.NODE_ENV === 'production') {
+    console.log("production mode")
+    app.use(express.static(path.join(__dirname, "../frontend/build")))
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+    })
+} else {
+    app.get("/", (req, res) => {
+        res.send("Api is Running")
+    })
+}
 
 app.listen(process.env.PORT, () => {
     startupDebugger(`Server Started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode...`)

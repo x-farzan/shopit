@@ -8,10 +8,10 @@ const cookieParser = require('cookie-parser')
 const admin = require('../routes/admin')
 const order = require('../routes/order')
 const review = require('../routes/reviews')
-const { urlencoded } = require('express')
-const payment = require("../routes/payment")
+const payment = require('../routes/payment')
 
 module.exports = function (app) {
+
     app.use(express.json())
     app.use(cookieParser())
     app.use('/api/v1', products)

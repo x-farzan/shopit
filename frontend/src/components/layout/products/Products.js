@@ -14,16 +14,17 @@ const Products = () => {
         dispatch(loadProductsCount())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const products = useSelector(state => state.entities.products)
+    const { list, count, loading } = useSelector(state => state.entities.products)
 
     return (
         <>
             <Metadata title="Products" />
             <Search />
-            {products.loading ? (<Error />) : (
+            {(loading && !count && list.length === 0) ? (<Error />) : (
                 <div className="container minHeight">
                     <div className='row'>
-                        {products.list.map(product => (
+
+                        {(!loading && count && list.length !== 0) && list.map(product => (
                             <Product
                                 key={product._id}
                                 id={product._id}

@@ -67,7 +67,8 @@ const UserDetail = ({ match }) => {
             dispatch(resetGetSingleUser())
             dispatch(resetUpdateUser())
         }
-    }, [dispatch, user, isUserUpdated, uUError, gSUError])
+        // eslint-disable-next-line
+    }, [dispatch, user, isUserUpdated, uUError, gSUError, history])
 
     const onChange = (e) => {
         const newData = { ...data }
