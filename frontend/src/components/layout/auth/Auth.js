@@ -32,7 +32,7 @@ const Auth = (props) => {
             setLoginError(error)
             setTimeout(() => {
                 setLoginError('')
-            }, 5000)
+            }, 2000)
         }
         //eslint-disable-next-line
     }, [isAuthenticated, error])
@@ -59,7 +59,7 @@ const Auth = (props) => {
         }
         await setTimeout(() => {
             setLoginError(null)
-        }, 5000)
+        }, 2000)
     }
 
     const handleOnChange = (e) => {

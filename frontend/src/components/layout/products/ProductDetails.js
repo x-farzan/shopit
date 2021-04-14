@@ -39,7 +39,7 @@ const ProductDetails = ({ match }) => {
             setNoti(data)
             setTimeout(() => {
                 setNoti(initialState)
-            }, 10000);
+            }, 2000);
         } else {
             loaded.current = true;
         }
@@ -67,7 +67,7 @@ const ProductDetails = ({ match }) => {
             setNoti(data)
             setTimeout(() => {
                 setNoti(initialState)
-            }, 10000);
+            }, 2000);
             return
         }
         dispatch(addProductToCart(match.params.id, count, data.price))
