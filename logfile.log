@@ -7,3 +7,4 @@
 {"level":"info","message":"MongoDB Connected: cluster0-shard-00-01.hm4tc.mongodb.net","timestamp":"2021-04-14T22:04:24.550Z"}
 {"level":"info","message":"MongoDB Connected: cluster0-shard-00-01.hm4tc.mongodb.net","timestamp":"2021-04-14T22:04:29.272Z"}
 {"level":"info","message":"MongoDB Connected: cluster0-shard-00-02.hm4tc.mongodb.net","timestamp":"2021-04-14T22:20:32.815Z"}
+{"level":"info","message":"MongoDB Connected: cluster0-shard-00-01.hm4tc.mongodb.net","timestamp":"2021-04-14T22:28:07.872Z"}

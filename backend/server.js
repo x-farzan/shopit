@@ -30,8 +30,6 @@ require('./startup/db')();
 // logging messages
 require('./startup/logging')();
 
-const __dirname = path.resolve()
-
 if (process.env.NODE_ENV === 'production') {
     console.log("production mode")
     app.use(express.static(path.join(__dirname, "frontend/build")))
