@@ -1,6 +1,5 @@
 const express = require('express');
 const Joi = require('joi');
-const { Mongoose } = require('mongoose');
 const router = express.Router();
 const auth = require('../middleware/auth')
 const { Product } = require('../models/productModel')

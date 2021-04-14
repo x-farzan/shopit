@@ -27,6 +27,9 @@ router.post('/order/new', auth, async (req, res) => {
 // Get a single order with user
 // protected by user
 router.get('/order/:id', auth, async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     const order = await Order.findById(req.params.id)
         .populate('user', 'name email')
     if (!order) return res.status(400).send("No Order Found with the given ID")
@@ -77,6 +80,9 @@ router.get("/admin/order/:id", [auth, admin], async (req, res) => {
 // Delte an orders by admin 
 // protected by admin only 
 router.delete('/admin/delete/order/:id', [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     const order = await Order.findByIdAndRemove(req.params.id)
     if (!order) return res.status(400).send("No Orders found....")
 
@@ -142,7 +148,7 @@ const updateOrderStatus = async (id, quantity) => {
 
     const stock = product.stock - quantity
 
-    product.stock = stock
+    product.stock = Number(stock)
 
     await product.save({ validateBeforeSave: false })
 }

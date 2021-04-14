@@ -161,7 +161,7 @@ const UserDetail = ({ match }) => {
                                             </div>
                                             <input
                                                 type="submit"
-                                                value="Register"
+                                                value="Update"
                                                 className="btn btn-warning  btn-lg btn-block"
                                                 onClick={handleOnSubmit}
                                                 disabled={uULoading ? true : false}

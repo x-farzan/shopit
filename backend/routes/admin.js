@@ -29,6 +29,9 @@ router.get('/admin/user/:id', [auth, admin], async (req, res) => {
 // protected
 
 router.put('/admin/user/:id', [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     // joi validation
     const { error } = updateUserValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -54,6 +57,9 @@ router.put('/admin/user/:id', [auth, admin], async (req, res) => {
 // delete a User 
 // By admin
 router.delete('/admin/user/:id', [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     const user = await User.findByIdAndRemove(req.params.id, { useFindAndModify: false })
     if (!user) return res.status(400).send({
         success: false,
@@ -72,6 +78,7 @@ router.delete('/admin/user/:id', [auth, admin], async (req, res) => {
 
 // Get All Reviews of a product
 router.get("/admin/reviews/product/:id", [auth, admin], async (req, res) => {
+
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(400).send("Invalid Product ID")
     }

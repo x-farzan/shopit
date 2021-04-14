@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const cloudinary = require("cloudinary")
 const router = express.Router()
-
+const mongoose = require("mongoose")
 
 // get all products
 router.get('/countproducts', async (req, res) => {
@@ -113,6 +113,9 @@ router.get('/products/searchbycategory', async (req, res) => {
 
 // get a single product by id
 router.get('/product/:id', async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     const product = await Product.findById(req.params.id)
 
     if (!product) return res.status(400).send({
@@ -190,7 +193,9 @@ router.post('/admin/product/new', [auth, admin], async (req, res) => {
 // Update a product 
 // By admin
 router.put('/admin/update/product/:id', [auth, admin], async (req, res) => {
-
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
 
     let images = []
     let imagesLinks = []
@@ -271,6 +276,9 @@ router.put('/admin/update/product/:id', [auth, admin], async (req, res) => {
 // delete a product 
 // By admin
 router.delete('/admin/delete/product/:id', [auth, admin], async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(400).send("Invalid Product ID")
+    }
     const product = await Product.findById(req.params.id)
 
     if (!product) return res.status(400).send({
