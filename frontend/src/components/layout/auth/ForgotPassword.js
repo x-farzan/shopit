@@ -86,7 +86,7 @@ const ForgotPassword = () => {
 
             {msg && <div className="alert text-center alert-info">{msg}</div>}
             <div className="d-flex align-item-center justify-content-center">
-                <div className="card w-50">
+                <div className="card w-75">
                     <div className="card-header h2 text-dark">
                         Forgot Password
                 </div>

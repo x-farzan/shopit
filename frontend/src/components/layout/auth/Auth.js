@@ -86,11 +86,11 @@ const Auth = (props) => {
         return errors
     }
     return (
-        <div className="container" style={{ width: '100vw', height: "100vh" }}>
+        <div className="container" style={{ width: '75vw', height: "100vh" }}>
             <Metadata title="Login" />
 
             <div className="d-flex align-item-center justify-content-center">
-                <div className="card w-50">
+                <div className="card w-100">
                     <div className="card-header h2 text-dark">
                         Login
                     </div>

@@ -138,7 +138,7 @@ const NewProduct = () => {
                     {msg && <div className="alert alert-info">{msg}</div>}
                     <div >
                         <div className="d-flex align-item-center justify-content-center">
-                            <div className="card w-50">
+                            <div className="card w-75">
                                 <div className="card-header h2 text-dark">
                                     New Product
                             </div>

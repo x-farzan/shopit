@@ -167,7 +167,7 @@ const UpdateProduct = ({ match }) => {
                         <Metadata title="Update Product" />
 
                         <div className="d-flex align-item-center justify-content-center">
-                            <div className="card w-50">
+                            <div className="card w-75">
                                 <div className="card-header h2 text-dark">
                                     New Product
                 </div>

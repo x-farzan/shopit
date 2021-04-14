@@ -123,7 +123,7 @@ const UserDetail = ({ match }) => {
                     <div >
                         <div className="d-flex align-items-center justify-content-center">
                             {!gSULoading && !uULoading ? (
-                                <div className="card w-50">
+                                <div className="card w-75">
                                     <div className="card-header h2 text-dark">
                                         Update a User
                     </div>

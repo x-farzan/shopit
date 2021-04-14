@@ -142,7 +142,7 @@ const UpdatingProfile = (props) => {
             {res !== null ? (
                 <div className="container" style={{ height: "100vh" }}>
                     <div className="d-flex align-item-center justify-content-center">
-                        <div className="card w-50">
+                        <div className="card w-75">
                             <div className="card-header h2 text-dark">
                                 Update Profile
                             </div>
